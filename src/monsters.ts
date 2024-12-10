@@ -1,11 +1,11 @@
-interface Monster {
+export interface Monster {
     'id': number;
     'name': string;
     'level': number;
     'hp': number;
     'attack': string;
     'defense': number;
-    'magic def': number;
+    'magicDef': number;
 }
 
 // Database Dummy
@@ -17,7 +17,7 @@ export const initialMonsters: Monster[] = [
         'hp': 50,
         'attack': '7-10',
         'defense': 0,
-        'magic def': 5
+        'magicDef': 5
     },
     {
         'id': 2,
@@ -26,7 +26,7 @@ export const initialMonsters: Monster[] = [
         'hp': 60,
         'attack': '9-12',
         'defense': 0,
-        'magic def': 20
+        'magicDef': 20
     },
     {
         'id': 3,
@@ -35,7 +35,7 @@ export const initialMonsters: Monster[] = [
         'hp': 198,
         'attack': '24-29',
         'defense': 5,
-        'magic def': 10
+        'magicDef': 10
     },
     {
         'id': 4,
@@ -44,7 +44,7 @@ export const initialMonsters: Monster[] = [
         'hp': 510,
         'attack': '24-48',
         'defense': 0,
-        'magic def': 5
+        'magicDef': 5
 
     },
     {
@@ -54,7 +54,7 @@ export const initialMonsters: Monster[] = [
         'hp': 531,
         'attack': '50-64',
         'defense': 0,
-        'magic def': 0
+        'magicDef': 0
     }
 ]
 
@@ -66,9 +66,28 @@ export async function getMonsterById(id: number) {
     const selectedMonster = initialMonsters.find(
         (monster) => monster.id === id
     );
+    
     return selectedMonster;
 }
 
-// export async function addMonster() {
-//     initialMonsters.push()
-// }
+export async function addMonster(monsterStats : Omit<Monster, 'id'>) {
+    let newId;
+    if (initialMonsters.length === 0) {
+        newId = 1;
+    } else {
+        newId = initialMonsters.at(-1)!.id + 1;
+    }
+
+    const newMonster = {
+        id: newId,
+        name: monsterStats.name,
+        level: Number(monsterStats.level),
+        hp: Number(monsterStats.hp),
+        attack: monsterStats.attack,
+        defense: Number(monsterStats.defense),
+        magicDef: Number(monsterStats.magicDef),
+    }
+    initialMonsters.push(newMonster);
+
+    return { ...newMonster };
+}

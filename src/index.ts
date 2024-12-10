@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { getMonsterById, getMonsters } from './monsters'
+import { addMonster, getMonsterById, getMonsters, Monster } from './monsters'
 
 const app = new Hono()
 
@@ -18,9 +18,10 @@ app.get('monsters/:id', async(c) => {
   return c.json(monster);
 })
 
-// app.post('monsters', (c) => {
-//   const body = c.req.parseBody();
-//   return c
-// })
+app.post('/monsters', async (c) => {
+  const monstersStats : Omit<Monster, 'id'> = await c.req.parseBody();
+  const newMonster = await addMonster(monstersStats);
+  return c.json(newMonster, 201);
+})
 
 export default app
