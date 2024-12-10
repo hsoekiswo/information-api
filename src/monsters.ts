@@ -61,3 +61,14 @@ export const initialMonsters: Monster[] = [
 export async function getMonsters() {
     return initialMonsters;
 }
+
+export async function getMonsterById(id: number) {
+    const selectedMonster = initialMonsters.find(
+        (monster) => monster.id === id
+    );
+    return selectedMonster;
+}
+
+// export async function addMonster() {
+//     initialMonsters.push()
+// }
