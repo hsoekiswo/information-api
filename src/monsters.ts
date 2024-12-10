@@ -1,0 +1,63 @@
+interface Monster {
+    'id': number;
+    'name': string;
+    'level': number;
+    'hp': number;
+    'attack': string;
+    'defense': number;
+    'magic def': number;
+}
+
+// Database Dummy
+export const initialMonsters: Monster[] = [
+    {
+        'id': 1,
+        'name': 'Poring',
+        'level': 1,
+        'hp': 50,
+        'attack': '7-10',
+        'defense': 0,
+        'magic def': 5
+    },
+    {
+        'id': 2,
+        'name': 'Lunatic',
+        'level': 3,
+        'hp': 60,
+        'attack': '9-12',
+        'defense': 0,
+        'magic def': 20
+    },
+    {
+        'id': 3,
+        'name': 'Rocker',
+        'level': 9,
+        'hp': 198,
+        'attack': '24-29',
+        'defense': 5,
+        'magic def': 10
+    },
+    {
+        'id': 4,
+        'name': 'Spore',
+        'level': 16,
+        'hp': 510,
+        'attack': '24-48',
+        'defense': 0,
+        'magic def': 5
+
+    },
+    {
+        'id': 5,
+        'name': 'Peco Peco',
+        'level': 19,
+        'hp': 531,
+        'attack': '50-64',
+        'defense': 0,
+        'magic def': 0
+    }
+]
+
+export async function getMonsters() {
+    return initialMonsters;
+}
