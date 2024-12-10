@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { addMonster, getMonsterById, getMonsters, Monster } from './monsters'
+import { addMonster, getMonsterById, getMonsters, Monster, updateMonsterById } from './monsters'
 
 const app = new Hono()
 
@@ -22,6 +22,18 @@ app.post('/monsters', async (c) => {
   const monstersStats : Omit<Monster, 'id'> = await c.req.parseBody();
   const newMonster = await addMonster(monstersStats);
   return c.json(newMonster, 201);
+})
+
+app.patch('/monsters/:id', async(c) => {
+  const id = c.req.param('id');
+  const body : Omit<Monster, 'id'> = await c.req.parseBody();
+  const monstersStats : Monster = {
+    id: Number(id),
+    ...body
+  }
+  
+  const updatedMonster = await updateMonsterById(monstersStats);
+  return c.json(updatedMonster);
 })
 
 export default app

@@ -1,4 +1,4 @@
-export interface Monster {
+export type Monster = {
     'id': number;
     'name': string;
     'level': number;
@@ -90,4 +90,14 @@ export async function addMonster(monsterStats : Omit<Monster, 'id'>) {
     initialMonsters.push(newMonster);
 
     return { ...newMonster };
+}
+
+export async function updateMonsterById({ id, ...monsterStats } : Monster) {
+    const index = initialMonsters.findIndex(monster => monster.id === id);
+    if (index === -1) {
+        throw new Error(`Monster with id ${id} not found`);
+    }
+    initialMonsters[index] = { ...initialMonsters[index], ...monsterStats }
+
+    return initialMonsters[index];
 }
