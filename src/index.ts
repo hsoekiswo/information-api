@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { addMonster, getMonsterById, getMonsters, Monster, updateMonsterById } from './monsters'
+import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, updateMonsterById } from './monsters'
 
 const app = new Hono()
 
@@ -34,6 +34,12 @@ app.patch('/monsters/:id', async(c) => {
   
   const updatedMonster = await updateMonsterById(monstersStats);
   return c.json(updatedMonster);
+})
+
+app.delete('/monsters/:id', async(c) => {
+  const id = c.req.param('id');
+  const deletedMonster = await deleteMonsterById(Number(id));
+  return c.text(deletedMonster);
 })
 
 export default app

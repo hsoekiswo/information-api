@@ -9,7 +9,7 @@ export type Monster = {
 }
 
 // Database Dummy
-export const initialMonsters: Monster[] = [
+export let initialMonsters: Monster[] = [
     {
         'id': 1,
         'name': 'Poring',
@@ -100,4 +100,19 @@ export async function updateMonsterById({ id, ...monsterStats } : Monster) {
     initialMonsters[index] = { ...initialMonsters[index], ...monsterStats }
 
     return initialMonsters[index];
+}
+
+export async function deleteMonsterById(id : number) {
+    const index = initialMonsters.findIndex(monster => monster.id === id);
+    if (index === -1) {
+        throw new Error(`Monster with id ${id} not found`);
+    }
+    const newMonsters = initialMonsters.filter(
+        (monster) => monster.id !== id
+    )
+    console.log(index);
+    console.log(newMonsters);
+    initialMonsters = newMonsters;
+
+    return `Monster with id: ${id} has been deleted.`
 }
