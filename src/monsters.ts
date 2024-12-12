@@ -1,3 +1,8 @@
+import { config } from 'dotenv';
+
+config();
+const apiKey = process.env.API_KEY;
+
 export type Monster = {
     'id': number;
     'name': string;
@@ -115,4 +120,25 @@ export async function deleteMonsterById(id : number) {
     initialMonsters = newMonsters;
 
     return `Monster with id: ${id} has been deleted.`
+}
+
+export async function fetchFromExternalAPI(id: string) {
+    const response = await fetch(`https://ragnapi.com/api/v1/old-times/monsters/${id}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data for monster ID: ${id}`);
+    }
+    return await response.json();
+}
+
+export async function fetchFromExternalAPI2() {
+    const response = await fetch(`https://www.divine-pride.net/api/database/Experience?apiKey=${apiKey}`, {
+        method: 'GET',
+        headers: {
+            'Accept-Language': 'en_US'
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data for experience`);
+    }
+    return await response.json();
 }
