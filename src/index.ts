@@ -1,19 +1,7 @@
-import { Client } from 'pg';
-import dotenv from 'dotenv'
-import { Hono } from 'hono'
-import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, updateMonsterById, fetchFromExternalAPI, fetchRagnarokMonsters } from './monsters'
+import { Hono } from 'hono';
+import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, fetchRagnarokMonsters, readAllMonsters, addMonsterData, addMonsterDataInBulk } from './monsters'
 
 const app = new Hono();
-
-dotenv.config({ path: '../.env' });
-const client = new Client({
-  user: process.env.POSTGRES_USER,
-  host: 'postgres',
-  database: process.env.POSTGRES_DATABASE,
-  password: process.env.POSTGRES_PASSWORD,
-  port: 5432,
-});
-await client.connect();
 
 app.get('/', (c) => {
   return c.text("Hello this is mini Ragnarok monsters database api for learning!")
@@ -54,33 +42,9 @@ app.delete('/monsters/:id', async(c) => {
   return c.text(deletedMonster);
 })
 
-app.get('/test/:id', async(c) => {
-  const id = c.req.param('id');
-
-  try {
-    // Fetch from external API
-    const data = await fetchFromExternalAPI(id);
-
-    return c.json({ source: 'external', data });
-  } catch (error) {
-    return c.json({ error: error.message }, 500);
-  }
-})
-
-app.get('/test2', async(c) => {
-  try {
-    const data = await fetchRagnarokMonsters();
-
-    return c.json({ data });
-  } catch (error) {
-    console.error('Error fetching external API:', error.message);
-    return c.json({ error: error.message }, 500);
-  }
-})
-
 app.get('/readmonsters', async (c) => {
   try {
-    const result = await client.query('SELECT * FROM monsters');
+    const result = await readAllMonsters();
     return c.json(result.rows);
   } catch (error) {
     console.error('Error writing to monsters table', error.message);
@@ -88,42 +52,25 @@ app.get('/readmonsters', async (c) => {
   }
 })
 
-app.post('/addmonsters/:id', async (c) => {
+app.post('/addmonsters/single/:id', async (c) => {
   const id = c.req.param('id');
-
   try {
-    const data : any = await fetchRagnarokMonsters(id);
-    const monster = {
-      'monsterId': data.id,
-      'name': data.name,
-      'level': data.stats.level,
-      'hp': data.stats.health,
-      'attack_min': data.stats.attack.minimum,
-      'attack_max': data.stats.attack.maximum,
-      'defense': data.stats.defense,
-      'magicDefense': data.stats.magicDefense,
-      'baseExperience': data.stats.baseExperience,
-      'jobExperience': data.stats.jobExperience
-    }
-
-    const query = 'INSERT INTO monsters VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *'
-    const values = [
-      monster.monsterId,
-      monster.name,
-      monster.level,
-      monster.hp,
-      monster.attack_min,
-      monster.attack_max,
-      monster.defense,
-      monster.magicDefense,
-      monster.baseExperience,
-      monster.jobExperience
-    ]
-    const result = await client.query(query, values);
-
+    const result = await addMonsterData(id);
     return c.json(result.rows[0], 201);
   } catch (error) {
     console.error('Error fetching external API:', error.message);
+    return c.json({ error: error.message }, 500);
+  }
+})
+
+app.post('/addmonsters/bulk/:startId/:endId', async (c) => {
+  const startId = Number(c.req.param('startId'));
+  const endId = Number(c.req.param('endId'));
+  try {
+    const result = await addMonsterDataInBulk(startId, endId);
+    return c.json(result.rows, 201);
+  } catch (error) {
+    console.error('Error fetching external API or inserting data:', error.message);
     return c.json({ error: error.message }, 500);
   }
 })

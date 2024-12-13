@@ -1,7 +1,18 @@
-import { config } from 'dotenv';
+import { Client } from 'pg';
+import dotenv, { config }  from 'dotenv';
 
 config();
 const apiKey = process.env.API_KEY;
+
+dotenv.config({ path: '../.env' });
+const client = new Client({
+  user: process.env.POSTGRES_USER,
+  host: 'postgres',
+  database: process.env.POSTGRES_DATABASE,
+  password: process.env.POSTGRES_PASSWORD,
+  port: 5432,
+});
+await client.connect();
 
 export type Monster = {
     'id': number;
@@ -122,14 +133,6 @@ export async function deleteMonsterById(id : number) {
     return `Monster with id: ${id} has been deleted.`
 }
 
-export async function fetchFromExternalAPI(id: string) {
-    const response = await fetch(`https://ragnapi.com/api/v1/old-times/monsters/${id}`);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data for monster ID: ${id}`);
-    }
-    return await response.json();
-}
-
 export async function fetchRagnarokMonsters(id : string) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Monster/${id}?apiKey=${apiKey}`, {
         method: 'GET',
@@ -138,7 +141,85 @@ export async function fetchRagnarokMonsters(id : string) {
         }
     });
     if (!response.ok) {
-        throw new Error(`Failed to fetch data for experience`);
+        throw new Error(`Failed to fetch data for monster`);
     }
     return await response.json();
+}
+
+export async function readAllMonsters() {
+    const result = await client.query('SELECT * FROM monsters');
+    return result
+}
+
+export async function addMonsterData(id : any) {
+    const data : any = await fetchRagnarokMonsters(id);
+    const monster = {
+        'monsterId': data.id,
+        'name': data.name,
+        'level': data.stats.level,
+        'hp': data.stats.health,
+        'attack_min': data.stats.attack.minimum,
+        'attack_max': data.stats.attack.maximum,
+        'defense': data.stats.defense,
+        'magicDefense': data.stats.magicDefense,
+        'baseExperience': data.stats.baseExperience,
+        'jobExperience': data.stats.jobExperience
+    };
+  
+    const query = 'INSERT INTO monsters VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *'
+    const values = [
+        monster.monsterId,
+        monster.name,
+        monster.level,
+        monster.hp,
+        monster.attack_min,
+        monster.attack_max,
+        monster.defense,
+        monster.magicDefense,
+        monster.baseExperience,
+        monster.jobExperience
+    ]
+    const result = await client.query(query, values);
+
+    return result;
+}
+
+export async function addMonsterDataInBulk(startId : number, endId : number) {
+    const monsters: any[] = [];
+
+    try {
+        for (let id = startId; id <= endId; id++) {
+        console.log(`Trying to write data for ID: ${id}`);
+        const stringId = String(id)
+        const data: any = await fetchRagnarokMonsters(stringId);
+        const monster = [
+            data.id,
+            data.name,
+            data.stats.level,
+            data.stats.health,
+            data.stats.attack.minimum,
+            data.stats.attack.maximum,
+            data.stats.defense,
+            data.stats.magicDefense,
+            data.stats.baseExperience,
+            data.stats.jobExperience
+        ];
+        monsters.push(monster);
+        }
+
+        const query = `
+        INSERT INTO monsters
+        VALUES
+        ${monsters.map((_, index) => `($${index * 10 + 1}, $${index * 10 + 2}, $${index * 10 + 3}, $${index * 10 + 4}, $${index * 10 + 5}, $${index * 10 + 6}, $${index * 10 + 7}, $${index * 10 + 8}, $${index * 10 + 9}, $${index * 10 + 10})`).join(', ')}
+        RETURNING *;
+        `;
+        const values: any[] = monsters.flat();
+        const result = await client.query(query, values);
+
+        return result;
+    }
+    catch {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return c.json({ error: error.message }, 500);
+    }
 }
