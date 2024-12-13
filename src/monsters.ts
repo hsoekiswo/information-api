@@ -131,7 +131,7 @@ export async function fetchFromExternalAPI(id: string) {
 }
 
 export async function fetchFromExternalAPI2() {
-    const response = await fetch(`https://www.divine-pride.net/api/database/Experience?apiKey=${apiKey}`, {
+    const response = await fetch(`https://www.divine-pride.net/api/database/Monster/1002?apiKey=${apiKey}`, {
         method: 'GET',
         headers: {
             'Accept-Language': 'en_US'
