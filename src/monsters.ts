@@ -130,8 +130,8 @@ export async function fetchFromExternalAPI(id: string) {
     return await response.json();
 }
 
-export async function fetchFromExternalAPI2() {
-    const response = await fetch(`https://www.divine-pride.net/api/database/Monster/1002?apiKey=${apiKey}`, {
+export async function fetchRagnarokMonsters(id : string) {
+    const response = await fetch(`https://www.divine-pride.net/api/database/Monster/${id}?apiKey=${apiKey}`, {
         method: 'GET',
         headers: {
             'Accept-Language': 'en_US'
