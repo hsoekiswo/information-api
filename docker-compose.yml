@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  app:
+    image: information-api:4
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DATABASE}
+
+  postgres:
+    image: postgres:15
+    container_name: information-api-postgres
+    env_file:
+        - path: .env
+          required: true
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

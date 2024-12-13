@@ -1,7 +1,27 @@
+import { Client } from 'pg';
+import dotenv from 'dotenv'
 import { Hono } from 'hono'
 import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, updateMonsterById, fetchFromExternalAPI, fetchFromExternalAPI2 } from './monsters'
 
-const app = new Hono()
+const app = new Hono();
+
+dotenv.config({ path: '../.env' });
+
+console.log('DB Config:', {
+  user: process.env.POSTGRES_USER,
+  host: process.env.POSTGRES_HOST,
+  port: process.env.POSTGRES_PORT,
+  database: process.env.POSTGRES_DATABASE,
+});
+
+const client = new Client({
+  user: process.env.POSTGRES_USER,
+  host: 'postgres',
+  database: process.env.POSTGRES_DATABASE,
+  password: process.env.POSTGRES_PASSWORD,
+  port: 5432,
+});
+await client.connect();
 
 app.get('/', (c) => {
   return c.text("Hello this is mini Ragnarok monsters database api for learning!")
@@ -64,6 +84,11 @@ app.get('/test2', async(c) => {
     console.error('Error fetching external API:', error.message);
     return c.json({ error: error.message }, 500);
   }
+})
+
+app.get('/readmonsters', async (c) => {
+  const result = await client.query('SELECT * FROM monsters');
+  return c.json(result.rows);
 })
 
 export default app

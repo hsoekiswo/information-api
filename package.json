@@ -6,10 +6,12 @@
   },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "hono": "^4.6.13"
+    "hono": "^4.6.13",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",
+    "@types/pg": "^8.11.10",
     "wrangler": "^3.88.0"
   }
 }
