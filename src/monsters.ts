@@ -189,28 +189,29 @@ export async function addMonsterDataInBulk(startId : number, endId : number) {
 
     try {
         for (let id = startId; id <= endId; id++) {
-        console.log(`Trying to write data for ID: ${id}`);
-        const stringId = String(id)
-        const data: any = await fetchRagnarokMonsters(stringId);
-        const monster = [
-            data.id,
-            data.name,
-            data.stats.level,
-            data.stats.health,
-            data.stats.attack.minimum,
-            data.stats.attack.maximum,
-            data.stats.defense,
-            data.stats.magicDefense,
-            data.stats.baseExperience,
-            data.stats.jobExperience
-        ];
-        monsters.push(monster);
+            console.log(`Trying to write data for ID: ${id}`);
+            const stringId = String(id);
+            const data: any = await fetchRagnarokMonsters(stringId);
+            const monster = [
+                data.id,
+                data.name,
+                data.stats.level,
+                data.stats.health,
+                data.stats.attack.minimum,
+                data.stats.attack.maximum,
+                data.stats.defense,
+                data.stats.magicDefense,
+                data.stats.baseExperience,
+                data.stats.jobExperience
+            ];
+            monsters.push(monster);
         }
 
+        const colLength = 10;
         const query = `
         INSERT INTO monsters
         VALUES
-        ${monsters.map((_, index) => `($${index * 10 + 1}, $${index * 10 + 2}, $${index * 10 + 3}, $${index * 10 + 4}, $${index * 10 + 5}, $${index * 10 + 6}, $${index * 10 + 7}, $${index * 10 + 8}, $${index * 10 + 9}, $${index * 10 + 10})`).join(', ')}
+        ${monsters.map((_, index) => `($${index * colLength + 2}, $${index * colLength + 3}, $${index * colLength + 4}, $${index * colLength + 4}, $${index * colLength + 5}, $${index * colLength + 6}, $${index * colLength + 7}, $${index * colLength + 8}, $${index * colLength + 9}, $${index * colLength + 10})`).join(', ')}
         RETURNING *;
         `;
         const values: any[] = monsters.flat();
@@ -218,8 +219,42 @@ export async function addMonsterDataInBulk(startId : number, endId : number) {
 
         return result;
     }
-    catch {
+    catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
-        return c.json({ error: error.message }, 500);
+        return { error: error.message, status: 500 };
+    }
+}
+
+export async function addMonsterDrop(id : any) {
+    const drops: any[] = [];
+    try {
+        const stringId = String(id)
+        const data : any = await fetchRagnarokMonsters(stringId);
+        const range = data.drops.length;
+        for (let i = 0; i <range; i++) {
+            const drop = [
+                data.id,
+                data.drops[i].itemId,
+                data.drops[i].chance
+            ]
+            drops.push(drop);
+        }
+
+        const colLength = 3;
+        const query = `
+        INSERT INTO drops (monster_id, item_id, chance)
+        VALUES
+        ${drops.map((_, index) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3})`).join(', ')}
+        RETURNING *;
+        `;
+        const values: any[] = drops.flat();
+        console.log('values');
+        console.log(values);
+        const result = await client.query(query, values);
+
+        return result;
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500 };
     }
 }
