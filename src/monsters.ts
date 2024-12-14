@@ -181,7 +181,7 @@ export async function addMonsterData(id : any) {
     ]
     const result = await client.query(query, values);
 
-    return result;
+    return result.rows[0];
 }
 
 export async function addMonsterDataInBulk(startId : number, endId : number) {
@@ -274,6 +274,48 @@ export async function addMonsterDropAuto() {
             drops.push(result);
         }
         return drops;
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
+export async function fetchRagnarokItems(id : string) {
+    const response = await fetch(`https://www.divine-pride.net/api/database/Item/${id}?apiKey=${apiKey}`, {
+        method: 'GET',
+        headers: {
+            'Accept-Language': 'en_US'
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data for item`);
+    }
+    return await response.json();
+}
+
+export async function addItem(id : any) {
+    const items: any[] = [];
+
+    try {
+        const data : any = await fetchRagnarokItems(id);
+        const items = [
+            data.id,
+            data.name,
+            data.description,
+            data.unidName,
+            data.attack,
+            data.matk,
+            data.defense,
+            data.weight,
+            data.requiredLevel,
+            data.price
+        ];
+
+        const query = 'INSERT INTO items VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *'
+        const values = items;
+        const result = await client.query(query, values);
+
+        return result.rows[0];
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };

@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, readAllMonsters, addMonsterData, addMonsterDataInBulk, addMonsterDrop, addMonsterDropAuto } from './monsters'
+import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, readAllMonsters, addMonsterData, addMonsterDataInBulk, addMonsterDrop, addMonsterDropAuto, addItem } from './monsters'
 
 const app = new Hono();
 
@@ -56,7 +56,7 @@ app.post('/addmonsters/single/:id', async (c) => {
   const id = c.req.param('id');
   try {
     const result = await addMonsterData(id);
-    return c.json(result.rows[0], 201);
+    return c.json(result, 201);
   } catch (error) {
     console.error('Error fetching external API or inserting data:', error.message);
     return c.json({ error: error.message }, 500);
@@ -68,7 +68,7 @@ app.post('/addmonsters/bulk/:startId/:endId', async (c) => {
   const endId = Number(c.req.param('endId'));
   try {
     const result = await addMonsterDataInBulk(startId, endId);
-    return c.json(result.rows, 201);
+    return c.json(result, 201);
   } catch (error) {
     console.error('Error fetching external API or inserting data:', error.message);
     return c.json({ error: error.message }, 500);
@@ -79,7 +79,7 @@ app.post('/adddrops/single/:id', async (c) => {
   const id = c.req.param('id');
   try {
     const result = await addMonsterDrop(id);
-    return c.json(result.rows, 201)
+    return c.json(result, 201)
   } catch (error) {
     console.error('Error fetching external API or inserting data::', error.message);
     return c.json({ error: error.message }, 500);
@@ -89,7 +89,18 @@ app.post('/adddrops/single/:id', async (c) => {
 app.post('/adddrops/auto', async (c) => {
   try {
     const result = await addMonsterDropAuto();
-    return c.json(result.rows)
+    return c.json(result, 201)
+  } catch (error) {
+    console.error('Error fetching external API or inserting data::', error.message);
+    return c.json({ error: error.message }, 500);
+  }
+})
+
+app.post('/additems/single/:id', async (c) => {
+  const id = c.req.param('id');
+  try {
+    const result = await addItem(id);
+    return c.json(result)
   } catch (error) {
     console.error('Error fetching external API or inserting data::', error.message);
     return c.json({ error: error.message }, 500);
