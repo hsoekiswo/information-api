@@ -258,3 +258,24 @@ export async function addMonsterDrop(id : any) {
         return { error: error.message, status: 500 };
     }
 }
+
+export async function addMonsterDropAuto() {
+    const drops: any[] = [];
+    try {
+        const minId = await client.query('SELECT min(monsters.monster_id) as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null');
+        const maxId = await client.query('SELECT max(monsters.monster_id) as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null');
+        // menambahkan condition jika startId dan endId null
+        const startId = minId.rows[0].monster_id
+        const endId = maxId.rows[0].monster_id
+        for (let id = startId; id <= endId; id++) {
+            const result = await addMonsterDrop(id);
+            console.log('result');
+            console.log(result);
+            drops.push(result);
+        }
+        return drops;
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
