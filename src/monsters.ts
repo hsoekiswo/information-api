@@ -401,3 +401,22 @@ export async function addMap(id : any) {
         return { error: error.message, status: 500 };
     }
 }
+
+export async function addMapAuto() {
+    const maps : any[] = [];
+    try {
+        const result = await client.query('SELECT DISTINCT monster_map.map_id FROM monster_map LEFT JOIN maps ON monster_map.map_id = maps.map_id WHERE maps.map_id IS null;');
+        const listId = result.rows
+        if (listId === null) {
+            throw new Error(`All map already written in the table`);
+        }
+        for (const item of listId) {
+            const map = await addMap(item.map_id);
+            maps.push(map);
+        }
+        return maps;
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500};
+    }
+}
