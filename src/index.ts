@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, fetchRagnarokMonsters, readAllMonsters, addMonsterData, addMonsterDataInBulk, addMonsterDrop, addMonsterDropAuto, addItem, addMonsterMap} from './monsters'
+import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, fetchRagnarokMonsters, readAllMonsters, addMonsterData, addMonsterDataInBulk, addMonsterDrop, addMonsterDropAuto, addItem, addMonsterMap, addMonsterMapAuto} from './monsters'
 
 const app = new Hono();
 
@@ -118,6 +118,16 @@ app.post('/addmonstermap/single/:id', async (c) => {
   try {
     const result = await addMonsterMap(id);
     return c.json(result)
+  } catch (error) {
+    console.error('Error fetching external API or inserting data::', error.message);
+    return c.json({ error: error.message }, 500);
+  }
+})
+
+app.post('/addmonstermap/auto', async (c) => {
+  try {
+    const result = await addMonsterMapAuto();
+    return c.json(result, 201)
   } catch (error) {
     console.error('Error fetching external API or inserting data::', error.message);
     return c.json({ error: error.message }, 500);
