@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, readAllMonsters, addMonsterData, addMonsterDataInBulk, addMonsterDrop, addMonsterDropAuto, addItem } from './monsters'
+import { addMonster, deleteMonsterById, getMonsterById, getMonsters, Monster, fetchRagnarokMonsters, readAllMonsters, addMonsterData, addMonsterDataInBulk, addMonsterDrop, addMonsterDropAuto, addItem, addMonsterMap} from './monsters'
 
 const app = new Hono();
 
@@ -40,6 +40,12 @@ app.delete('/monsters/:id', async(c) => {
   const id = c.req.param('id');
   const deletedMonster = await deleteMonsterById(Number(id));
   return c.text(deletedMonster);
+})
+
+app.get('/fetchmonster/:id', async (c) => {
+  const id = c.req.param('id');
+  const result = await fetchRagnarokMonsters(id);
+  return c.json({ result });
 })
 
 app.get('/readmonsters', async (c) => {
@@ -106,5 +112,29 @@ app.post('/additems/single/:id', async (c) => {
     return c.json({ error: error.message }, 500);
   }
 })
+
+app.post('/addmonstermap/single/:id', async (c) => {
+  const id = c.req.param('id');
+  try {
+    const result = await addMonsterMap(id);
+    return c.json(result)
+  } catch (error) {
+    console.error('Error fetching external API or inserting data::', error.message);
+    return c.json({ error: error.message }, 500);
+  }
+})
+
+// app.get('/addmap/single/:id', async (c) => {
+//   const id = c.req.param('id');
+// })
+
+// app.get('/addmap/auto', async (c) => {
+//   try {
+//     const result = await 
+//   } catch (error) {
+//     console.error('Error fetching external API or inserting data::', error.message);
+//     return c.json({ error: error.message }, 500);
+//   }
+// })
 
 export default app

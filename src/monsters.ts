@@ -133,7 +133,7 @@ export async function deleteMonsterById(id : number) {
     return `Monster with id: ${id} has been deleted.`
 }
 
-export async function fetchRagnarokMonsters(id : string) {
+export async function fetchRagnarokMonsters(id : any) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Monster/${id}?apiKey=${apiKey}`, {
         method: 'GET',
         headers: {
@@ -151,7 +151,7 @@ export async function readAllMonsters() {
     return result
 }
 
-export async function addMonsterData(id : any) {
+export async function addMonsterData(id : string) {
     const data : any = await fetchRagnarokMonsters(id);
     const monster = {
         'monsterId': data.id,
@@ -235,7 +235,7 @@ export async function addMonsterDrop(id : any) {
             const drop = [
                 data.id,
                 data.drops[i].itemId,
-                data.drops[i].chance
+                data.drops[i].chance/100
             ]
             drops.push(drop);
         }
@@ -248,11 +248,9 @@ export async function addMonsterDrop(id : any) {
         RETURNING *;
         `;
         const values: any[] = drops.flat();
-        console.log('values');
-        console.log(values);
         const result = await client.query(query, values);
 
-        return result;
+        return result.rows;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
@@ -269,8 +267,6 @@ export async function addMonsterDropAuto() {
         const endId = maxId.rows[0].monster_id
         for (let id = startId; id <= endId; id++) {
             const result = await addMonsterDrop(id);
-            console.log('result');
-            console.log(result);
             drops.push(result);
         }
         return drops;
@@ -316,6 +312,40 @@ export async function addItem(id : any) {
         const result = await client.query(query, values);
 
         return result.rows[0];
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
+export async function addMonsterMap(id: any) {
+    const monstersMap : any[] = [];
+    try {
+        const stringId = String(id)
+        const data : any = await fetchRagnarokMonsters(stringId);
+        const range = data.spawn.length;
+        for (let i = 0; i <range; i++) {
+            const monsterMap = [
+                data.id,
+                data.spawn[i].mapname
+            ]
+            monstersMap.push(monsterMap);
+        }
+
+        const colLength = 2;
+        if (monstersMap.length === 0) {
+            throw new Error(`Cannot insert monster map with monster ID ${id}: No data to insert`);
+        }
+        const query = `
+        INSERT INTO monster_map (monster_id, map_id)
+        VALUES
+        ${monstersMap.map((_, index) => `($${index * colLength + 1}, $${index * colLength + 2})`).join(', ')}
+        RETURNING *;
+        `;
+        const values: any[] = monstersMap.flat();
+        const result = await client.query(query, values);
+
+        return result.rows;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
