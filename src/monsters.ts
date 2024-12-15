@@ -260,13 +260,13 @@ export async function addMonsterDrop(id : any) {
 export async function addMonsterDropAuto() {
     const drops: any[] = [];
     try {
-        const minId = await client.query('SELECT min(monsters.monster_id) as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null');
-        const maxId = await client.query('SELECT max(monsters.monster_id) as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null');
-        // menambahkan condition jika startId dan endId null
-        const startId = minId.rows[0].monster_id
-        const endId = maxId.rows[0].monster_id
-        for (let id = startId; id <= endId; id++) {
-            const drop = await addMonsterDrop(id);
+        const result = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null'); 
+        const listId = result.rows
+        if (listId === null) {
+            throw new Error(`All monster map already written in the table`);
+        }
+        for (const item of listId) {
+            const drop = await addMonsterDrop(item.monster_id);
             drops.push(drop);
         }
         return drops;
@@ -357,7 +357,6 @@ export async function addMonsterMapAuto() {
     try {
         const result = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN monster_map ON monsters.monster_id = monster_map.monster_id WHERE monster_map.monster_id is null');
         const listId = result.rows
-        // menambahkan condition jika startId dan endId null
         if (listId === null) {
             throw new Error(`All monster map already written in the table`);
         }
