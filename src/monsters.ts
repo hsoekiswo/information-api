@@ -290,11 +290,9 @@ export async function fetchRagnarokItems(id : string) {
 }
 
 export async function addItem(id : any) {
-    const items: any[] = [];
-
     try {
         const data : any = await fetchRagnarokItems(id);
-        const items = [
+        const item = [
             data.id,
             data.name,
             data.description,
@@ -308,7 +306,7 @@ export async function addItem(id : any) {
         ];
 
         const query = 'INSERT INTO items VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *'
-        const values = items;
+        const values = item;
         const result = await client.query(query, values);
 
         return result.rows[0];
@@ -366,6 +364,38 @@ export async function addMonsterMapAuto() {
             monsterMaps.push(monsterMap);
         }
         return monsterMaps;
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
+export async function fetchRagnarokMaps(id: string) {
+    const response = await fetch(`https://www.divine-pride.net/api/database/Map/${id}?apiKey=${apiKey}`, {
+        method: 'GET',
+        headers: {
+            'Accept-Language': 'en_US'
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data for map`);
+    }
+    return await response.json();
+}
+
+export async function addMap(id : any) {
+    try {
+        const data : any = await fetchRagnarokMaps(id);
+        const map = [
+            data.mapname,
+            data.name
+        ]
+
+        const query = 'INSERT INTO maps VALUES ($1, $2) RETURNING *'
+        const values = map;
+        const result = await client.query(query, values);
+
+        return result.rows[0];
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
