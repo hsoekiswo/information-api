@@ -1,12 +1,16 @@
 import { Hono } from 'hono';
-import { addMonsterDrop, addMonsterDropAuto } from './services'
+import { addMonsterDrops, addMonsterDropsAuto } from './services'
 
 const app = new Hono();
+
+app.get('/all', async(c) => {
+
+})
 
 app.post('/single/:id', async (c) => {
   const id = c.req.param('id');
   try {
-    const result = await addMonsterDrop(id);
+    const result = await addMonsterDrops(id);
     return c.json(result, 201)
   } catch (error) {
     console.error('Error fetching external API or inserting data::', error.message);
@@ -16,7 +20,7 @@ app.post('/single/:id', async (c) => {
 
 app.post('/auto', async (c) => {
   try {
-    const result = await addMonsterDropAuto();
+    const result = await addMonsterDropsAuto();
     return c.json(result, 201)
   } catch (error) {
     console.error('Error fetching external API or inserting data::', error.message);

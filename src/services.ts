@@ -232,7 +232,7 @@ export async function addMonsterDataInBulk(startId : number, endId : number) {
     }
 }
 
-export async function addMonsterDrop(id : any) {
+export async function addMonsterDrops(id : any) {
     const drops: any[] = [];
     try {
         const stringId = String(id)
@@ -264,7 +264,7 @@ export async function addMonsterDrop(id : any) {
     }
 }
 
-export async function addMonsterDropAuto() {
+export async function addMonsterDropsAuto() {
     const drops: any[] = [];
     try {
         const result = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null'); 
@@ -273,11 +273,22 @@ export async function addMonsterDropAuto() {
             throw new Error(`All monster map already written in the table`);
         }
         for (const item of listId) {
-            const drop = await addMonsterDrop(item.monster_id);
+            const drop = await addMonsterDrops(item.monster_id);
             drops.push(drop);
         }
         return drops;
     } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
+export async function readAllItems() {
+    try {
+        const result = await client.query('SELECT * FROM items;');
+        return result.rows
+    }
+    catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
     }
