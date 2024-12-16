@@ -4,6 +4,7 @@ import drops from './drops';
 import items from './items';
 import maps from './maps';
 import experiences from './experiences';
+import summaries from './summaries';
 
 const app = new Hono();
 
@@ -16,5 +17,6 @@ app.route('/drops', drops);
 app.route('/items', items);
 app.route('/maps', maps);
 app.route('/experiences', experiences);
+app.route('/summaries', summaries);
 
 export default app

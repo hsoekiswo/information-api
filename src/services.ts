@@ -532,3 +532,35 @@ export async function addExperienceAuto() {
         return { error: error.message, status: 500};
     }
 }
+
+export async function calculateChanceItem(itemId : any) {
+    try {
+        if (isNaN(Number(itemId))) {
+            throw new Error('Invalid itemId provided, itemId accept only number format');
+        }
+        const query = `
+            SELECT
+                items.item_id,
+                items.name AS item_name,
+                items.item_type,
+                monsters.name AS monster_name,
+                drops.chance AS chance_percent
+            FROM
+                items
+            LEFT JOIN
+                drops ON items.item_id = drops.item_id
+            LEFT JOIN
+                monsters ON drops.monster_id = monsters.monster_id
+            WHERE
+                items.item_id = $1
+            ORDER BY
+                chance DESC;
+        `
+        const values = [itemId];
+        const result = await client.query(query, values)
+        return result.rows;
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500};
+    }
+}
