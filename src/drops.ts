@@ -1,10 +1,16 @@
 import { Hono } from 'hono';
-import { addMonsterDrops, addMonsterDropsAuto } from './services'
+import { readAllDrops, addMonsterDrops, addMonsterDropsAuto } from './services'
 
 const app = new Hono();
 
-app.get('/all', async(c) => {
-
+app.get('/all', async (c) => {
+    try {
+        const result = await readAllDrops();
+        return c.json(result);
+    } catch(error) {
+        console.error('Error fetching external API or inserting data::', error.message);
+        return c.json({ error: error.message }, 500);
+    }
 })
 
 app.post('/single/:id', async (c) => {

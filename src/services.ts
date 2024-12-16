@@ -232,6 +232,16 @@ export async function addMonsterDataInBulk(startId : number, endId : number) {
     }
 }
 
+export async function readAllDrops() {
+    try {
+        const result = await client.query('SELECT * FROM drops;');
+        return result.rows
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
 export async function addMonsterDrops(id : any) {
     const drops: any[] = [];
     try {
@@ -307,7 +317,7 @@ export async function fetchRagnarokItems(id : string) {
     return await response.json();
 }
 
-export async function addItem(id : any) {
+export async function addItems(id : any) {
     try {
         const data : any = await fetchRagnarokItems(id);
         const item = [
@@ -328,6 +338,36 @@ export async function addItem(id : any) {
         const result = await client.query(query, values);
 
         return result.rows[0];
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
+export async function addItemsAuto() {
+    const items : any[] = [];
+    try {
+        const result = client.query(`
+        SELECT
+            DISTINCT drops.item_id
+        FROM
+            drops
+        LEFT JOIN
+            items
+        ON drops.item_id = items.item_id
+        WHERE
+            items.item_id is null
+        ORDER BY 1;
+        `);
+        const listId = (await result).rows
+        if (listId === null) {
+            throw new Error(`All item already written in the table`);
+        }
+        for (const item_ of listId) {
+            const item = await addItems(item_.item_id);
+            items.push(item);
+        }
+        return items;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
