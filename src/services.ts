@@ -218,13 +218,13 @@ export async function addMonsterDataInBulk(startId : number, endId : number) {
         const query = `
         INSERT INTO monsters
         VALUES
-        ${monsters.map((_, index) => `($${index * colLength + 2}, $${index * colLength + 3}, $${index * colLength + 4}, $${index * colLength + 4}, $${index * colLength + 5}, $${index * colLength + 6}, $${index * colLength + 7}, $${index * colLength + 8}, $${index * colLength + 9}, $${index * colLength + 10})`).join(', ')}
+        ${monsters.map((_, index) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3}, $${index * colLength + 4}, $${index * colLength + 5}, $${index * colLength + 6}, $${index * colLength + 7}, $${index * colLength + 8}, $${index * colLength + 9}, $${index * colLength + 10})`).join(', ')}
         RETURNING *;
         `;
         const values: any[] = monsters.flat();
         const result = await client.query(query, values);
 
-        return result;
+        return result.rows;
     }
     catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
