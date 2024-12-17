@@ -1,16 +1,6 @@
 import client from '../services'
 import { fetchRagnarokMonsters } from '../monsters/services'
 
-export async function readAllDrops() {
-    try {
-        const result = await client.query('SELECT * FROM drops;');
-        return result.rows
-    } catch(error) {
-        console.error('Error fetching external API or inserting data:', error.message);
-        return { error: error.message, status: 500 };
-    }
-}
-
 function extractDrops(data : any) {
     const drops: any[] = [];
         const range = data.drops.length;
@@ -39,7 +29,17 @@ async function insertDrops(drops : any) {
         const result = await client.query(query, values);
         return result.rows
     } catch(error) {
-        console.error('Error while inserting data:', error.message);
+        console.error('Error while inserting drops data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
+export async function readAllDrops() {
+    try {
+        const result = await client.query('SELECT * FROM drops;');
+        return result.rows
+    } catch(error) {
+        console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
     }
 }
@@ -72,14 +72,10 @@ export async function addMonsterDropsAuto() {
         const fetchPromises = listId.map((id) => fetchRagnarokMonsters(String(id)));
         const fetchedData = await Promise.all(fetchPromises);
         fetchedData.forEach((data : any) => {
-            if (data.drops && data.drops.length > 0) {
-                data.drops.forEach((drop : any) => {
-                    drops.push([data.id, drop.itemId, drop.chance/100]);
-                })
-            }
+            const drop = extractDrops(data);
+            drops.push(drop);
         })
         const result = await insertDrops(drops);
-
         return result;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
