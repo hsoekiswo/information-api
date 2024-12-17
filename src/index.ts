@@ -1,10 +1,10 @@
 import { Hono } from 'hono';
-import monsters from './monsters';
-import drops from './drops';
-import items from './items';
-import maps from './maps';
-import experiences from './experiences';
-import summaries from './summaries';
+import monsters from './monsters/index';
+import drops from './drops/index';
+import items from './items/index';
+import maps from './maps/index';
+import experiences from './experiences/index';
+import summaries from './summaries/index';
 
 const app = new Hono();
 
