@@ -3,7 +3,7 @@ import { addMonsterMap, addMonsterMapAuto, addMap, addMapAuto } from './services
 
 const app = new Hono();
 
-app.post('/monstermaps/single/:id', async (c) => {
+app.post('/monstersmap/single/:id', async (c) => {
     const id = c.req.param('id');
     try {
       const result = await addMonsterMap(id);
@@ -14,7 +14,7 @@ app.post('/monstermaps/single/:id', async (c) => {
     }
   })
   
-app.post('/monstermaps/auto', async (c) => {
+app.post('/monstersmap/auto', async (c) => {
 try {
     const result = await addMonsterMapAuto();
     return c.json(result, 201);

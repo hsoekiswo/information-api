@@ -1,12 +1,9 @@
 import client, { apiKey } from '../services'
 import { fetchRagnarokMonsters  } from '../monsters/services';
 
-export async function addMonsterMap(id: any) {
+function extractMonstersMap(data : any) {
     const monstersMap : any[] = [];
-    try {
-        const stringId = String(id)
-        const data : any = await fetchRagnarokMonsters(stringId);
-        const range = data.spawn.length;
+    const range = data.spawn.length;
         for (let i = 0; i <range; i++) {
             const monsterMap = [
                 data.id,
@@ -14,21 +11,34 @@ export async function addMonsterMap(id: any) {
             ]
             monstersMap.push(monsterMap);
         }
+    return monstersMap;
+}
 
-        const colLength = 2;
+async function insertMonstersMap(id : any, monstersMap : any) {
+    const colLength = 2;
         if (monstersMap.length === 0) {
             throw new Error(`Cannot insert monster map with monster ID ${id}: No data to insert`);
         }
-        const query = `
-        INSERT INTO monster_map (monster_id, map_id)
-        VALUES
-        ${monstersMap.map((_, index) => `($${index * colLength + 1}, $${index * colLength + 2})`).join(', ')}
-        RETURNING *;
-        `;
-        const values: any[] = monstersMap.flat();
-        const result = await client.query(query, values);
+    const query = `
+    INSERT INTO monster_map (monster_id, map_id)
+    VALUES
+    ${monstersMap.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2})`).join(', ')}
+    RETURNING *;
+    `;
+    const values: any[] = monstersMap.flat();
+    const result = await client.query(query, values);
 
-        return result.rows;
+    return result.rows;
+}
+
+export async function addMonsterMap(id: any) {
+    try {
+        const stringId = String(id)
+        const data : any = await fetchRagnarokMonsters(stringId);
+        const monstersMap = extractMonstersMap(data);
+        const result = await insertMonstersMap(stringId, monstersMap)
+
+        return result;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
@@ -36,19 +46,23 @@ export async function addMonsterMap(id: any) {
 }
 
 export async function addMonsterMapAuto() {
-    const monsterMaps: any[] = [];
+    const monstersMaps: any[] = [];
     try {
-        const result = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN monster_map ON monsters.monster_id = monster_map.monster_id WHERE monster_map.monster_id is null');
-        const listId = result.rows
-        if (listId === null) {
+        const listId: any[] = [];
+        const queryResult = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN monster_map ON monsters.monster_id = monster_map.monster_id WHERE monster_map.monster_id is null');
+        if (queryResult.rows === null) {
             throw new Error(`All monster map already written in the table`);
         }
-        console.log(listId);
-        for (const item of listId) {
-            const monsterMap = await addMonsterMap(item.monster_id);
-            monsterMaps.push(monsterMap);
+        for (const item of queryResult.rows) {
+            listId.push(item.monster_id);
         }
-        return monsterMaps;
+        const fetchPromises = listId.map((id) => fetchRagnarokMonsters(String(id)));
+        const fetchedData = await Promise.all(fetchPromises);
+        fetchedData.forEach((data: any) => {
+            const monsterMap = extractMonstersMap(data);
+            monstersMaps.push(monsterMap);
+        })
+        return monstersMaps;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
