@@ -82,19 +82,40 @@ export async function fetchRagnarokMaps(id: string) {
     return await response.json();
 }
 
+function extractMaps(data : any) {
+    const maps : any[] = []
+    const map = [
+        data.mapname,
+        data.name
+    ]
+    maps.push(map);
+    return maps;
+}
+
+async function insertMaps(maps : any) {
+    try {
+        const colLength = 2;
+        const query = `
+        INSERT INTO maps
+        VALUES
+        ${maps.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2})`).join(', ')}
+        RETURNING *;
+        `
+        const values: any[] = maps.flat(2);
+        const result = await client.query(query, values);
+        return result.rows;
+    } catch(error) {
+        console.error('Error while inserting maps data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
 export async function addMap(id : any) {
     try {
         const data : any = await fetchRagnarokMaps(id);
-        const map = [
-            data.mapname,
-            data.name
-        ]
-
-        const query = 'INSERT INTO maps VALUES ($1, $2) RETURNING *'
-        const values = map;
-        const result = await client.query(query, values);
-
-        return result.rows[0];
+        const maps = extractMaps(data);
+        const result = insertMaps(maps);
+        return result;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
@@ -104,16 +125,22 @@ export async function addMap(id : any) {
 export async function addMapAuto() {
     const maps : any[] = [];
     try {
-        const result = await client.query('SELECT DISTINCT monster_map.map_id FROM monster_map LEFT JOIN maps ON monster_map.map_id = maps.map_id WHERE maps.map_id IS null;');
-        const listId = result.rows
-        if (listId === null) {
+        const listId : any[] = [];
+        const queryResult = await client.query('SELECT DISTINCT monster_map.map_id FROM monster_map LEFT JOIN maps ON monster_map.map_id = maps.map_id WHERE maps.map_id IS null;');
+        if (queryResult.rows === null) {
             throw new Error(`All map already written in the table`);
         }
-        for (const item of listId) {
-            const map = await addMap(item.map_id);
-            maps.push(map);
+        for (const map of queryResult.rows) {
+            listId.push(map.map_id);
         }
-        return maps;
+        const fetchPromises = listId.map((id) => fetchRagnarokMaps(String(id)));
+        const fetchedData = await Promise.all(fetchPromises);
+        fetchedData.forEach((data: any) => {
+            const map = extractMaps(data);
+            maps.push(map);
+        })
+        const result = await insertMaps(maps);
+        return result;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500};

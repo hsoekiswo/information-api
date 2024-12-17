@@ -18,7 +18,7 @@ export async function readAllMonsters() {
     return result.rows
 }
 
-function extractMonster(data : any) {
+function extractMonsters(data : any) {
     const monsters : any[] = [];
     const monster = [
         data.id,
@@ -56,7 +56,7 @@ async function insertMonsters(monsters : any) {
 
 export async function addMonsterData(id : string) {
     const data : any = await fetchRagnarokMonsters(id);
-    const monsters = extractMonster(data);
+    const monsters = extractMonsters(data);
     const result = insertMonsters(monsters);
     return result;
 }
@@ -71,7 +71,7 @@ export async function addMonsterDataInBulk(startId : number, endId : number) {
         const fetchPromises = listId.map((id) => fetchRagnarokMonsters(String(id)));
         const fetchedData = await Promise.all(fetchPromises);
         fetchedData.forEach((data: any) => {
-            const monster = extractMonster(data);
+            const monster = extractMonsters(data);
             monsters.push(monster);
         })
         const result = await insertMonsters(monsters);

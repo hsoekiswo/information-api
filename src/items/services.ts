@@ -25,7 +25,7 @@ export async function readAllItems() {
 }
 
 function extractItems(data : any) {
-    const items : any [] = []
+    const items : any[] = []
     const item = [
         data.id,
         data.name,
