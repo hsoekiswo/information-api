@@ -1,38 +1,6 @@
 import client from '../services'
 import { fetchRagnarokMonsters } from '../monsters/services'
-
-function extractDrops(data : any) {
-    const drops: any[] = [];
-        const range = data.drops.length;
-        for (let i = 0; i <range; i++) {
-            const drop = [
-                data.id,
-                data.drops[i].itemId,
-                data.drops[i].chance/100
-            ]
-            drops.push(drop);
-        }
-    
-    return drops
-}
-
-async function insertDrops(drops : any) {
-    try {    
-        const colLength = 3;
-        const query = `
-        INSERT INTO drops (monster_id, item_id, chance)
-        VALUES
-        ${drops.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3})`).join(', ')}
-        RETURNING *;
-        `;
-        const values: any[] = drops.flat();
-        const result = await client.query(query, values);
-        return result.rows
-    } catch(error) {
-        console.error('Error while inserting drops data:', error.message);
-        return { error: error.message, status: 500 };
-    }
-}
+import { DropSchemaArray } from './schema';
 
 export async function readAllDrops() {
     try {
@@ -44,10 +12,53 @@ export async function readAllDrops() {
     }
 }
 
+function extractDrops(data : any) {
+    const drops: any[] = [];
+        const range = data.drops.length;
+        for (let i = 0; i <range; i++) {
+            const drop = {
+                dropId: data.id,
+                itemId: data.drops[i].itemId,
+                chance: data.drops[i].chance/100
+            }
+            drops.push(drop);
+            console.log('DROPS');
+            console.log(drops);
+        }
+    try {
+        DropSchemaArray.parse(drops);
+        return drops;
+    } catch(error) {
+        console.error("Invalid drop data type:", error.errors);
+    }
+}
+
+async function insertDrops(drops : any) {
+    try {    
+        const colLength = 3;
+        const query = `
+        INSERT INTO drops (monster_id, item_id, chance)
+        VALUES
+        ${drops.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3})`).join(', ')}
+        RETURNING *;
+        `;
+        const values: any[] = drops.flatMap(drop => [
+            drop.dropId,
+            drop.itemId,
+            drop.chance
+        ]);
+        const result = await client.query(query, values);
+        return result.rows
+    } catch(error) {
+        console.error('Error while inserting drops data:', error.message);
+        return { error: error.message, status: 500 };
+    }
+}
+
 export async function addMonsterDrops(id : any) {
     try {
         const stringId = String(id)
-        const data : any = await fetchRagnarokMonsters(stringId);
+        const data: any = await fetchRagnarokMonsters(stringId);
         const drops = extractDrops(data);
         const result = await insertDrops(drops);
 
@@ -72,8 +83,8 @@ export async function addMonsterDropsAuto() {
         const fetchPromises = listId.map((id) => fetchRagnarokMonsters(String(id)));
         const fetchedData = await Promise.all(fetchPromises);
         fetchedData.forEach((data : any) => {
-            const drop = extractDrops(data);
-            drops.push(drop);
+            const extractedDrop = extractDrops(data);
+            drops.push(...extractedDrop);
         })
         const result = await insertDrops(drops);
         return result;
