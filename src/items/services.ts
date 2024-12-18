@@ -1,4 +1,5 @@
 import client, { apiKey } from '../services'
+import { ItemSchema } from './schema';
 
 export async function fetchRagnarokItems(id : string) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Item/${id}?apiKey=${apiKey}`, {
@@ -26,20 +27,25 @@ export async function readAllItems() {
 
 function extractItems(data : any) {
     const items : any[] = []
-    const item = [
-        data.id,
-        data.name,
-        data.description,
-        data.unidName,
-        data.attack,
-        data.matk,
-        data.defense,
-        data.weight,
-        data.requiredLevel,
-        data.price
-    ]
-    items.push(item);
-    return items;
+    const item = {
+        itemId: data.id,
+        name: data.name,
+        description: data.description,
+        itemType: data.unidName,
+        attack: data.attack,
+        magicAttack: data.matk,
+        defense: data.defense,
+        weight: data.weight,
+        requiredLevel: data.requiredLevel,
+        price: data.price
+    }
+    try {
+        ItemSchema.parse(item);
+        items.push(item);
+        return items;
+    } catch(error) {
+        console.error("Invalid item data type:", error.errors);
+    }
 }
 
 async function insertItems(items : any) {
@@ -51,7 +57,18 @@ async function insertItems(items : any) {
         ${items.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3}, $${index * colLength + 4}, $${index * colLength + 5}, $${index * colLength + 6}, $${index * colLength + 7}, $${index * colLength + 8}, $${index * colLength + 9}, $${index * colLength + 10})`).join(', ')}
         RETURNING *;
         `
-        const values: any[] = items.flat(2);
+        const values: any[] = items.flatMap(item => [
+            item.itemId,
+            item.name,
+            item.description,
+            item.itemType,
+            item.attack,
+            item.magicAttack,
+            item.defense,
+            item.weight,
+            item.requiredLevel,
+            item.price
+        ]);
         const result = await client.query(query, values);
         return result.rows;
     } catch(error) {
@@ -97,8 +114,8 @@ export async function addItemsAuto() {
         const fetchPromises = listId.map((id) => fetchRagnarokItems(String(id)));
         const fetchedData = await Promise.all(fetchPromises);
         fetchedData.forEach((data: any) => {
-            const item = extractItems(data);
-            items.push(item);
+            const extractedItem = extractItems(data);
+            items.push(...extractedItem);
         })
         const result = await insertItems(items);
         return result;

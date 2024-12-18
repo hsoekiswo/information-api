@@ -22,8 +22,6 @@ function extractDrops(data : any) {
                 chance: data.drops[i].chance/100
             }
             drops.push(drop);
-            console.log('DROPS');
-            console.log(drops);
         }
     try {
         DropSchemaArray.parse(drops);
