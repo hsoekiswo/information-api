@@ -14,15 +14,15 @@ export async function readAllDrops() {
 
 function extractDrops(data : any) {
     const drops: any[] = [];
-        const range = data.drops.length;
-        for (let i = 0; i <range; i++) {
-            const drop = {
-                dropId: data.id,
-                itemId: data.drops[i].itemId,
-                chance: data.drops[i].chance/100
-            }
-            drops.push(drop);
+    const range = data.drops.length;
+    for (let i = 0; i <range; i++) {
+        const drop = {
+            dropId: data.id,
+            itemId: data.drops[i].itemId,
+            chance: data.drops[i].chance/100
         }
+        drops.push(drop);
+    }
     try {
         DropSchemaArray.parse(drops);
         return drops;
@@ -59,7 +59,6 @@ export async function addMonsterDrops(id : any) {
         const data: any = await fetchRagnarokMonsters(stringId);
         const drops = extractDrops(data);
         const result = await insertDrops(drops);
-
         return result;
     } catch(error) {
         console.error('Error fetching external API', error.message);
@@ -72,7 +71,7 @@ export async function addMonsterDropsAuto() {
     try {
         const listId : any[] = [];
         const queryResult = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null'); 
-        if (queryResult.rows === null) {
+        if (queryResult.rows[0] === undefined) {
             throw new Error(`All monster map already written in the table`);
         }
         for (const item of queryResult.rows) {

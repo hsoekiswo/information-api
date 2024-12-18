@@ -9,7 +9,7 @@ app.post('/monstersmap/single/:id', async (c) => {
       const result = await addMonsterMap(id);
       return c.json(result)
     } catch (error) {
-      console.error('Error fetching external API or inserting data::', error.message);
+      console.error('Error fetching external API or inserting data:', error.message);
       return c.json({ error: error.message }, 500);
     }
   })
