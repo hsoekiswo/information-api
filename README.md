@@ -45,6 +45,9 @@ This information API is a database to help Ragnarok player find monsters for lev
 |------------------|---------------------------------------|--------------------------------------------------------------------------|
 | POST             | api/experiences/auto                  | Insert experiences needed for base and job level to database by using fetch experience from divine-pride API. Limited up to level third class |
 
+## Tech Stack
+Typescript, Hono, PostgresSQL, Docker
+
 ## Setup
 To install dependencies:
 '''
