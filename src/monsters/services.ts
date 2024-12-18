@@ -1,4 +1,5 @@
 import client, { apiKey } from '../services';
+import { MonsterSchema } from './schema';
 
 export async function fetchRagnarokMonsters(id : any) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Monster/${id}?apiKey=${apiKey}`, {
@@ -20,20 +21,25 @@ export async function readAllMonsters() {
 
 function extractMonsters(data : any) {
     const monsters : any[] = [];
-    const monster = [
-        data.id,
-        data.name,
-        data.stats.level,
-        data.stats.health,
-        data.stats.attack.minimum,
-        data.stats.attack.maximum,
-        data.stats.defense,
-        data.stats.magicDefense,
-        data.stats.baseExperience,
-        data.stats.jobExperience
-    ]
-    monsters.push(monster);
-    return monsters;
+    const monster = {
+        monsterId: data.id,
+        name: data.name,
+        level: data.stats.level,
+        hp: data.stats.health,
+        attackMin: data.stats.attack.minimum,
+        attackMax: data.stats.attack.maximum,
+        defense: data.stats.defense,
+        magicDefense: data.stats.magicDefense,
+        baseExperience: data.stats.baseExperience,
+        jobExperience: data.stats.jobExperience
+    }
+    try {
+        MonsterSchema.parse(monster);
+        monsters.push(monster);
+        return monsters;
+    } catch(error) {
+        console.error("Invalid monster data type:", error.errors);
+    }
 }
 
 async function insertMonsters(monsters : any) {
@@ -45,7 +51,18 @@ async function insertMonsters(monsters : any) {
         ${monsters.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3}, $${index * colLength + 4}, $${index * colLength + 5}, $${index * colLength + 6}, $${index * colLength + 7}, $${index * colLength + 8}, $${index * colLength + 9}, $${index * colLength + 10})`).join(', ')}
         RETURNING *;
         `;
-        const values: any[] = monsters.flat(2);
+        const values: any[] = monsters.flatMap(monster => [
+            monster.monsterId,
+            monster.name,
+            monster.level,
+            monster.hp,
+            monster.attackMin,
+            monster.attackMax,
+            monster.defense,
+            monster.magicDefense,
+            monster.baseExperience,
+            monster.jobExperience
+        ]);
         const result = await client.query(query, values);
         return result.rows;
     } catch(error) {
@@ -55,7 +72,7 @@ async function insertMonsters(monsters : any) {
 }
 
 export async function addMonsterData(id : string) {
-    const data : any = await fetchRagnarokMonsters(id);
+    const data: any = await fetchRagnarokMonsters(id);
     const monsters = extractMonsters(data);
     const result = insertMonsters(monsters);
     return result;
@@ -64,15 +81,15 @@ export async function addMonsterData(id : string) {
 export async function addMonsterDataInBulk(startId : number, endId : number) {
     const monsters: any[] = [];
     try {
-        const listId : any[] = [];
+        const listId: any[] = [];
         for (let id = startId; id <= endId; id++) {
             listId.push(id);
         }
         const fetchPromises = listId.map((id) => fetchRagnarokMonsters(String(id)));
         const fetchedData = await Promise.all(fetchPromises);
         fetchedData.forEach((data: any) => {
-            const monster = extractMonsters(data);
-            monsters.push(monster);
+            const extractedMonster = extractMonsters(data);
+            monsters.push(...extractedMonster);
         })
         const result = await insertMonsters(monsters);
         return result;
