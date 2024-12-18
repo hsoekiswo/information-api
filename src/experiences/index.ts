@@ -3,7 +3,7 @@ import { addExperienceAuto } from './services'
 
 const app = new Hono();
 
-app.post('/addexperience/auto', async(c) => {
+app.post('/auto', async(c) => {
     try {
         // const result = await fetchRagnarokExperience();
         const result = await addExperienceAuto();
