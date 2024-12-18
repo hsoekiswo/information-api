@@ -45,6 +45,15 @@ This information API is a database to help Ragnarok player find monsters for lev
 |------------------|---------------------------------------|--------------------------------------------------------------------------|
 | POST             | api/experiences/auto                  | Insert experiences needed for base and job level to database by using fetch experience from divine-pride API. Limited up to level third class |
 
-## REST API Specification
-- Production: 
-- Local: http://localhost:3000
+## Setup
+To install dependencies:
+'''
+bun install
+'''
+
+## Running the project
+To run the development server:
+'''
+bun run dev
+'''
+This will start the server at http://localhost:3000
