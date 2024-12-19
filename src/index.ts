@@ -2,6 +2,7 @@ import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { z } from 'zod';
 import monsters from './monsters/index';
+import { monster as appMonster } from './monsters/index';
 import drops from './drops/index';
 import items from './items/index';
 import maps from './maps/index';
@@ -28,7 +29,7 @@ const indexRoute = createRoute({
   path: "/",
   responses: {
     200: {
-      content :{
+      content: {
         'text/plain': {
           schema: z.string(),
         }
@@ -45,6 +46,7 @@ app.openapi(indexRoute, (c) => {
 app.get('/ui', swaggerUI({ url: "/doc" }));
 
 app.route('/monsters', monsters);
+app.route('/monsters2', appMonster);
 app.route('/drops', drops);
 app.route('/items', items);
 app.route('/maps', maps);
