@@ -9,7 +9,7 @@ app.get('/', async (c) => {
         const result = await readAllDrops();
         return c.json(result);
     } catch(error) {
-        console.error('Error fetching external API or inserting data::', error.message);
+        console.error('Error accessing drops table:', error.message);
         return c.json({ error: error.message }, 500);
     }
 })
@@ -21,8 +21,8 @@ app.post('/single/:id', async (c) => {
     const result = await addMonsterDrops(parseId);
     return c.json(result, 201)
   } catch (error) {
-    console.error('Error fetching external API or inserting data::', error.message);
-    return c.json({ error: error.message }, 500);
+    console.error('Invalid monster ID:', error.message);
+    return c.json({ error: 'Invalid monster ID', details: error.message }, 500);
   }
 })
 
@@ -31,8 +31,8 @@ app.post('/auto', async (c) => {
     const result = await addMonsterDropsAuto();
     return c.json(result, 201)
   } catch (error) {
-    console.error('Error fetching external API or inserting data::', error.message);
-    return c.json({ error: error.message }, 500);
+    console.error('Failed to populate the drops table. Unable to automatically retrieve data from the current list of monster IDs:', error.message);
+    return c.json({ error: 'Failed to populate the drops table. Unable to automatically retrieve data from the current list of monster IDs', details: error.message }, 500);
   }
 })
 

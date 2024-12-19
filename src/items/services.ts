@@ -106,7 +106,7 @@ export async function addItemsAuto() {
         ORDER BY 1
         `);
         if (queryResult.rows[0] === undefined) {
-            throw new Error(`All item already written in the table`);
+            throw new Error(`All requested items already written in the table`);
         }
         for (const item of queryResult.rows) {
             listId.push(item.item_id);

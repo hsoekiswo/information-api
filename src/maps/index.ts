@@ -12,8 +12,8 @@ app.post('/monstersmap/single/:id', async (c) => {
         const result = await addMonsterMap(paramId);
         return c.json(result)
     } catch (error) {
-        console.error('Error fetching external API or inserting data:', error.message);
-        return c.json({ error: error.message }, 500);
+        console.error('Invalid monster ID:', error.message);
+        return c.json({ error: 'Invalid monster ID', details: error.message }, 500);
     }
   })
   
@@ -22,8 +22,8 @@ try {
     const result = await addMonsterMapAuto();
     return c.json(result, 201);
 } catch (error) {
-    console.error('Error fetching external API or inserting data::', error.message);
-    return c.json({ error: error.message }, 500);
+    console.error('Failed to populate the monstersmap table. Unable to automatically retrieve data from the current list of monster IDs:', error.message);
+    return c.json({ error: 'Failed to populate the monstersmap table. Unable to automatically retrieve data from the current list of monster IDs', details: error.message }, 500);
 }
 })
   
@@ -34,8 +34,8 @@ try {
     const result = await addMap(parseId);
     return c.json(result, 201);
 } catch (error) {
-    console.error('Error fetching external API or inserting data::', error.message);
-    return c.json({ error: error.message }, 500);
+    console.error('Invalid map ID:', error.message);
+    return c.json({ error: 'Invalid map ID', details: error.message }, 500);
 }
 })
   
@@ -44,8 +44,8 @@ try {
     const result = await addMapAuto();
     return c.json(result, 201);
 } catch (error) {
-    console.error('Error fetching external API or inserting data::', error.message);
-    return c.json({ error: error.message }, 500);
+    console.error('Failed to populate the maps table. Unable to automatically retrieve data from the current list of map IDs:', error.message);
+    return c.json({ error: 'Failed to populate the maps table. Unable to automatically retrieve data from the current list of map IDs', details: error.message }, 500);
 }
 })
 

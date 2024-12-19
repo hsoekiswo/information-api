@@ -72,7 +72,7 @@ export async function addMonsterDropsAuto() {
         const listId : any[] = [];
         const queryResult = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null'); 
         if (queryResult.rows[0] === undefined) {
-            throw new Error(`All monster map already written in the table`);
+            throw new Error(`All requested drops already written in the table`);
         }
         for (const item of queryResult.rows) {
             listId.push(item.monster_id);

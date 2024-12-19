@@ -8,8 +8,8 @@ app.post('/auto', async(c) => {
         const result = await addExperienceAuto();
         return c.json({ result });
     } catch (error) {
-        console.error('Error fetching external API or inserting data::', error.message);
-        return c.json({ error: error.message }, 500);
+        console.error('Failed to populate the experiences table:', error.message);
+        return c.json({ error: 'Failed to populate the experiences table', details: error.message }, 500);
     }
 })
 

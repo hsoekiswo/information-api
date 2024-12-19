@@ -58,7 +58,7 @@ export async function addMonsterMapAuto() {
         const listId: any[] = [];
         const queryResult = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN monster_map ON monsters.monster_id = monster_map.monster_id WHERE monster_map.monster_id is null');
         if (queryResult.rows[0] === undefined) {
-            throw new Error(`All monster map already written in the table`);
+            throw new Error(`All requested monsters map already written in the table`);
         }
         for (const item of queryResult.rows) {
             listId.push(item.monster_id);
@@ -144,7 +144,7 @@ export async function addMapAuto() {
         const queryResult = await client.query('SELECT DISTINCT monster_map.map_id FROM monster_map LEFT JOIN maps ON monster_map.map_id = maps.map_id WHERE maps.map_id IS null;');
         console.log(queryResult.rows[0]);
         if (queryResult.rows[0] === undefined) {
-            throw new Error(`All map already written in the table`);
+            throw new Error(`All requested maps already written in the table`);
         }
         for (const map of queryResult.rows) {
             listId.push(map.map_id);

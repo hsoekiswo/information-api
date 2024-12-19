@@ -92,9 +92,7 @@ export async function addMonsterDataInBulk(startId : number, endId : number) {
 
         fetchedData.forEach((data: any) => {
             const extractedMonster = extractMonsters(data);
-            if (monsters.length > 0) {
-                monsters.push(...extractedMonster);
-            }
+            monsters.push(...extractedMonster);
         });
 
         if(monsters.length === 0) {
