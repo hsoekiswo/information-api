@@ -53,7 +53,7 @@ async function insertDrops(drops : any) {
     }
 }
 
-export async function addMonsterDrops(id : any) {
+export async function addMonsterDrops(id : number) {
     try {
         const stringId = String(id)
         const data: any = await fetchRagnarokMonsters(stringId);

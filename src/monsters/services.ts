@@ -1,7 +1,7 @@
 import client, { apiKey } from '../services';
 import { MonsterSchema } from './schema';
 
-export async function fetchRagnarokMonsters(id : any) {
+export async function fetchRagnarokMonsters(id: number) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Monster/${id}?apiKey=${apiKey}`, {
         method: 'GET',
         headers: {
@@ -39,6 +39,7 @@ function extractMonsters(data : any) {
         return monsters;
     } catch(error) {
         console.error("Invalid monster data type:", error.errors);
+        return [];
     }
 }
 
@@ -71,7 +72,7 @@ async function insertMonsters(monsters : any) {
     }
 }
 
-export async function addMonsterData(id : string) {
+export async function addMonsterData(id : number) {
     const data: any = await fetchRagnarokMonsters(id);
     const monsters = extractMonsters(data);
     const result = insertMonsters(monsters);
@@ -85,17 +86,26 @@ export async function addMonsterDataInBulk(startId : number, endId : number) {
         for (let id = startId; id <= endId; id++) {
             listId.push(id);
         }
-        const fetchPromises = listId.map((id) => fetchRagnarokMonsters(String(id)));
+
+        const fetchPromises = listId.map((id) => fetchRagnarokMonsters(id));
         const fetchedData = await Promise.all(fetchPromises);
+
         fetchedData.forEach((data: any) => {
             const extractedMonster = extractMonsters(data);
-            monsters.push(...extractedMonster);
-        })
+            if (monsters.length > 0) {
+                monsters.push(...extractedMonster);
+            }
+        });
+
+        if(monsters.length === 0) {
+            throw new Error("No valid monsters to insert.");
+        }
+
         const result = await insertMonsters(monsters);
         return result;
     }
     catch(error) {
-        console.error('Error fetching external API or inserting data:', error.message);
+        console.error('Error fetching or inserting data:', error.message);
         return { error: error.message, status: 500 };
     }
 }

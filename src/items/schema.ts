@@ -1,7 +1,9 @@
 import { z } from "zod";
 
+export const itemIdSchema = z.number().positive();
+
 export const ItemSchema = z.object({
-    itemId: z.number().positive(),
+    itemId: itemIdSchema,
     name: z.string().toUpperCase(),
     description: z.string(),
     itemType: z.string().toUpperCase(),

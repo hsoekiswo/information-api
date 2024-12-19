@@ -5,7 +5,6 @@ const app = new Hono();
 
 app.post('/auto', async(c) => {
     try {
-        // const result = await fetchRagnarokExperience();
         const result = await addExperienceAuto();
         return c.json({ result });
     } catch (error) {

@@ -1,9 +1,10 @@
 import { Hono } from 'hono';
 import { addItems, addItemsAuto, readAllItems } from './services'
+import { itemIdSchema } from './schema';
 
 const app = new Hono();
 
-app.get('/all', async (c) => {
+app.get('/', async (c) => {
     try {
         const result = await readAllItems();
         return c.json(result);
@@ -16,7 +17,8 @@ app.get('/all', async (c) => {
 app.post('/single/:id', async (c) => {
     const id = c.req.param('id');
     try {
-      const result = await addItems(id);
+        const parseId = itemIdSchema.parse(Number(id));
+        const result = await addItems(parseId);
       return c.json(result)
     } catch (error) {
       console.error('Error fetching external API or inserting data::', error.message);

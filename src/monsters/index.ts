@@ -1,44 +1,54 @@
 import { Hono } from 'hono';
 import { fetchRagnarokMonsters, readAllMonsters, addMonsterData, addMonsterDataInBulk } from './services'
+import { monsterIdSchema } from './schema'
 
 const app = new Hono();
 
-app.get('/read', async (c) => {
-    try {
-      const result = await readAllMonsters();
-      return c.json(result);
-    } catch (error) {
-      console.error('Error writing to monsters table', error.message);
-      return c.json( { error: error.message }, 500);
-    }
-  })
+app.get('/', async (c) => {
+  try {
+    const result = await readAllMonsters();
+    return c.json(result);
+  } catch (error) {
+    console.error('Error accessing monsters table', error.errors);
+    return c.json( { error: error.errors }, 500);
+  }
+})
 
 app.get('/fetch/:id', async (c) => {
   const id = c.req.param('id');
-  const result = await fetchRagnarokMonsters(id);
-  return c.json({ result });
+  try {
+    const parseId = monsterIdSchema.parse(Number(id));
+    const result = await fetchRagnarokMonsters(parseId);
+    return c.json({ result });
+  } catch(error) {
+    console.error('Invalid Monster ID:', error.errors);
+    return c.json({ error: 'Invalid Monster ID', details: error.errors }, 400);
+  }
 })
 
 app.post('/single/:id', async (c) => {
   const id = c.req.param('id');
   try {
-    const result = await addMonsterData(id);
+    const parseId = monsterIdSchema.parse(Number(id));
+    const result = await addMonsterData(parseId);
     return c.json(result, 201);
   } catch (error) {
-    console.error('Error fetching external API or inserting data:', error.message);
-    return c.json({ error: error.message }, 500);
+    console.error('Invalid Monster ID:', error.errors);
+    return c.json({ error: 'Invalid Monster ID', details: error.errors }, 400);
   }
 })
 
 app.post('/bulk/:startId/:endId', async (c) => {
-  const startId = Number(c.req.param('startId'));
-  const endId = Number(c.req.param('endId'));
+  const startId = c.req.param('startId');
+  const endId = c.req.param('endId');
   try {
-    const result = await addMonsterDataInBulk(startId, endId);
+    const parseStartId = monsterIdSchema.parse(startId);
+    const parseEndId = monsterIdSchema.parse(endId);
+    const result = await addMonsterDataInBulk(parseStartId, parseEndId);
     return c.json(result, 201);
   } catch (error) {
-    console.error('Error fetching external API or inserting data:', error.message);
-    return c.json({ error: error.message }, 500);
+    console.error('Invalid Monster ID:', error.errors);
+    return c.json({ error: 'Invalid Monster ID', details: error.errors }, 400);
   }
 })
 

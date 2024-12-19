@@ -20,7 +20,7 @@ function extractMonstersMap(data : any) {
     }
 }
 
-async function insertMonstersMap(id: any, monstersMap: any) {
+async function insertMonstersMap(id: number, monstersMap: any) {
     const colLength = 2;
         if (monstersMap.length === 0) {
             throw new Error(`Cannot insert monster map with monster ID ${id}: No data to insert`);
@@ -39,7 +39,7 @@ async function insertMonstersMap(id: any, monstersMap: any) {
     return result.rows;
 }
 
-export async function addMonsterMap(id: any) {
+export async function addMonsterMap(id: number) {
     try {
         const stringId = String(id)
         const data: any = await fetchRagnarokMonsters(stringId);

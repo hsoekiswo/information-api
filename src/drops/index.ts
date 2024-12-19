@@ -1,9 +1,10 @@
 import { Hono } from 'hono';
 import { readAllDrops, addMonsterDrops, addMonsterDropsAuto } from './services'
+import { monsterIdSchema } from '../monsters/schema';
 
 const app = new Hono();
 
-app.get('/all', async (c) => {
+app.get('/', async (c) => {
     try {
         const result = await readAllDrops();
         return c.json(result);
@@ -16,7 +17,8 @@ app.get('/all', async (c) => {
 app.post('/single/:id', async (c) => {
   const id = c.req.param('id');
   try {
-    const result = await addMonsterDrops(id);
+    const parseId = monsterIdSchema.parse(Number(id));
+    const result = await addMonsterDrops(parseId);
     return c.json(result, 201)
   } catch (error) {
     console.error('Error fetching external API or inserting data::', error.message);

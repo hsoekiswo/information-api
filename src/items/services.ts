@@ -1,7 +1,7 @@
 import client, { apiKey } from '../services'
 import { ItemSchema } from './schema';
 
-export async function fetchRagnarokItems(id : string) {
+export async function fetchRagnarokItems(id : number) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Item/${id}?apiKey=${apiKey}`, {
         method: 'GET',
         headers: {
@@ -77,7 +77,7 @@ async function insertItems(items : any) {
     }
 }
 
-export async function addItems(id : any) {
+export async function addItems(id : number) {
     try {
         const data : any = await fetchRagnarokItems(id);
         const items = extractItems(data);
