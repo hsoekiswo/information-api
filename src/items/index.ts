@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { z } from 'zod';
 import { addItems, addItemsAuto, readAllItems } from './services'
 import { itemIdSchema } from './schema';
 
@@ -9,7 +10,6 @@ app.get('/', async (c) => {
         const result = await readAllItems();
         return c.json(result);
     } catch (error) {
-        console.error('Error accessing items table:', error.message);
         return c.json({ error: error.message }, 500);
     }
 })
@@ -21,8 +21,13 @@ app.post('/single/:id', async (c) => {
         const result = await addItems(parseId);
       return c.json(result)
     } catch (error) {
-      console.error('Invalid item ID:', error.message);
-      return c.json({ error: 'Invalid item ID', details: error.message }, 500);
+        if (error instanceof z.ZodError) {
+            return c.json({
+              error: "Validation Error",
+              details: error.errors,
+            }, 400)
+          }
+        return c.json({ error: 'Error writing data to items table', details: error.message }, 500);
     }
 })
 
