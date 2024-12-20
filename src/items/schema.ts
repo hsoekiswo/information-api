@@ -1,9 +1,15 @@
 import { z } from "zod";
 
-export const itemIdSchema = z.number().positive();
+export const ItemIdSchema = z.number().positive().openapi({example: 909});
+
+const ItemIdParams = z.string().regex(/^\d+$/, "ID must be a numeric string").openapi({example: "909"});
+
+export const ItemIdParamsSchema = z.object({
+    id: ItemIdParams
+})
 
 export const ItemSchema = z.object({
-    itemId: itemIdSchema,
+    itemId: ItemIdSchema,
     name: z.string().toUpperCase(),
     description: z.string(),
     itemType: z.string().toUpperCase(),
@@ -13,4 +19,6 @@ export const ItemSchema = z.object({
     weight: z.number().nonnegative(),
     requiredLevel: z.number().nonnegative().max(200).nullable(),
     price: z.number().positive().nullable(),
-})
+});
+
+export const ItemsSchema = z.array(ItemSchema)
