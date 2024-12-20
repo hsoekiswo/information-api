@@ -1,8 +1,8 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { z } from 'zod';
-import monsters from './monsters/index';
-import { monster as appMonster } from './monsters/index';
+import monsters from './monsters/routes';
+import { app as appMonster } from './monsters/routes';
 import drops from './drops/index';
 import items from './items/index';
 import maps from './maps/index';
@@ -45,8 +45,8 @@ app.openapi(indexRoute, (c) => {
 
 app.get('/ui', swaggerUI({ url: "/doc" }));
 
-app.route('/monsters', monsters);
-app.route('/monsters2', appMonster);
+app.route('/monsters', appMonster);
+// app.route('/monsters2', monsters);
 app.route('/drops', drops);
 app.route('/items', items);
 app.route('/maps', maps);

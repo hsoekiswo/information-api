@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { monsterIdSchema } from "../monsters/schema";
+import { MonsterIdSchema } from "../monsters/schema";
 
 export const MonsterMapSchema = z.object({
-    monsterId: monsterIdSchema,
+    monsterId: MonsterIdSchema,
     mapId: z.string().min(1, "mapId must not be empty"),
 })
 

@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
 import { readAllDrops, addMonsterDrops, addMonsterDropsAuto } from './services'
-import { monsterIdSchema } from '../monsters/schema';
+import { MonsterIdSchema } from '../monsters/schema';
 
 const app = new Hono();
 
@@ -12,7 +12,7 @@ app.get('/', async (c) => {
 
 app.post('/single/:id', async (c) => {
   const id = c.req.param('id');
-  const parseId = monsterIdSchema.parse(Number(id));
+  const parseId = MonsterIdSchema.parse(Number(id));
   const result = await addMonsterDrops(parseId);
   return c.json(result, 201);
 });

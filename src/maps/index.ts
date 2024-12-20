@@ -1,13 +1,13 @@
 import { Hono } from 'hono';
 import { addMonsterMap, addMonsterMapAuto, addMap, addMapAuto } from './services'
-import { monsterIdSchema } from '../monsters/schema';
+import { MonsterIdSchema } from '../monsters/schema';
 import { MapIdSchema } from './schema';
 
 const app = new Hono();
 
 app.post('/monstersmap/single/:id', async (c) => {
     const id = c.req.param('id');
-    const paramId = monsterIdSchema.parse(Number(id));
+    const paramId = MonsterIdSchema.parse(Number(id));
     const result = await addMonsterMap(paramId);
     return c.json(result);
 });
