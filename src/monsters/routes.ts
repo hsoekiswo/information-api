@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+// import { Hono } from 'hono';
 import { z } from "zod";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 // import { fetchRagnarokMonsters, addMonsterData, addMonsterDataInBulk } from './services'
@@ -20,7 +20,7 @@ const getMonsters = createRoute({
     200: {
       content: {
         'application/json': {
-          schema: z.array(MonsterSchema),
+          schema: MonstersSchema,
         },
       },
       description: "Get all monsters data from database.",
@@ -48,7 +48,7 @@ const fetchMonsters = createRoute({
       content: {
         'application/json': {
           schema: MonsterSchema,
-        }
+        },
       },
       description: "Fetch single monster to Divine Pride API.",
     },
@@ -74,8 +74,8 @@ const postMonster = createRoute({
     201: {
       content: {
         'application/json': {
-          schema: MonsterSchema
-        }
+          schema: MonsterSchema,
+        },
       },
       description: "Post single monster by passing Monster ID through Divine Pride API."
     },

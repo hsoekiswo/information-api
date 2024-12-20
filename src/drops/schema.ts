@@ -6,4 +6,4 @@ export const DropSchema = z.object({
     chance: z.number().nonnegative(),
 })
 
-export const DropSchemaArray = z.array(DropSchema);
+export const DropsSchema = z.array(DropSchema);

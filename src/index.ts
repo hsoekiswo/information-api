@@ -1,9 +1,10 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { z } from 'zod';
-import monsters from './monsters/routes';
+// import monsters from './monsters/routes';
 import { app as appMonster } from './monsters/routes';
-import drops from './drops/index';
+// import drops from './drops/routes';
+import { app as appDrop } from './drops/routes';
 import items from './items/index';
 import maps from './maps/index';
 import experiences from './experiences/index';
@@ -47,7 +48,8 @@ app.get('/ui', swaggerUI({ url: "/doc" }));
 
 app.route('/monsters', appMonster);
 // app.route('/monsters2', monsters);
-app.route('/drops', drops);
+// app.route('/drops', drops);
+app.route('/drops', appDrop);
 app.route('/items', items);
 app.route('/maps', maps);
 app.route('/experiences', experiences);

@@ -1,6 +1,6 @@
 import client from '../services'
 import { fetchRagnarokMonsters } from '../monsters/services'
-import { DropSchemaArray } from './schema';
+import { DropsSchema } from './schema';
 
 export async function readAllDrops() {
     try {
@@ -24,7 +24,7 @@ function extractDrops(data : any) {
         drops.push(drop);
     }
     try {
-        DropSchemaArray.parse(drops);
+        DropsSchema.parse(drops);
         return drops;
     } catch(error) {
         console.error("Invalid drop data type:", error.errors);
@@ -34,13 +34,22 @@ function extractDrops(data : any) {
 async function insertDrops(drops : any) {
     try {    
         const colLength = 3;
+        // Preprocess to remove any duplicates
+        const uniqueDrops = Array.from(
+            new Map(
+                drops.map(drop => [
+                    `${drop.dropId}-${drop.itemId}-${drop.chance}`,
+                    drop
+                ])
+            ).values()
+        );
         const query = `
         INSERT INTO drops (monster_id, item_id, chance)
         VALUES
-        ${drops.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3})`).join(', ')}
+        ${uniqueDrops.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3})`).join(', ')}
         RETURNING *;
         `;
-        const values: any[] = drops.flatMap(drop => [
+        const values: any[] = uniqueDrops.flatMap(drop => [
             drop.dropId,
             drop.itemId,
             drop.chance
