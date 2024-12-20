@@ -1,6 +1,6 @@
 import client, { apiKey } from '../services'
 import { fetchRagnarokMonsters  } from '../monsters/services';
-import { MapSchema, MonsterMapSchemaArray } from './schema';
+import { MapSchema, MonsterMapsSchema } from './schema';
 
 function extractMonstersMap(data : any) {
     const monstersMap : any[] = [];
@@ -13,18 +13,18 @@ function extractMonstersMap(data : any) {
         monstersMap.push(monsterMap);
     }
     try {
-        MonsterMapSchemaArray.parse(monstersMap);
+        MonsterMapsSchema.parse(monstersMap);
         return monstersMap;
     } catch(error) {
         console.error("Invalid monster map data type", errors.errors);
     }
 }
 
-async function insertMonstersMap(id: number, monstersMap: any) {
+async function insertMonstersMap(monstersMap: any) {
     const colLength = 2;
-        if (monstersMap.length === 0) {
-            throw new Error(`Cannot insert monster map with monster ID ${id}: No data to insert`);
-        }
+    if (monstersMap.length === 0) {
+        throw new Error('Cannot insert monster map: No data to insert');
+    }
     const query = `
     INSERT INTO monster_map (monster_id, map_id)
     VALUES
@@ -41,10 +41,9 @@ async function insertMonstersMap(id: number, monstersMap: any) {
 
 export async function addMonsterMap(id: number) {
     try {
-        const stringId = String(id)
-        const data: any = await fetchRagnarokMonsters(stringId);
+        const data: any = await fetchRagnarokMonsters(id);
         const monstersMap = extractMonstersMap(data);
-        const result = await insertMonstersMap(stringId, monstersMap);
+        const result = await insertMonstersMap(monstersMap);
         return result;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
@@ -63,13 +62,14 @@ export async function addMonsterMapAuto() {
         for (const item of queryResult.rows) {
             listId.push(item.monster_id);
         }
-        const fetchPromises = listId.map((id) => fetchRagnarokMonsters(String(id)));
+        const fetchPromises = listId.map((id) => fetchRagnarokMonsters(id));
         const fetchedData = await Promise.all(fetchPromises);
         fetchedData.forEach((data: any) => {
             const extractedMonsterMap = extractMonstersMap(data);
             monstersMaps.push(...extractedMonsterMap);
-        })
-        return monstersMaps;
+        });
+        const result = await insertMonstersMap(monstersMaps)
+        return result;
     } catch(error) {
         console.error('Error fetching external API or inserting data:', error.message);
         return { error: error.message, status: 500 };
@@ -125,9 +125,9 @@ async function insertMaps(maps : any) {
     }
 }
 
-export async function addMap(id : any) {
+export async function addMap(id: string) {
     try {
-        const data : any = await fetchRagnarokMaps(id);
+        const data: any = await fetchRagnarokMaps(id);
         const maps = extractMaps(data);
         const result = insertMaps(maps);
         return result;
@@ -142,19 +142,18 @@ export async function addMapAuto() {
     try {
         const listId : any[] = [];
         const queryResult = await client.query('SELECT DISTINCT monster_map.map_id FROM monster_map LEFT JOIN maps ON monster_map.map_id = maps.map_id WHERE maps.map_id IS null;');
-        console.log(queryResult.rows[0]);
         if (queryResult.rows[0] === undefined) {
             throw new Error(`All requested maps already written in the table`);
         }
         for (const map of queryResult.rows) {
             listId.push(map.map_id);
         }
-        const fetchPromises = listId.map((id) => fetchRagnarokMaps(String(id)));
+        const fetchPromises = listId.map((id) => fetchRagnarokMaps(id));
         const fetchedData = await Promise.all(fetchPromises);
         fetchedData.forEach((data: any) => {
             const extractedMap = extractMaps(data);
             maps.push(...extractedMap);
-        })
+        });
         const result = await insertMaps(maps);
         return result;
     } catch(error) {

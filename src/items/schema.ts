@@ -6,7 +6,7 @@ const ItemIdParams = z.string().regex(/^\d+$/, "ID must be a numeric string").op
 
 export const ItemIdParamsSchema = z.object({
     id: ItemIdParams
-})
+});
 
 export const ItemSchema = z.object({
     itemId: ItemIdSchema,
@@ -21,4 +21,4 @@ export const ItemSchema = z.object({
     price: z.number().positive().nullable(),
 });
 
-export const ItemsSchema = z.array(ItemSchema)
+export const ItemsSchema = z.array(ItemSchema);
