@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model drops {
+  drop_id    Int    @id(map: "drop_pkey") @default(autoincrement())
+  monster_id Int 
+  item_id    Int
+  chance     Float?
+  monsters   monsters @relation (fields: [monster_id], references: [monster_id])
+  items      items    @relation (fields: [item_id], references: [item_id])
+
+  @@unique([monster_id, item_id, chance], map: "unique_drop_combination")
+}
+
+model experience {
+  id         Int     @id @default(autoincrement())
+  level      Int?
+  experience Int?
+  exp_type   String? @db.VarChar
+}
+
+model items {
+  item_id       Int     @id
+  name          String? @db.VarChar
+  description   String?
+  item_type     String? @db.VarChar
+  attack        Int?
+  magic_attack  Int?
+  defense       Int?
+  weight        Float?
+  requiredlevel Int?
+  price         Int?
+  drops         drops[]
+
+  @@index([name], map: "index_item_name")
+}
+
+model maps {
+  map_id      String        @id @db.VarChar
+  name        String?       @db.VarChar
+  monster_map monster_map[]
+}
+
+model monster_map {
+  id         Int        @id @default(autoincrement())
+  monster_id Int
+  map_id     String     @db.VarChar
+  monsters   monsters   @relation(fields: [monster_id], references: [monster_id])
+  map        maps       @relation(fields: [map_id], references: [map_id])
+}
+
+model monsters {
+  monster_id      Int     @id
+  name            String? @db.VarChar(100)
+  level           Int?
+  hp              Int?
+  attack_min      Int?
+  attack_max      Int?
+  defense         Int?
+  magic_defense   Int?
+  base_experience Int?
+  job_experience  Int?
+  drops           drops[]
+  monster_map     monster_map[]
+
+  @@index([level], map: "index_level")
+}
