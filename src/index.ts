@@ -9,9 +9,11 @@ import { app as appDrop } from './drops/routes';
 import { app as appItem } from './items/routes';
 // import maps from './maps/routes';
 import { app as appMap } from './maps/routes';
-import experiences from './experiences/index';
+// import experiences from './experiences/routes';
+import { app as appExperiences } from './experiences/routes';
+// import summaries from './summaries/routes';
+import { app as appSummaries } from './summaries/routes';
 import { handleError } from './errorHandler';
-import summaries from './summaries/index';
 
 const app = new OpenAPIHono();
 app.doc("/doc", {
@@ -56,7 +58,9 @@ app.route('/drops', appDrop);
 app.route('/items', appItem);
 // app.route('/maps', maps);
 app.route('/maps', appMap);
-app.route('/experiences', experiences);
-app.route('/summaries', summaries);
+// app.route('/experiences', experiences);
+app.route('/experiences', appExperiences);
+// app.route('/summaries', summaries);
+app.route('/summaries', appSummaries);
 
 export default app;
