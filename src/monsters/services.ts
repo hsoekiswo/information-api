@@ -1,5 +1,8 @@
 import client, { apiKey } from '../services';
 import { MonsterSchema } from './schema';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient()
 
 export async function fetchRagnarokMonsters(id: number) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Monster/${id}?apiKey=${apiKey}`, {
@@ -15,8 +18,9 @@ export async function fetchRagnarokMonsters(id: number) {
 }
 
 export async function readAllMonsters() {
-    const result = await client.query('SELECT * FROM monsters;');
-    return result.rows
+    // const result = await client.query('SELECT * FROM monsters;');
+    const result = await prisma.monsters.findMany();
+    return result
 }
 
 function extractMonsters(data : any) {
@@ -33,43 +37,37 @@ function extractMonsters(data : any) {
         baseExperience: data.stats.baseExperience,
         jobExperience: data.stats.jobExperience
     }
-    try {
-        MonsterSchema.parse(monster);
-        monsters.push(monster);
-        return monsters;
-    } catch(error) {
-        console.error("Invalid monster data type:", error.errors);
-        return [];
-    }
+
+    MonsterSchema.parse(monster);
+    monsters.push(monster);
+    return monsters;
 }
 
 async function insertMonsters(monsters : any) {
-    try {
-        const colLength = 10;
-        const query = `
-        INSERT INTO monsters
-        VALUES
-        ${monsters.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3}, $${index * colLength + 4}, $${index * colLength + 5}, $${index * colLength + 6}, $${index * colLength + 7}, $${index * colLength + 8}, $${index * colLength + 9}, $${index * colLength + 10})`).join(', ')}
-        RETURNING *;
-        `;
-        const values: any[] = monsters.flatMap(monster => [
-            monster.monsterId,
-            monster.name,
-            monster.level,
-            monster.hp,
-            monster.attackMin,
-            monster.attackMax,
-            monster.defense,
-            monster.magicDefense,
-            monster.baseExperience,
-            monster.jobExperience
-        ]);
-        const result = await client.query(query, values);
-        return result.rows;
-    } catch(error) {
-        console.error('Error while inserting monsters data:', error.message);
-        return { error: error.message, status: 500 };
-    }
+    const result = await prisma.monsters.createMany({
+        data: monsters.map((monster: any) => ({
+            monster_id: monster.monsterId,
+            name: monster.name,
+            level: monster.level,
+            hp: monster.hp,
+            attack_min: monster.attackMin,
+            attack_max: monster.attackMax,
+            defense: monster.defense,
+            magic_defense: monster.magicDefense,
+            base_experience: monster.baseExperience,
+            job_experience: monster.jobExperience,
+        })),
+    });
+
+    const insertedMonsters = await prisma.monsters.findMany({
+    where: {
+        monster_id: {
+        in: monsters.map((monster: any) => monster.monsterId),
+        },
+    },
+    });
+
+    return insertedMonsters;
 }
 
 export async function addMonsterData(id : number) {
@@ -81,29 +79,23 @@ export async function addMonsterData(id : number) {
 
 export async function addMonsterDataInBulk(startId : number, endId : number) {
     const monsters: any[] = [];
-    try {
-        const listId: any[] = [];
-        for (let id = startId; id <= endId; id++) {
-            listId.push(id);
-        }
-
-        const fetchPromises = listId.map((id) => fetchRagnarokMonsters(id));
-        const fetchedData = await Promise.all(fetchPromises);
-
-        fetchedData.forEach((data: any) => {
-            const extractedMonster = extractMonsters(data);
-            monsters.push(...extractedMonster);
-        });
-
-        if(monsters.length === 0) {
-            throw new Error("No valid monsters to insert.");
-        }
-
-        const result = await insertMonsters(monsters);
-        return result;
+    const listId: any[] = [];
+    for (let id = startId; id <= endId; id++) {
+        listId.push(id);
     }
-    catch(error) {
-        console.error('Error fetching or inserting data:', error.message);
-        return { error: error.message, status: 500 };
+
+    const fetchPromises = listId.map((id) => fetchRagnarokMonsters(id));
+    const fetchedData = await Promise.all(fetchPromises);
+
+    fetchedData.forEach((data: any) => {
+        const extractedMonster = extractMonsters(data);
+        monsters.push(...extractedMonster);
+    });
+
+    if(monsters.length === 0) {
+        throw new Error("No valid monsters to insert.");
     }
+
+    const result = await insertMonsters(monsters);
+    return result;
 }
