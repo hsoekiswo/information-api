@@ -8,6 +8,7 @@ export const app = new OpenAPIHono();
 const getDrops = createRoute({
   method: "get",
   path: "/",
+  tags: ["Drops & Items"],
   responses: {
     200: {
       content: {
@@ -25,6 +26,7 @@ app.openapi(getDrops, getDropsHandler);
 const postDrop = createRoute({
   method: "post",
   path: "/single/{id}",
+  tags: ["Drops & Items"],
   request: {
     params: MonsterIdParamsSchema,
   },
@@ -45,6 +47,7 @@ app.openapi(postDrop, postDropHandler);
 const postDrops = createRoute({
   method: "post",
   path: "/auto",
+  tags: ["Drops & Items"],
   responses: {
     201: {
       content: {

@@ -7,6 +7,7 @@ export const app = new OpenAPIHono();
 const getItems = createRoute({
     method: "get",
     path: "/",
+    tags: ["Drops & Items"],
     responses: {
         200: {
             content: {
@@ -24,6 +25,7 @@ app.openapi(getItems, getItemsHandler);
 const postItem = createRoute({
     method: "post",
     path: "/single/{id}",
+    tags: ["Drops & Items"],
     request: {
         params: ItemIdParamsSchema,
     },
@@ -44,6 +46,7 @@ app.openapi(postItem, postItemHandler);
 const postItems = createRoute({
     method: "post",
     path: "/auto",
+    tags: ["Drops & Items"],
     responses: {
         201: {
             content: {

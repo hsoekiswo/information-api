@@ -8,7 +8,7 @@ export const MonsterMapSchema = z.object({
 
 export const MonsterMapsSchema = z.array(MonsterMapSchema);
 
-export const MapIdSchema =  z.string();
+export const MapIdSchema =  z.string().openapi({example: "prt_fild08"});
 
 export const MapIdParamSchema = z.object({
     id: MapIdSchema

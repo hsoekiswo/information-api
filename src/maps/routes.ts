@@ -8,6 +8,7 @@ export const app = new OpenAPIHono();
 const postMonsterMap = createRoute({
     method: "post",
     path: "/monstermaps/single/{id}",
+    tags: ['Maps'],
     request: {
         params: MonsterIdParamsSchema,
     },
@@ -28,6 +29,7 @@ app.openapi(postMonsterMap, postMonsterMapHandler);
 const postMonsterMaps = createRoute({
     method: "post",
     path: "/monstermaps/auto",
+    tags: ['Maps'],
     responses: {
         201: {
             content: {
@@ -45,6 +47,7 @@ app.openapi(postMonsterMaps, postMonsterMapsHandler);
 const postMap = createRoute({
     method: "post",
     path: "/single/{id}",
+    tags: ['Maps'],
     request: {
         params: MapIdParamSchema,
     },
@@ -65,6 +68,7 @@ app.openapi(postMap, postMapHandler);
 const postMaps = createRoute({
     method: "post",
     path: "/auto",
+    tags: ['Maps'],
     responses: {
         201: {
             content: {

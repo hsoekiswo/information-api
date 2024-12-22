@@ -9,6 +9,7 @@ export const app = new OpenAPIHono();
 const getChanceItem = createRoute({
     method: "get",
     path: "/chanceitem/{id}",
+    tags: ["Recommendations"],
     request: {
         params: ItemIdParamsSchema,
     },
@@ -24,6 +25,7 @@ app.openapi(getChanceItem, getChanceItemHandler);
 const getLevelingBase = createRoute({
     method: "get",
     path: "/leveling/base/{level}",
+    tags: ["Recommendations"],
     request: {
         params: LevelParamsSchema,
     },
@@ -39,6 +41,7 @@ app.openapi(getLevelingBase, getLevelingBaseHandler);
 const getLevelingJob = createRoute({
     method: "get",
     path: "/leveling/job/{type}/{level}",
+    tags: ["Recommendations"],
     request: {
         params: JobLevelParamsSchema,
     },

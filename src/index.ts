@@ -15,7 +15,14 @@ app.doc("/doc", {
   info: {
     version: "1.0.0",
     title: "Ragnarok API",
-  }
+  },
+  tags: [
+    { name: 'Recommendations', description: 'Endpoints for user to get recommendation of item drops and leveling' },
+    { name: 'Monsters', description: 'Endpoints related to monsters' },
+    { name: 'Drops & Items', description: 'Endpoint related to drops chance and items' },
+    { name: 'Maps', description: 'Endpoint related to maps' },
+    { name: 'Other', description: 'Any other endpoints' },
+  ]
 })
 
 app.onError((error, c) => {
@@ -26,6 +33,7 @@ app.onError((error, c) => {
 const indexRoute = createRoute({
   method: "get",
   path: "/",
+  tags: ["Other"],
   responses: {
     200: {
       content: {

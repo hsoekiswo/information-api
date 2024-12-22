@@ -7,6 +7,7 @@ export const app = new OpenAPIHono();
 const getMonsters = createRoute({
   method: "get",
   path: "/",
+  tags: ["Monsters"],
   responses: {
     200: {
       content: {
@@ -24,6 +25,7 @@ app.openapi(getMonsters, getAllMonstersHandler);
 const fetchMonsters = createRoute({
   method: "get",
   path: "/fetch/{id}",
+  tags: ["Monsters"],
   request: {
     params: MonsterIdParamsSchema,
   },
@@ -44,6 +46,7 @@ app.openapi(fetchMonsters, fetchMonsterbyIdHandler);
 const postMonster = createRoute({
   method: "post",
   path: "/single/{id}",
+  tags: ["Monsters"],
   request: {
     params: MonsterIdParamsSchema,
   },
@@ -64,6 +67,7 @@ app.openapi(postMonster, postMonsterHandler);
 const postMonsters = createRoute({
   method: "post",
   path: "/bulk/{startId}/{endId}",
+  tags: ["Monsters"],
   request: {
     params: MonsterIdRangeParamsSchema,
   },

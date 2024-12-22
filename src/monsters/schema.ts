@@ -10,7 +10,7 @@ export const MonsterIdParamsSchema =  z.object({
 
 export const MonsterIdRangeParamsSchema = z.object({
     startId: MonsterIdParams,
-    endId: MonsterIdParams,
+    endId: MonsterIdParams.openapi({example: "1003"}),
 })
 
 export const MonsterSchema = z.object({

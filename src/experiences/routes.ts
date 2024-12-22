@@ -7,6 +7,7 @@ export const app = new OpenAPIHono();
 const postExperiences = createRoute({
     method: "post",
     path: "/auto",
+    tags: ["Other"],
     responses: {
         201: {
             content: {
