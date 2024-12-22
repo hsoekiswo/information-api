@@ -1,17 +1,8 @@
-// import { Hono } from 'hono';
-import { z } from "zod";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
-// import { fetchRagnarokMonsters, addMonsterData, addMonsterDataInBulk } from './services'
 import { MonsterIdParamsSchema, MonsterIdRangeParamsSchema, MonsterSchema, MonstersSchema } from './schema'
 import { getAllMonstersHandler, fetchMonsterbyIdHandler, postMonsterHandler, postMonstersHandler } from './controller';
 
-// const app = new Hono();
 export const app = new OpenAPIHono();
-
-// app.get('/', async (c) => {
-//   const result = await readAllMonsters();
-//   return c.json(result);
-// });
 
 const getMonsters = createRoute({
   method: "get",
@@ -29,13 +20,6 @@ const getMonsters = createRoute({
 });
 
 app.openapi(getMonsters, getAllMonstersHandler);
-
-// app.get('/fetch/:id', async (c) => {
-//   const id = c.req.param('id');
-//   const parseId = monsterIdSchema.parse(Number(id));
-//   const result = await fetchRagnarokMonsters(parseId);
-//   return c.json({ result }, 200);
-// });
 
 const fetchMonsters = createRoute({
   method: "get",
@@ -57,13 +41,6 @@ const fetchMonsters = createRoute({
 
 app.openapi(fetchMonsters, fetchMonsterbyIdHandler);
 
-// app.post('/single/:id', async (c) => {
-//   const id = c.req.param('id');
-//   const parseId = MonsterIdSchema.parse(Number(id));
-//   const result = await addMonsterData(parseId);
-//   return c.json(result, 201);
-// });
-
 const postMonster = createRoute({
   method: "post",
   path: "/single/{id}",
@@ -83,15 +60,6 @@ const postMonster = createRoute({
 });
 
 app.openapi(postMonster, postMonsterHandler);
-
-// app.post('/bulk/:startId/:endId', async (c) => {
-//   const startId = c.req.param('startId');
-//   const endId = c.req.param('endId');
-//   const parseStartId = MonsterIdSchema.parse(Number(startId));
-//   const parseEndId = MonsterIdSchema.parse(Number(endId));
-//   const result = await addMonsterDataInBulk(parseStartId, parseEndId);
-//   return c.json(result, 201);
-// });
 
 const postMonsters = createRoute({
   method: "post",

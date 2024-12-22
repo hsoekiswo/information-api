@@ -1,19 +1,9 @@
-// import { Hono } from 'hono';
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
-// import { addMonsterMap, addMonsterMapAuto, addMap, addMapAuto } from './services'
-import { MonsterIdParamsSchema, MonsterIdSchema } from '../monsters/schema';
-import { MapIdSchema, MapIdParamSchema, MapsSchema, MonsterMapSchema, MonsterMapsSchema } from './schema';
+import { MonsterIdParamsSchema } from '../monsters/schema';
+import { MapIdParamSchema, MapsSchema, MonsterMapsSchema } from './schema';
 import { postMonsterMapHandler, postMonsterMapsHandler, postMapHandler, postMapsHandler } from './controller';
 
-// const app = new Hono();
 export const app = new OpenAPIHono();
-
-// app.post('/monstermaps/single/:id', async (c) => {
-//     const id = c.req.param('id');
-//     const paramId = MonsterIdSchema.parse(Number(id));
-//     const result = await addMonsterMap(paramId);
-//     return c.json(result);
-// });
 
 const postMonsterMap = createRoute({
     method: "post",
@@ -34,11 +24,6 @@ const postMonsterMap = createRoute({
 });
 
 app.openapi(postMonsterMap, postMonsterMapHandler);
-  
-// app.post('/monstermaps/auto', async (c) => {
-//     const result = await addMonsterMapAuto();
-//     return c.json(result, 201);
-// });
 
 const postMonsterMaps = createRoute({
     method: "post",
@@ -56,13 +41,6 @@ const postMonsterMaps = createRoute({
 });
 
 app.openapi(postMonsterMaps, postMonsterMapsHandler);
-  
-// app.post('/single/:id', async (c) => {
-//     const id = c.req.param('id');
-//     const parseId = MapIdSchema.parse(Number(id));
-//     const result = await addMap(parseId);
-//     return c.json(result, 201);
-// });
 
 const postMap = createRoute({
     method: "post",
@@ -83,11 +61,6 @@ const postMap = createRoute({
 });
 
 app.openapi(postMap, postMapHandler);
-  
-// app.post('/auto', async (c) => {
-//     const result = await addMapAuto();
-//     return c.json(result, 201);
-// });
 
 const postMaps = createRoute({
     method: "post",
