@@ -18,7 +18,6 @@ export async function fetchRagnarokMonsters(id: number) {
 }
 
 export async function readAllMonsters() {
-    // const result = await client.query('SELECT * FROM monsters;');
     const result = await prisma.monsters.findMany();
     return result
 }
