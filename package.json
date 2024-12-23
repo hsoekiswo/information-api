@@ -1,10 +1,10 @@
 {
   "name": "information-api",
   "scripts": {
-    "dev": "bun run --hot src/app.ts",
+    "dev": "bun run --hot src/index.ts",
     "db:migrate": "bun prisma migrate deploy",
     "db:seed": "bun prisma db seed",
-    "start": "bun run db:migrate && bun run src/app.ts"
+    "start": "bun run db:migrate && bun run src/index.ts"
   },
   "prisma": {
     "seed": "bun run prisma/seed.ts"
