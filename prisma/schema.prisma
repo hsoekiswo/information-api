@@ -42,12 +42,12 @@ model items {
 }
 
 model maps {
-  map_id      String        @id @db.VarChar
-  name        String?       @db.VarChar
-  monster_map monster_map[]
+  map_id        String        @id @db.VarChar
+  name          String?       @db.VarChar
+  monster_maps  monster_maps[]
 }
 
-model monster_map {
+model monster_maps {
   id         Int        @id @default(autoincrement())
   monster_id Int
   map_id     String     @db.VarChar
@@ -67,7 +67,7 @@ model monsters {
   base_experience Int?
   job_experience  Int?
   drops           drops[]
-  monster_map     monster_map[]
+  monster_maps    monster_maps[]
 
   @@index([level], map: "index_level")
 }

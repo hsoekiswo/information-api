@@ -26,7 +26,6 @@ function extractDrops(data : any) {
 }
 
 async function insertDrops(drops : any) {
-    // const colLength = 3;
     // Preprocess to remove any duplicates
     const uniqueDrops = Array.from(
         new Map(
@@ -79,18 +78,6 @@ export async function addMonsterDropsAuto() {
             monster_id: true,
         },
     });
-    // const queryResult = await client.query(`
-    //     SELECT
-    //         DISTINCT
-    //             monsters.monster_id as monster_id
-    //         FROM
-    //             monsters
-    //         LEFT JOIN 
-    //             rops
-    //         ON monsters.monster_id = drops.monster_id
-    //         WHERE
-    //             drops.monster_id is null
-    // `); 
     if (queryResult[0] === undefined) {
         throw new Error(`All requested drops already written in the table`);
     }

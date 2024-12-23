@@ -94,7 +94,7 @@ export async function addItemsAuto() {
           item_id: true
         }
     });
-    if (queryResult === undefined) {
+    if (queryResult[0] === undefined) {
         throw new Error(`All requested items already written in the table`);
     }
     for (const item of queryResult) {
