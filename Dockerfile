@@ -1,20 +1,20 @@
-# Step 1: Mengambil image dari Dockerhub
+# Step 1: Use the Bun alpine image
 FROM oven/bun:alpine
 
-# Step 2: Setup lokasi tempat app dijalankan
+# Step 2: Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Step 3: Masukan package.json dulu agar rebuilding image bisa menggunakan chance (jika tidak ada perubahan pada package.json)
-COPY package.json /usr/src/app
+# Step 3: Copy package.json and lock file
+COPY package.json bun.lockb /usr/src/app
 
-# Step 4: Menjalankan perintah yang ada pada lokasi WORKDIR
+# Step 4: Install dependencies
 RUN bun install
 
-# Step 5: Copy paste semua file yang ada di folder saat ini ke WORKDIR
+# Step 5: Copy all files into the working directory
 COPY . /usr/src/app
 
-# Step 6: Menjalankan bun prisma generate untuk menjalankan interaksi ORM dengan database
+# Step 6: Generate Prisma client
 RUN bun prisma generate
 
-# Step 7: Hanya menjalankan sebuah perintah di WORKDIR ketika container dijalankan
-CMD [ "bun", "dev" ]
+# Step 7: Default command to start the app
+CMD [ "bun", "start" ]
