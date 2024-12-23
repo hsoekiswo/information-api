@@ -10,11 +10,11 @@ COPY package.json /usr/src/app
 # Step 4: Menjalankan perintah yang ada pada lokasi WORKDIR
 RUN bun install
 
-# Step 5: Menjalankan bun prisma generate untuk menjalankan interaksi ORM dengan database
-RUN bun prisma generate
-
-# Step 6: Copy paste semua file yang ada di folder saat ini ke WORKDIR
+# Step 5: Copy paste semua file yang ada di folder saat ini ke WORKDIR
 COPY . /usr/src/app
+
+# Step 6: Menjalankan bun prisma generate untuk menjalankan interaksi ORM dengan database
+RUN bun prisma generate
 
 # Step 7: Assign port pada app (hanya sebagai dokumentasi)
 EXPOSE 3000
