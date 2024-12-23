@@ -16,8 +16,5 @@ COPY . /usr/src/app
 # Step 6: Menjalankan bun prisma generate untuk menjalankan interaksi ORM dengan database
 RUN bun prisma generate
 
-# Step 7: Menjalankan migrasi di production
-RUN bunx prisma migrate deploy
-
-# Step 8: Hanya menjalankan sebuah perintah di WORKDIR ketika container dijalankan
-CMD [ "bunx", "dev", "src/index.ts" ]
+# Step 7: Hanya menjalankan sebuah perintah di WORKDIR ketika container dijalankan
+CMD [ "bun", "dev" ]
