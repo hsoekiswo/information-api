@@ -61,5 +61,3 @@ const postDrops = createRoute({
 });
 
 app.openapi(postDrops, postDropsHandler);
-
-export default app;

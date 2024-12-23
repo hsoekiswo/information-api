@@ -21,6 +21,4 @@ const postExperiences = createRoute({
 });
 
 app.openapi(postExperiences, postExperiencesHandler);
-
-export default app;
   

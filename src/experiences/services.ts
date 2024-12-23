@@ -1,7 +1,5 @@
-import client, { apiKey } from '../services';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { apiKey } from '../services';
+import prisma from '../services';
 
 export async function fetchRagnarokExperience() {
     const response = await fetch(`https://www.divine-pride.net/api/database/Experience/?apiKey=${apiKey}`, {

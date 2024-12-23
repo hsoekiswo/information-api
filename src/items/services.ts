@@ -1,8 +1,6 @@
 import client, { apiKey } from '../services'
 import { ItemSchema } from './schema';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../services';
 
 export async function fetchRagnarokItems(id : number) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Item/${id}?apiKey=${apiKey}`, {
@@ -18,8 +16,8 @@ export async function fetchRagnarokItems(id : number) {
 }
 
 export async function readAllItems() {
-    const result = await client.query('SELECT * FROM items;');
-    return result.rows
+    const result = await prisma.items.findMany();
+    return result;
 }
 
 function extractItems(data : any) {

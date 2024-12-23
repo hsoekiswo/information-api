@@ -1,8 +1,6 @@
 import client, { apiKey } from '../services';
 import { MonsterSchema } from './schema';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient()
+import prisma from '../services';
 
 export async function fetchRagnarokMonsters(id: number) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Monster/${id}?apiKey=${apiKey}`, {

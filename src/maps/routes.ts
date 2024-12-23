@@ -82,5 +82,3 @@ const postMaps = createRoute({
 });
 
 app.openapi(postMaps, postMapsHandler);
-
-export default app;

@@ -1,7 +1,5 @@
-import client from '../services';
 import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../services';
 
 export async function calculateChanceItem(itemId : any) {
     const itemIdNumber = Number(itemId);

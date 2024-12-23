@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { DatabaseError } from 'pg';
+import { Prisma } from '@prisma/client';
 import { Context } from 'hono';
 
 interface ErrorResponse {
@@ -19,17 +19,35 @@ export const handleError = (error: unknown, c: Context): ErrorResponse => {
     };
   }
 
-  if (c.req.method === 'POST' && error instanceof DatabaseError) {
-    console.error('Database Error:', error.message);
-    return {
-      status: 500,
-      body: {
-        error: 'Database Error',
-        code: error.code,
-        details: error.message || 'No additional details provided.',
-        hint: error.hint || 'No hints available.',
+  if (c.req.method === 'POST') {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.error('Prisma Known Request Error:', error.message);
+      return {
+        status: 500,
+        body: {
+          error: 'Prisma Client Known Request Error',
+          code: error.code,
+          details: error.message || 'No additional details provided.',
+          meta: error.meta || 'No metadata available.',
       },
     };
+  }
+
+  if (
+      error instanceof Prisma.PrismaClientUnknownRequestError ||
+      error instanceof Prisma.PrismaClientRustPanicError ||
+      error instanceof Prisma.PrismaClientInitializationError ||
+      error instanceof Prisma.PrismaClientValidationError
+    ) {
+      console.error('Prisma Error:', error.message);
+      return {
+        status: 500,
+        body: {
+          error: 'Database Error',
+          details: error.message || 'An unknown error occurred.',
+        },
+      };
+    }
   }
 
   console.error('Unhandled Error:', error);

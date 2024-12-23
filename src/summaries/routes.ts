@@ -53,5 +53,3 @@ const getLevelingJob = createRoute({
 });
 
 app.openapi(getLevelingJob, getLevelingJobHandler);
-
-export default app;

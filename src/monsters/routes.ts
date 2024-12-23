@@ -84,5 +84,3 @@ const postMonsters = createRoute({
 });
 
 app.openapi(postMonsters, postMonstersHandler);
-
-export default app;

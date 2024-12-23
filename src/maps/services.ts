@@ -1,9 +1,7 @@
-import client, { apiKey } from '../services'
+import { apiKey } from '../services'
 import { fetchRagnarokMonsters  } from '../monsters/services';
 import { MapSchema, MonsterMapsSchema } from './schema';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../services';
 
 
 function extractMonsterMaps(data : any) {

@@ -60,5 +60,3 @@ const postItems = createRoute({
 });
 
 app.openapi(postItems, postItemsHandler);
-
-export default app;
