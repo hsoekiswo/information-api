@@ -1,13 +1,11 @@
 {
   "name": "information-api",
   "scripts": {
-    "dev": "bun run --hot src/index.ts",
-    "db:migrate": "bun prisma migrate deploy",
-    "db:seed": "bun prisma db seed",
-    "start": "bun run src/index.ts"
-  },
-  "prisma": {
-    "seed": "bun run prisma/seed.ts"
+    "dev": "bunx run src/index.ts",
+    "build": "bunx build",
+    "start": "bunx run src/index.ts",
+    "migrate": "bunx prisma migrate deploy",
+    "prisma:generate": "bunx prisma generate"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
