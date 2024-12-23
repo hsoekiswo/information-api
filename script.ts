@@ -4,37 +4,31 @@ const prisma = new PrismaClient()
 
 async function main() {
   // ... you will write your Prisma Client queries here
-  const uniqueDrops = [
-    {
-      monsterId: 1054,
-      itemId: 955,
-      chance: 7.5,
-    },
-    {
-      monsterId: 1054,
-      itemId: 4050,
-      chance: 0.01,
-    }
-  ]
-  const insertedDrops = await prisma.drops.findMany({
+  const items : any[] = [];
+  const listId : any[] = [];
+  const queryResult = await prisma.drops.findMany({
+    distinct: ['item_id'],
     where: {
-        OR: uniqueDrops.map((drop: any) => ({
-            monster_id: drop.dropId,
-            item_id: drop.itemId,
-            chance: drop.chance,
-        })),
+      item_id: {
+        notIn: await prisma.items.findMany({
+          select: { item_id: true }
+        }).then(items => items.map(item => item.item_id))
+      }
     },
+    orderBy: {
+      item_id: 'asc'
+    },
+    select: {
+      item_id: true
+    }
   });
-  // const insertedDrops = await prisma.drops.findMany({
-  //     where: {
-  //         AND: ({
-  //             monster_id: 1054,
-  //             item_id: 955,
-  //             chance: 7.5,
-  //         }),
-  //     },
-  // });
-  console.dir(insertedDrops)
+  for (const item of queryResult) {
+    listId.push(item.item_id);
+    console.log(item.item_id);
+  }
+  // console.dir(items);
+  console.log(listId);
+  return queryResult;
 }
 
 main()

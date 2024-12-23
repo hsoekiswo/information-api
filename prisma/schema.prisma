@@ -13,16 +13,16 @@ model drops {
   item_id    Int
   chance     Float?
   monsters   monsters @relation (fields: [monster_id], references: [monster_id])
-  items      items    @relation (fields: [item_id], references: [item_id])
+  items      items?    @relation (fields: [item_id], references: [item_id])
 
   @@unique([monster_id, item_id, chance], map: "unique_drop_combination")
 }
 
-model experience {
-  id         Int     @id @default(autoincrement())
-  level      Int?
-  experience Int?
-  exp_type   String? @db.VarChar
+model experiences {
+  experience_id   Int     @id @default(autoincrement())
+  level           Int?
+  experience      Int?
+  exp_type        String? @db.VarChar
 }
 
 model items {
@@ -34,7 +34,7 @@ model items {
   magic_attack  Int?
   defense       Int?
   weight        Float?
-  requiredlevel Int?
+  required_level Int?
   price         Int?
   drops         drops[]
 

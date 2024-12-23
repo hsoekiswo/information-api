@@ -3,7 +3,7 @@ import { fetchRagnarokMonsters } from '../monsters/services'
 import { DropsSchema } from './schema';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export async function readAllDrops() {
     const result = await prisma.drops.findMany();
@@ -26,7 +26,7 @@ function extractDrops(data : any) {
 }
 
 async function insertDrops(drops : any) {
-    const colLength = 3;
+    // const colLength = 3;
     // Preprocess to remove any duplicates
     const uniqueDrops = Array.from(
         new Map(
@@ -69,11 +69,32 @@ export async function addMonsterDrops(id : number) {
 export async function addMonsterDropsAuto() {
     const drops: any[] = [];
     const listId : any[] = [];
-    const queryResult = await client.query('SELECT DISTINCT monsters.monster_id as monster_id FROM monsters LEFT JOIN drops ON monsters.monster_id = drops.monster_id WHERE drops.monster_id is null'); 
-    if (queryResult.rows[0] === undefined) {
+    const queryResult = await prisma.monsters.findMany({
+        where: {
+            drops: {
+                none: {},
+            },
+        },
+        select: {
+            monster_id: true,
+        },
+    });
+    // const queryResult = await client.query(`
+    //     SELECT
+    //         DISTINCT
+    //             monsters.monster_id as monster_id
+    //         FROM
+    //             monsters
+    //         LEFT JOIN 
+    //             rops
+    //         ON monsters.monster_id = drops.monster_id
+    //         WHERE
+    //             drops.monster_id is null
+    // `); 
+    if (queryResult[0] === undefined) {
         throw new Error(`All requested drops already written in the table`);
     }
-    for (const item of queryResult.rows) {
+    for (const item of queryResult) {
         listId.push(item.monster_id);
     }
     const fetchPromises = listId.map((id) => fetchRagnarokMonsters(id));

@@ -18,7 +18,7 @@ export const ItemSchema = z.object({
     defense: z.number().nonnegative(),
     weight: z.number().nonnegative(),
     requiredLevel: z.number().nonnegative().max(200).nullable(),
-    price: z.number().positive().nullable(),
+    price: z.number().nonnegative().nullable(),
 });
 
 export const ItemsSchema = z.array(ItemSchema);

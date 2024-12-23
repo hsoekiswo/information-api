@@ -1,5 +1,8 @@
 import client, { apiKey } from '../services'
 import { ItemSchema } from './schema';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function fetchRagnarokItems(id : number) {
     const response = await fetch(`https://www.divine-pride.net/api/database/Item/${id}?apiKey=${apiKey}`, {
@@ -15,14 +18,8 @@ export async function fetchRagnarokItems(id : number) {
 }
 
 export async function readAllItems() {
-    try {
-        const result = await client.query('SELECT * FROM items;');
-        return result.rows
-    }
-    catch(error) {
-        console.error('Error fetching external API or inserting data:', error.message);
-        return { error: error.message, status: 500 };
-    }
+    const result = await client.query('SELECT * FROM items;');
+    return result.rows
 }
 
 function extractItems(data : any) {
@@ -39,88 +36,76 @@ function extractItems(data : any) {
         requiredLevel: data.requiredLevel,
         price: data.price
     }
-    try {
-        ItemSchema.parse(item);
-        items.push(item);
-        return items;
-    } catch(error) {
-        console.error("Invalid item data type:", error.errors);
-    }
+    ItemSchema.parse(item);
+    items.push(item);
+    return items;
 }
 
 async function insertItems(items : any) {
-    try {
-        const colLength = 10;
-        const query = `
-        INSERT INTO items
-        VALUES
-        ${items.map((_ : any, index : any) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3}, $${index * colLength + 4}, $${index * colLength + 5}, $${index * colLength + 6}, $${index * colLength + 7}, $${index * colLength + 8}, $${index * colLength + 9}, $${index * colLength + 10})`).join(', ')}
-        RETURNING *;
-        `
-        const values: any[] = items.flatMap(item => [
-            item.itemId,
-            item.name,
-            item.description,
-            item.itemType,
-            item.attack,
-            item.magicAttack,
-            item.defense,
-            item.weight,
-            item.requiredLevel,
-            item.price
-        ]);
-        const result = await client.query(query, values);
-        return result.rows;
-    } catch(error) {
-        console.error('Error while inserting items data:', error.message);
-        return { error: error.message, status: 500 };
-    }
+    await prisma.items.createMany({
+        data: items.map((item: any) => ({
+            item_id: item.itemId,
+            name: item.name,
+            description: item.description,
+            item_type: item.itemType,
+            attack: item.attack,
+            magic_attack: item.magicAttack,
+            defense: item.defense,
+            weight: item.weight,
+            required_level: item.requiredLevel,
+            price: item.price
+        })),
+    });
+
+    const insertedItems = await prisma.items.findMany({
+        where: {
+            item_id: {
+                in: items.map((item: any) => item.itemId),
+            },
+        },
+    });
+
+    return insertedItems;
 }
 
 export async function addItems(id : number) {
-    try {
-        const data : any = await fetchRagnarokItems(id);
-        const items = extractItems(data);
-        const result = await insertItems(items);
-        return result;
-    } catch(error) {
-        console.error('Error fetching external API or inserting data:', error.message);
-        return { error: error.message, status: 500 };
-    }
+    const data : any = await fetchRagnarokItems(id);
+    const items = extractItems(data);
+    const result = await insertItems(items);
+    return result;
 }
 
 export async function addItemsAuto() {
-    const items : any[] = [];
-    try {
-        const listId : any[] = [];
-        const queryResult = await client.query(`
-        SELECT
-            DISTINCT drops.item_id
-        FROM
-            drops
-        LEFT JOIN
-            items
-        ON drops.item_id = items.item_id
-        WHERE
-            items.item_id is null
-        ORDER BY 1
-        `);
-        if (queryResult.rows[0] === undefined) {
-            throw new Error(`All requested items already written in the table`);
+    const items: any[] = [];
+    const listId: any[] = [];
+    const queryResult = await prisma.drops.findMany({
+        distinct: ['item_id'],
+        where: {
+          item_id: {
+            notIn: await prisma.items.findMany({
+              select: { item_id: true }
+            }).then(items => items.map(item => item.item_id))
+          }
+        },
+        orderBy: {
+          item_id: 'asc'
+        },
+        select: {
+          item_id: true
         }
-        for (const item of queryResult.rows) {
-            listId.push(item.item_id);
-        }
-        const fetchPromises = listId.map((id) => fetchRagnarokItems(String(id)));
-        const fetchedData = await Promise.all(fetchPromises);
-        fetchedData.forEach((data: any) => {
-            const extractedItem = extractItems(data);
-            items.push(...extractedItem);
-        })
-        const result = await insertItems(items);
-        return result;
-    } catch(error) {
-        console.error('Error fetching external API or inserting data:', error.message);
-        return { error: error.message, status: 500 };
+    });
+    if (queryResult === undefined) {
+        throw new Error(`All requested items already written in the table`);
     }
+    for (const item of queryResult) {
+        listId.push(item.item_id);
+    }
+    const fetchPromises = listId.map((id) => fetchRagnarokItems(id));
+    const fetchedData = await Promise.all(fetchPromises);
+    fetchedData.forEach((data: any) => {
+        const extractedItem = extractItems(data);
+        items.push(...extractedItem);
+    })
+    const result = await insertItems(items);
+    return result;
 }

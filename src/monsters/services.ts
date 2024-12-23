@@ -43,7 +43,7 @@ function extractMonsters(data : any) {
 }
 
 async function insertMonsters(monsters : any) {
-    const result = await prisma.monsters.createMany({
+    await prisma.monsters.createMany({
         data: monsters.map((monster: any) => ({
             monster_id: monster.monsterId,
             name: monster.name,
