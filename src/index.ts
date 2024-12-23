@@ -8,13 +8,16 @@ import { app as appMap } from './maps/routes';
 import { app as appExperiences } from './experiences/routes';
 import { app as appSummaries } from './summaries/routes';
 import { handleError } from './errorHandler';
+import fs from "fs";
+import path from "path";
 
 const app = new OpenAPIHono();
 app.doc("/doc", {
   openapi: "3.0.0",
   info: {
     version: "1.0.0",
-    title: "Ragnarok API",
+    title: "Ragnarok Recommendation API",
+    description: "API documentation for Ragnarok Recommendation. Ragnarok Recommendation is RESTful API platform offering structured access to Ragnarok world. Explore recommendation, items, monsters, maps in one place."
   },
   tags: [
     { name: 'Recommendations', description: 'Endpoints for user to get recommendation of item drops and leveling' },
@@ -46,11 +49,16 @@ const indexRoute = createRoute({
   },
 });
 
-app.openapi(indexRoute, (c) => {
-  return c.text('Hello this is mini Ragnarok monsters database api. This API can provide items and levelling recommendation!', 200)
-});
+async function indexRouteHandler(c: any) {
+  const filePath = path.resolve(__dirname, "../public/index.html");
+  const htmlContent = fs.readFileSync(filePath, "utf-8");
 
-app.get('/ui', swaggerUI({ url: "/doc" }));
+  return c.html(htmlContent);
+}
+
+app.openapi(indexRoute, indexRouteHandler);
+
+app.get('/docs', swaggerUI({ url: "/doc" }));
 
 app.route('/monsters', appMonster);
 app.route('/drops', appDrop);
