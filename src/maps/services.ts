@@ -104,7 +104,6 @@ function extractMaps(data : any) {
 }
 
 async function insertMaps(maps : any) {
-    // const colLength = 2;
     await prisma.maps.createMany({
         data: maps.map((map: any) => ({
             map_id: map.mapId,

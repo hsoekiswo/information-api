@@ -1,4 +1,7 @@
-import client, { apiKey } from '../services'
+import client, { apiKey } from '../services';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function fetchRagnarokExperience() {
     const response = await fetch(`https://www.divine-pride.net/api/database/Experience/?apiKey=${apiKey}`, {
@@ -14,42 +17,38 @@ export async function fetchRagnarokExperience() {
 }
 
 export async function addExperienceAuto() {
-    try{
+    const data : any = await fetchRagnarokExperience();
+    const { base_normal, job_novice, job_first, job_second, job_third } = data
+    const grouped: any = { base_normal, job_first, job_second, job_third, job_novice };
+    const experiences : any[] = [];
 
-        const data : any = await fetchRagnarokExperience();
-        const { base_normal, job_novice, job_first, job_second, job_third } = data
-        const grouped = { base_normal, job_first, job_second, job_third, job_novice };
-        const experiences : any[] = [];
-        // insert logic for checking type of experience, if any can't insert new
-        for (const key in grouped) {
-            const item = grouped[key];
-            const levels = Object.keys(item);
-            const exp_required = Object.values(item);
-            const range = levels.length;
-            for (let i=0; i<range; i++) {
-                const level = Number(levels[i]);
-                const experienceRequired = exp_required[i];
-                const experience = [
-                    level,
-                    experienceRequired,
-                    key
-                ]
-                experiences.push(experience)
+    // insert logic for checking type of experience, if any can't insert new
+    for (const key in grouped) {
+        const item = grouped[key];
+        const levels = Object.keys(item);
+        const exp_required = Object.values(item);
+        const range = levels.length;
+        for (let i=0; i<range; i++) {
+            const level = Number(levels[i]);
+            const experienceRequired = exp_required[i];
+            const experience = {
+                level: level,
+                experienceRequired: experienceRequired,
+                expType: key
             }
+            experiences.push(experience)
         }
-        const colLength = 3;
-        const query = `
-        INSERT INTO experience (level, experience, exp_type)
-        VALUES
-        ${experiences.map((_, index) => `($${index * colLength + 1}, $${index * colLength + 2}, $${index * colLength + 3})`).join(', ')}
-        RETURNING *;
-        `
-        const values = experiences.flat();
-        const result = await client.query(query, values);
-    
-        return result.rows[0];
-    } catch(error) {
-        console.error('Error fetching external API or inserting data:', error.message);
-        return { error: error.message, status: 500};
     }
+    
+    await prisma.experiences.createMany({
+        data: experiences.map((experience: any) => ({
+            level: experience.level,
+            experience: experience.experienceRequired,
+            exp_type: experience.expType,
+        })),
+    });
+
+    const insertedExperiences = await prisma.experiences.findMany();
+
+    return insertedExperiences;
 }
