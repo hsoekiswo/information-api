@@ -13,10 +13,11 @@ RUN bun install
 # Step 5: Copy paste semua file yang ada di folder saat ini ke WORKDIR
 COPY . /usr/src/app
 
+# Step 6: Menjalankan bun prisma generate untuk menjalankan interaksi ORM dengan database
 RUN bun prisma generate
 
-# Step 6: Assign port pada app (hanya sebagai dokumentasi)
+# Step 7: Assign port pada app (hanya sebagai dokumentasi)
 EXPOSE 3000
 
-# Step 7: Hanya menjalankan sebuah perintah di WORKDIR ketika container dijalankan
+# Step 8: Hanya menjalankan sebuah perintah di WORKDIR ketika container dijalankan
 CMD [ "bun", "dev" ]
