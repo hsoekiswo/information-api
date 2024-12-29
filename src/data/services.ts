@@ -8,6 +8,47 @@ import { MonsterMapsSchema } from '../maps/schema';
 import { MonsterSchema } from '../monsters/schema';
 import { MapSchema } from '../maps/schema';
 
+export async function getData(id: any) {
+    const result = await prisma.monsters.findUnique({
+        where: {
+            monster_id: id,
+        },
+        include: {
+            drops: {
+                include: {
+                    items: true,
+                }
+            },
+            monster_maps: {
+                include: {
+                    maps: true,
+                }
+            },
+        },
+    });
+
+    return result;
+}
+
+export async function getDataAll() {
+    const result = await prisma.monsters.findMany({
+        include: {
+            drops: {
+                include: {
+                    items: true,
+                }
+            },
+            monster_maps: {
+                include: {
+                    maps: true,
+                }
+            },
+        },
+    });
+
+    return result;
+}
+
 async function extractMonstersDropsMaps(monsterId: any) {
     const data: any = await fetchRagnarokMonsters(monsterId);
 

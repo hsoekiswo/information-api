@@ -15,6 +15,15 @@ export async function fetchRagnarokMonsters(id: number) {
     return await response.json();
 }
 
+export async function readMonster(id: any) {
+    const result = await prisma.monsters.findUnique({
+        where: {
+            monster_id: id,
+        },
+    });
+    return result;
+}
+
 export async function readAllMonsters() {
     const result = await prisma.monsters.findMany();
     return result

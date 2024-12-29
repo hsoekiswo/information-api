@@ -1,9 +1,48 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { z } from '@hono/zod-openapi'
-import { postDataHandler, postDataBulkHandler } from './controller'
+import { getDataHandler, getDataAllHandler, postDataHandler, postDataBulkHandler } from './controller'
 import { MonsterIdParamsSchema, MonsterIdRangeParamsSchema } from "../monsters/schema";
 
 export const app = new OpenAPIHono();
+
+const getData = createRoute({
+    method: "get",
+    path: "/single/{id}",
+    tags: ["Main"],
+    request: {
+        params: MonsterIdParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({}),
+                },
+            },
+            description: "Get all data (monster, drop, item, map) from single Monster ID.",
+        },
+    },
+});
+
+app.openapi(getData, getDataHandler);
+
+const getDataAll = createRoute({
+    method: "get",
+    path: "/",
+    tags: ["Main"],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({}),
+                },
+            },
+            description: "Get all data (monster, drop, item, map) from single Monster ID.",
+        },
+    },
+});
+
+app.openapi(getDataAll, getDataAllHandler);
 
 const postData = createRoute({
     method: "post",

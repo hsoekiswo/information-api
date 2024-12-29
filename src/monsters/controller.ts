@@ -1,5 +1,16 @@
-import { readAllMonsters, fetchRagnarokMonsters } from "./services";
+import { readMonster, readAllMonsters, fetchRagnarokMonsters } from "./services";
 import { MonsterIdSchema } from "./schema";
+
+export async function getMonsterHandler(c: any) {
+    const id = c.req.param('id');
+    const parseId = MonsterIdSchema.parse(Number(id));
+    const result = await readMonster(parseId);
+    return c.json({
+        status: "success",
+        message: `Successfully get monster with ID of ${id}`,
+        data: result
+    }, 200);
+};
 
 export async function getAllMonstersHandler(c: any) {
     const result = await readAllMonsters();
@@ -8,7 +19,7 @@ export async function getAllMonstersHandler(c: any) {
         message: "Successfully get all monters.",
         data: result
     }, 200);
-}
+};
 
 export async function fetchMonsterbyIdHandler(c: any) {
     const id = c.req.param('id');
@@ -19,4 +30,4 @@ export async function fetchMonsterbyIdHandler(c: any) {
         message: `Successfully fetch monster with ID: ${id} from Divine Pride API.`,
         data: result
     }, 200);
-}
+};

@@ -1,10 +1,31 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
-import { MonsterIdParamsSchema, MonsterIdRangeParamsSchema, MonsterSchema, MonstersSchema } from './schema'
-import { getAllMonstersHandler, fetchMonsterbyIdHandler } from './controller';
+import { MonsterIdParamsSchema, MonsterSchema, MonstersSchema } from './schema'
+import { getMonsterHandler, getAllMonstersHandler, fetchMonsterbyIdHandler } from './controller';
 
 export const app = new OpenAPIHono();
 
-const getMonsters = createRoute({
+const getMonster = createRoute({
+  method: "get",
+  path: "/{id}",
+  tags: ["Monsters"],
+  request: {
+    params: MonsterIdParamsSchema,
+  },
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: MonstersSchema,
+        },
+      },
+      description: `Get monster with specific ID from database.`,
+    },
+  },
+});
+
+app.openapi(getMonster, getMonsterHandler);
+
+const getAllMonsters = createRoute({
   method: "get",
   path: "/",
   tags: ["Monsters"],
@@ -20,7 +41,7 @@ const getMonsters = createRoute({
   },
 });
 
-app.openapi(getMonsters, getAllMonstersHandler);
+app.openapi(getAllMonsters, getAllMonstersHandler);
 
 const fetchMonsters = createRoute({
   method: "get",
