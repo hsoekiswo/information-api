@@ -48,10 +48,10 @@ model maps {
 }
 
 model monster_maps {
-  id         Int        @id @default(autoincrement())
-  monster_id Int
-  map_id     String     @db.VarChar
-  monsters   monsters   @relation(fields: [monster_id], references: [monster_id])
+  id          Int        @id @default(autoincrement())
+  monster_id  Int
+  map_id      String     @db.VarChar
+  monsters    monsters   @relation(fields: [monster_id], references: [monster_id])
   maps        maps       @relation(fields: [map_id], references: [map_id])
 
   @@unique([monster_id, map_id])

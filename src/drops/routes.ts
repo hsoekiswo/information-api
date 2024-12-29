@@ -19,7 +19,7 @@ const getDrop = createRoute({
           schema: DropSchema,
         },
       },
-      description: "Get all drops data from database."
+      description: "Get drops of single Monster ID from database."
     },
   },
 });

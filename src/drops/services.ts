@@ -7,9 +7,9 @@ export async function readDrop(id: any) {
         },
     });
     return result;
-}
+};
 
 export async function readAllDrops() {
     const result = await prisma.drops.findMany();
     return result;
-}
+};
