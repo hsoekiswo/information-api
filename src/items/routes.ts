@@ -1,10 +1,31 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { ItemIdParamsSchema, ItemSchema, ItemsSchema } from './schema';
-import { getItemsHandler, postItemHandler, postItemsHandler } from './controller';
+import { getItemHandler, getAllItemsHandlers } from './controller';
 
 export const app = new OpenAPIHono();
 
-const getItems = createRoute({
+const getItem = createRoute({
+    method: "get",
+    path: "/single/{id}",
+    tags: ["Drops & Items"],
+    request: {
+        params: ItemIdParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: ItemSchema,
+                },
+            },
+            description: "Get single item data from database by Item ID.",
+        },
+    },
+});
+
+app.openapi(getItem, getItemHandler);
+
+const getAllItems = createRoute({
     method: "get",
     path: "/",
     tags: ["Drops & Items"],
@@ -20,4 +41,4 @@ const getItems = createRoute({
     },
 });
 
-app.openapi(getItems, getItemsHandler);
+app.openapi(getAllItems, getAllItemsHandlers);

@@ -1,5 +1,4 @@
 import client, { apiKey } from '../services'
-import { ItemSchema } from './schema';
 import prisma from '../services';
 
 export async function fetchRagnarokItems(id : number) {
@@ -13,9 +12,18 @@ export async function fetchRagnarokItems(id : number) {
         throw new Error(`Failed to fetch data for item`);
     }
     return await response.json();
-}
+};
+
+export async function readItem(id: any) {
+    const result = await prisma.items.findUnique({
+        where: {
+            item_id: id,
+        },
+    });
+    return result;
+};
 
 export async function readAllItems() {
     const result = await prisma.items.findMany();
     return result;
-}
+};
