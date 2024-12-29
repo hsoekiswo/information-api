@@ -37,7 +37,7 @@ app.onError((error, c) => {
 const indexRoute = createRoute({
   method: "get",
   path: "/",
-  tags: ["Other"],
+  tags: ["Main"],
   responses: {
     200: {
       content: {
