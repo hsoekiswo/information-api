@@ -8,12 +8,12 @@ datasource db {
 }
 
 model drops {
-  drop_id    Int    @id(map: "drop_pkey") @default(autoincrement())
+  drop_id    Int        @id(map: "drop_pkey") @default(autoincrement())
   monster_id Int 
   item_id    Int
   chance     Float?
-  monsters   monsters @relation (fields: [monster_id], references: [monster_id])
-  items      items?    @relation (fields: [item_id], references: [item_id])
+  monsters   monsters   @relation (fields: [monster_id], references: [monster_id])
+  items      items?     @relation (fields: [item_id], references: [item_id])
 
   @@unique([monster_id, item_id], map: "unique_drop_combination")
 }
