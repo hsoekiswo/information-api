@@ -1,6 +1,5 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
-import { z } from 'zod';
 import { app as appMonster } from './monsters/routes';
 import { app as appDrop } from './drops/routes';
 import { app as appItem } from './items/routes';
@@ -41,12 +40,8 @@ const indexRoute = createRoute({
   tags: ["Main"],
   responses: {
     200: {
-      content: {
-        'text/plain': {
-          schema: z.string(),
-        }
-      },
-      description: "Say hello to the users",
+      content: {},
+      description: "Provide welcome page to the users",
     },
   },
 });
