@@ -26,4 +26,18 @@ export async function readMonsterMap(id: any) {
 export async function readAllMonsterMaps() {
     const result = await prisma.monster_maps.findMany();
     return result;
-}
+};
+
+export async function readMap(id: any) {
+    const result = await prisma.maps.findMany({
+        where: {
+            map_id: id,
+        },
+    });
+    return result;
+};
+
+export async function readAllMaps() {
+    const result = await prisma.maps.findMany();
+    return result;
+};

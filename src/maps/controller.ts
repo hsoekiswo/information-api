@@ -1,5 +1,6 @@
 import { MonsterIdSchema } from "../monsters/schema";
-import { readMonsterMap, readAllMonsterMaps } from "./services";
+import { MapIdSchema } from "./schema";
+import { readMonsterMap, readAllMonsterMaps, readMap, readAllMaps } from "./services";
 
 
 export async function getMonsterMapHandler(c: any) {
@@ -20,4 +21,24 @@ export async function getAllMonsterMapsHandler(c: any) {
         message: "Successfully read all monster maps from the database.",
         data: result,
     }, 200)
-}
+};
+
+export async function getMapHandler(c: any) {
+    const id = c.req.param('id');
+    const parseId = MapIdSchema.parse(id);
+    const result = await readMap(parseId);
+    return c.json({
+        status: "success",
+        message: `Successfully read maps with Map ID of ${id} from the database.`,
+        data: result,
+    }, 200)
+};
+
+export async function getAllMapsHandler(c: any) {
+    const result = await readAllMaps();
+    return c.json({
+        status: "success",
+        message: "Successfully read all maps from the database.",
+        data: result,
+    }, 200)
+};

@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { MonsterIdParamsSchema } from "../monsters/schema";
-import { getMonsterMapHandler, getAllMonsterMapsHandler } from "./controller";
-import { MonsterMapsSchema } from "./schema";
+import { getMonsterMapHandler, getAllMonsterMapsHandler, getMapHandler, getAllMapsHandler } from "./controller";
+import { MonsterMapsSchema, MapsSchema, MapIdParamSchema } from "./schema";
 
 export const app = new OpenAPIHono();
 
@@ -43,3 +43,42 @@ const getAllMonsterMaps = createRoute({
 });
 
 app.openapi(getAllMonsterMaps, getAllMonsterMapsHandler);
+
+const getMap = createRoute({
+    method: "get",
+    path: "/single/{id}",
+    tags: ["Maps"],
+    request: {
+        params: MapIdParamSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: MapsSchema,
+                },
+            },
+            description: "Get maps of single Map ID from the database."
+        },
+    },
+});
+
+app.openapi(getMap, getMapHandler);
+
+const getAllMaps = createRoute({
+    method: "get",
+    path: "/",
+    tags: ["Maps"],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: MapsSchema,
+                },
+            },
+            description: "Get all maps from the database."
+        },
+    },
+});
+
+app.openapi(getAllMaps, getAllMapsHandler);
