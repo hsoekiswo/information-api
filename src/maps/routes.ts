@@ -28,7 +28,7 @@ app.openapi(getMonsterMap, getMonsterMapHandler);
 
 const getAllMonsterMaps = createRoute({
     method: "get",
-    path: "/monstermaps/",
+    path: "/monstermaps",
     tags: ["Maps"],
     responses: {
         200: {
