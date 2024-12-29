@@ -21,6 +21,7 @@ app.doc("/doc", {
     description: "API documentation for Ragnarok Recommendation. Ragnarok Recommendation is RESTful API platform offering structured access to Ragnarok world. Explore recommendation, items, monsters, maps in one place."
   },
   tags: [
+    { name: 'Main', description: 'Main endpoint' },
     { name: 'Recommendations', description: 'Endpoints for user to get recommendation of item drops and leveling' },
     { name: 'Monsters', description: 'Endpoints related to monsters' },
     { name: 'Drops & Items', description: 'Endpoint related to drops chance and items' },
@@ -67,7 +68,7 @@ app.route('/items', appItem);
 app.route('/data', appData);
 app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
-app.route('/summaries', appSummaries);
+app.route('/recommendations', appSummaries);
 
 if (import.meta.main) {
   Bun.serve({
