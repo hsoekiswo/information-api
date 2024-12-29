@@ -16,7 +16,7 @@ export const MonsterIdRangeParamsSchema = z.object({
 export const MonsterSchema = z.object({
     monsterId: MonsterIdSchema,
     name: z.string().min(1, "Monster name cannot be empty").openapi({example: 'Poring'}),
-    level: z.number().min(0).max(150, "Level must be between 0 and 150").openapi({example: 1}),
+    level: z.number().min(0).max(200, "Level must be between 0 and 200").openapi({example: 1}),
     hp: z.number().nonnegative("HP must be a non-negative number").openapi({example: 55}),
     attackMin: z.number().nonnegative("Minimum attack must be a non-negative number").openapi({example: 7}),
     attackMax: z.number().nonnegative("Maximum attack must be a non-negative number").openapi({example: 8}),

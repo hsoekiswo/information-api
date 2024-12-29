@@ -15,7 +15,7 @@ model drops {
   monsters   monsters @relation (fields: [monster_id], references: [monster_id])
   items      items?    @relation (fields: [item_id], references: [item_id])
 
-  @@unique([monster_id, item_id, chance], map: "unique_drop_combination")
+  @@unique([monster_id, item_id], map: "unique_drop_combination")
 }
 
 model experiences {
@@ -52,7 +52,9 @@ model monster_maps {
   monster_id Int
   map_id     String     @db.VarChar
   monsters   monsters   @relation(fields: [monster_id], references: [monster_id])
-  map        maps       @relation(fields: [map_id], references: [map_id])
+  maps        maps       @relation(fields: [map_id], references: [map_id])
+
+  @@unique([monster_id, map_id])
 }
 
 model monsters {

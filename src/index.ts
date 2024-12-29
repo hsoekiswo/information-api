@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { app as appMonster } from './monsters/routes';
 import { app as appDrop } from './drops/routes';
 import { app as appItem } from './items/routes';
+import { app as appData } from './data/routes';
 import { app as appMap } from './maps/routes';
 import { app as appExperiences } from './experiences/routes';
 import { app as appSummaries } from './summaries/routes';
@@ -63,8 +64,17 @@ app.get('/docs', swaggerUI({ url: "/doc" }));
 app.route('/monsters', appMonster);
 app.route('/drops', appDrop);
 app.route('/items', appItem);
+app.route('/data', appData);
 app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
 app.route('/summaries', appSummaries);
+
+if (import.meta.main) {
+  Bun.serve({
+    fetch: app.fetch,
+    port: 3001,
+    idleTimeout: 60,
+  })
+}
 
 export default app;

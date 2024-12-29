@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { MonsterIdParamsSchema, MonsterIdRangeParamsSchema, MonsterSchema, MonstersSchema } from './schema'
-import { getAllMonstersHandler, fetchMonsterbyIdHandler, postMonsterHandler, postMonstersHandler } from './controller';
+import { getAllMonstersHandler, fetchMonsterbyIdHandler } from './controller';
 
 export const app = new OpenAPIHono();
 
@@ -42,45 +42,3 @@ const fetchMonsters = createRoute({
 });
 
 app.openapi(fetchMonsters, fetchMonsterbyIdHandler);
-
-const postMonster = createRoute({
-  method: "post",
-  path: "/single/{id}",
-  tags: ["Monsters"],
-  request: {
-    params: MonsterIdParamsSchema,
-  },
-  responses: {
-    201: {
-      content: {
-        'application/json': {
-          schema: MonsterSchema,
-        },
-      },
-      description: "Post single monster by passing Monster ID through Divine Pride API."
-    },
-  },
-});
-
-app.openapi(postMonster, postMonsterHandler);
-
-const postMonsters = createRoute({
-  method: "post",
-  path: "/bulk/{startId}/{endId}",
-  tags: ["Monsters"],
-  request: {
-    params: MonsterIdRangeParamsSchema,
-  },
-  responses: {
-    201: {
-      content: {
-        'application/json': {
-          schema: MonstersSchema
-        }
-      },
-      description: "Post multiple monsters by passing start Monster ID and the end Monster ID through Divine Pride API."
-    },
-  },
-});
-
-app.openapi(postMonsters, postMonstersHandler);
