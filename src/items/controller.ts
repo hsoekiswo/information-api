@@ -1,5 +1,5 @@
 import { ItemIdSchema } from "./schema";
-import { readItem, readAllItems } from "./services";
+import { readItem, readAllItems, fetchRagnarokItems } from "./services";
 
 export async function getItemHandler(c: any) {
     const id = c.req.param('id');
@@ -9,10 +9,10 @@ export async function getItemHandler(c: any) {
         status: "success",
         message: `Successfully get item with Item ID of ${id} from the database.`,
         data: result,
-    }, 200)
-}
+    }, 200);
+};
 
-export async function getAllItemsHandlers(c: any) {
+export async function getAllItemsHandler(c: any) {
     const result = await readAllItems();
     return c.json({
         status: "success",
@@ -20,3 +20,14 @@ export async function getAllItemsHandlers(c: any) {
         data: result,
     }, 200);
 };
+
+export async function fetchItemHandler(c: any) {
+    const id = c.req.param('id');
+    const parseId = ItemIdSchema.parse(Number(id));
+    const result = await fetchRagnarokItems(parseId);
+    return c.json({
+        status: "success",
+        message: `Successfully fetch item with ID: ${id} from Divine Pride API.`,
+        data: result,
+    }, 200)
+}

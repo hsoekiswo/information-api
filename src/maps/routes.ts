@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { MonsterIdParamsSchema } from "../monsters/schema";
-import { getMonsterMapHandler, getAllMonsterMapsHandler, getMapHandler, getAllMapsHandler } from "./controller";
+import { getMonsterMapHandler, getAllMonsterMapsHandler, getMapHandler, getAllMapsHandler, fetchMapHandler } from "./controller";
 import { MonsterMapsSchema, MapsSchema, MapIdParamSchema } from "./schema";
 
 export const app = new OpenAPIHono();
@@ -82,3 +82,24 @@ const getAllMaps = createRoute({
 });
 
 app.openapi(getAllMaps, getAllMapsHandler);
+
+const fetchMap = createRoute({
+    method: "get",
+    path: "/fetch/{id}",
+    tags: ["Maps"],
+    request: {
+        params: MapIdParamSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: MapsSchema,
+                },
+            },
+            description: "Fetch single map from Divine Pride API."
+        },
+    },
+});
+
+app.openapi(fetchMap, fetchMapHandler);

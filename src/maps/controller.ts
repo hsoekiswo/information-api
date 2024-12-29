@@ -1,6 +1,6 @@
 import { MonsterIdSchema } from "../monsters/schema";
 import { MapIdSchema } from "./schema";
-import { readMonsterMap, readAllMonsterMaps, readMap, readAllMaps } from "./services";
+import { readMonsterMap, readAllMonsterMaps, readMap, readAllMaps, fetchRagnarokMaps } from "./services";
 
 
 export async function getMonsterMapHandler(c: any) {
@@ -42,3 +42,14 @@ export async function getAllMapsHandler(c: any) {
         data: result,
     }, 200)
 };
+
+export async function fetchMapHandler(c: any) {
+    const id = c.req.param('id');
+    const parseId = MapIdSchema.parse(id);
+    const result = await fetchRagnarokMaps(parseId);
+    return c.json({
+        status: "success",
+        message: `Successfully fetch map with ID: ${id} from Divine Pride API.`,
+        data: result,
+    }, 200);
+}

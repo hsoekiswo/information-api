@@ -43,7 +43,7 @@ const getAllMonsters = createRoute({
 
 app.openapi(getAllMonsters, getAllMonstersHandler);
 
-const fetchMonsters = createRoute({
+const fetchMonster = createRoute({
   method: "get",
   path: "/fetch/{id}",
   tags: ["Monsters"],
@@ -57,9 +57,9 @@ const fetchMonsters = createRoute({
           schema: MonsterSchema,
         },
       },
-      description: "Fetch single monster to Divine Pride API.",
+      description: "Fetch single monster from Divine Pride API.",
     },
   }
 });
 
-app.openapi(fetchMonsters, fetchMonsterbyIdHandler);
+app.openapi(fetchMonster, fetchMonsterbyIdHandler);
