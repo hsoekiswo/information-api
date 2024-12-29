@@ -246,9 +246,6 @@ async function insertData(data : any) {
 }
 
 export async function addData(monsterId : number) {
-    // const monsters = await extractMonsters(monsterId);
-    // const drops = await extractDrops(monsterId);
-    // const monsterMaps = await extractMonsterMaps(monsterId);
     const { monsters, drops, monsterMaps } = await extractMonstersDropsMaps(monsterId);
     const items = await extractItems(drops);
     const maps = await extractMaps(monsterMaps);
@@ -273,18 +270,16 @@ export async function addDataBulk(startId : number, endId : number) {
 
     // Loop through the range of monster IDs
     for (let monsterId = startId; monsterId <= endId; monsterId++) {
-        const monsterData = await extractMonsters(monsterId);
-        const dropData = await extractDrops(monsterId);
-        const itemData = await extractItems(dropData);
-        const monsterMapData = await extractMonsterMaps(monsterId);
-        const mapData = await extractMaps(monsterMapData);
+        const { monsters, drops, monsterMaps } = await extractMonstersDropsMaps(monsterId);
+        const items = await extractItems(drops);
+        const maps = await extractMaps(monsterMaps);
 
         // Accumulate all data
-        allMonsters.push(...monsterData);
-        allDrops.push(...dropData);
-        allItems.push(...itemData);
-        allMonsterMaps.push(...monsterMapData);
-        allMaps.push(...mapData);
+        allMonsters.push(...monsters);
+        allDrops.push(...drops);
+        allItems.push(...items);
+        allMonsterMaps.push(...monsterMaps);
+        allMaps.push(...maps);
     }
 
     const data = {
