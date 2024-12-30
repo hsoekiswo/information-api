@@ -156,7 +156,7 @@ async function extractMaps(monsterMaps : any) {
     return maps;
 }
 
-async function insertData(data : any) {
+export async function insertData(data : any) {
     const { monsters, drops, items, monsterMaps, maps } = data;
 
     // Preprocess to remove any duplicates
@@ -230,12 +230,12 @@ async function insertData(data : any) {
                 tx.drops.upsert({
                     where: {
                         monster_id_item_id: {
-                            monster_id: drop.dropId,
+                            monster_id: drop.monsterId,
                             item_id: drop.itemId,
                         },
                     },
                     create: {
-                        monster_id: drop.dropId,
+                        monster_id: drop.monsterId,
                         item_id: drop.itemId,
                         chance: drop.chance,
                     },

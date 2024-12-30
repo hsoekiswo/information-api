@@ -1,0 +1,1450 @@
+[
+    {
+        "monster_id": 1001,
+        "name": "Scorpion",
+        "level": 16,
+        "hp": 136,
+        "attack_min": 33,
+        "attack_max": 36,
+        "defense": 16,
+        "magic_defense": 5,
+        "base_experience": 169,
+        "job_experience": 115,
+        "drops": [
+            {
+                "drop_id": 740,
+                "monster_id": 1001,
+                "item_id": 990,
+                "chance": 0.35,
+                "items": {
+                    "item_id": 990,
+                    "name": "Red Blood",
+                    "description": "A vivid red ore that glows from inside with an orange yellow light.\nWeight: ^8080805^000000",
+                    "item_type": "Red Blood",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 750
+                }
+            },
+            {
+                "drop_id": 741,
+                "monster_id": 1001,
+                "item_id": 904,
+                "chance": 27.5,
+                "items": {
+                    "item_id": 904,
+                    "name": "Scorpion Tail",
+                    "description": "The severed tail of a scorpion.\nWeight: ^8080801^000000",
+                    "item_type": "Scorpion Tail",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 93
+                }
+            },
+            {
+                "drop_id": 742,
+                "monster_id": 1001,
+                "item_id": 757,
+                "chance": 0.29,
+                "items": {
+                    "item_id": 757,
+                    "name": "Rough Elunium",
+                    "description": "Raw ore that mostly consists of Elunium metal.\nWeight: ^80808020^000000",
+                    "item_type": "Rough Elunium",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 20,
+                    "required_level": null,
+                    "price": 487
+                }
+            },
+            {
+                "drop_id": 743,
+                "monster_id": 1001,
+                "item_id": 943,
+                "chance": 1.05,
+                "items": {
+                    "item_id": 943,
+                    "name": "Solid Shell",
+                    "description": "A solid, durable shell that's used as protection.\nWeight: ^8080801^000000",
+                    "item_type": "Solid Shell",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 336
+                }
+            },
+            {
+                "drop_id": 744,
+                "monster_id": 1001,
+                "item_id": 601,
+                "chance": 5,
+                "items": {
+                    "item_id": 601,
+                    "name": "Fly Wing",
+                    "description": "An enchanted fly's wing that instantly sends its user to a random spot when waved in the air.\nClass: ^808080Generic^000000\nWeight: ^8080805^000000\nCasts ^0000FFLevel 1 Instant Teleport^000000.",
+                    "item_type": "Fly Wing",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 250
+                }
+            },
+            {
+                "drop_id": 745,
+                "monster_id": 1001,
+                "item_id": 7041,
+                "chance": 5,
+                "items": {
+                    "item_id": 7041,
+                    "name": "Fine Grit",
+                    "description": "A crystal made entirely of fine sand.\nClass: ^808080Generic^000000\nWeight: ^8080801^000000",
+                    "item_type": "Fine Grit",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 90
+                }
+            },
+            {
+                "drop_id": 746,
+                "monster_id": 1001,
+                "item_id": 625,
+                "chance": 0.1,
+                "items": {
+                    "item_id": 625,
+                    "name": "Rusty Iron",
+                    "description": "A rusty piece of iron that would only interest scavengers and vermin. Used to lure Steel Chonchon.\nClass: ^808080Pet Tame^000000\nWeight: ^8080805^000000",
+                    "item_type": "Rusty Iron",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 100
+                }
+            },
+            {
+                "drop_id": 747,
+                "monster_id": 1001,
+                "item_id": 4068,
+                "chance": 0.01,
+                "items": {
+                    "item_id": 4068,
+                    "name": "Scorpion Card",
+                    "description": "Class: ^808080Card^000000\nCompounds On: ^808080Weapon^000000\nWeight: ^8080801^000000\nIncreases physical damage on Plant race targets by 20%.",
+                    "item_type": "Scorpion Card",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 20
+                }
+            }
+        ],
+        "monster_maps": [
+            {
+                "id": 9,
+                "monster_id": 1001,
+                "map_id": "moc_fild11",
+                "maps": {
+                    "map_id": "moc_fild11",
+                    "name": null
+                }
+            },
+            {
+                "id": 10,
+                "monster_id": 1001,
+                "map_id": "moc_fild18",
+                "maps": {
+                    "map_id": "moc_fild18",
+                    "name": null
+                }
+            }
+        ]
+    },
+    {
+        "monster_id": 1002,
+        "name": "Poring",
+        "level": 1,
+        "hp": 55,
+        "attack_min": 7,
+        "attack_max": 8,
+        "defense": 2,
+        "magic_defense": 5,
+        "base_experience": 150,
+        "job_experience": 40,
+        "drops": [
+            {
+                "drop_id": 748,
+                "monster_id": 1002,
+                "item_id": 909,
+                "chance": 70,
+                "items": {
+                    "item_id": 909,
+                    "name": "Jellopy",
+                    "description": "A small crystallization created by some monsters.\nWeight: ^8080801^000000",
+                    "item_type": "Jellopy",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 4
+                }
+            },
+            {
+                "drop_id": 749,
+                "monster_id": 1002,
+                "item_id": 1202,
+                "chance": 1,
+                "items": {
+                    "item_id": 1202,
+                    "name": "Knife [4]",
+                    "description": "A simple knife.\nClass: ^808080Dagger^000000\nAttack: ^80808017^000000\nProperty: ^808080Neutral^000000\nWeight: ^80808040^000000\nWeapon Level: ^8080801^000000\nRequires Level: ^8080801^000000\nUsable By: ^808080Novice Jobs, Swordman Jobs, Merchant Jobs, Thief Jobs, Mage Jobs, Archer Jobs, Soul Linker, Ninja Jobs^000000",
+                    "item_type": "Dagger",
+                    "attack": 17,
+                    "magic_attack": 0,
+                    "defense": 0,
+                    "weight": 40,
+                    "required_level": 0,
+                    "price": 50
+                }
+            },
+            {
+                "drop_id": 750,
+                "monster_id": 1002,
+                "item_id": 938,
+                "chance": 4,
+                "items": {
+                    "item_id": 938,
+                    "name": "Sticky Mucus",
+                    "description": "A mysteriously sticky liquid.\nWeight: ^8080801^000000",
+                    "item_type": "Sticky Mucus",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 52
+                }
+            },
+            {
+                "drop_id": 751,
+                "monster_id": 1002,
+                "item_id": 512,
+                "chance": 10,
+                "items": {
+                    "item_id": 512,
+                    "name": "Apple",
+                    "description": "A round, edible fruit that, when eaten once a day, keeps the doctor away.\nClass: ^808080Recovery^000000\nWeight: ^8080802^000000\nRestores ^00800016^000000 to ^00800022^000000 HP.",
+                    "item_type": "Apple",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 2,
+                    "required_level": null,
+                    "price": 15
+                }
+            },
+            {
+                "drop_id": 752,
+                "monster_id": 1002,
+                "item_id": 601,
+                "chance": 5,
+                "items": {
+                    "item_id": 601,
+                    "name": "Fly Wing",
+                    "description": "An enchanted fly's wing that instantly sends its user to a random spot when waved in the air.\nClass: ^808080Generic^000000\nWeight: ^8080805^000000\nCasts ^0000FFLevel 1 Instant Teleport^000000.",
+                    "item_type": "Fly Wing",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 250
+                }
+            },
+            {
+                "drop_id": 753,
+                "monster_id": 1002,
+                "item_id": 512,
+                "chance": 1.5,
+                "items": {
+                    "item_id": 512,
+                    "name": "Apple",
+                    "description": "A round, edible fruit that, when eaten once a day, keeps the doctor away.\nClass: ^808080Recovery^000000\nWeight: ^8080802^000000\nRestores ^00800016^000000 to ^00800022^000000 HP.",
+                    "item_type": "Apple",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 2,
+                    "required_level": null,
+                    "price": 15
+                }
+            },
+            {
+                "drop_id": 754,
+                "monster_id": 1002,
+                "item_id": 619,
+                "chance": 0.2,
+                "items": {
+                    "item_id": 619,
+                    "name": "Unripe Apple",
+                    "description": "An apple that isn't ripe enough for humans to eat. Used to lure Poring.\nClass: ^808080Pet Tame^000000\nWeight: ^8080805^000000",
+                    "item_type": "Unripe Apple",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 1000
+                }
+            },
+            {
+                "drop_id": 755,
+                "monster_id": 1002,
+                "item_id": 4001,
+                "chance": 0.2,
+                "items": {
+                    "item_id": 4001,
+                    "name": "Poring Card",
+                    "description": "Luk +2\nPerfect Dodge +1\nClass : ^777777Card^000000\nCompound on: ^777777Armor^000000\nWeight : ^7777771^000000",
+                    "item_type": "Card",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 20
+                }
+            }
+        ],
+        "monster_maps": [
+            {
+                "id": 162,
+                "monster_id": 1002,
+                "map_id": "gef_fild00",
+                "maps": {
+                    "map_id": "gef_fild00",
+                    "name": "Geffen Field"
+                }
+            },
+            {
+                "id": 163,
+                "monster_id": 1002,
+                "map_id": "gef_fild07",
+                "maps": {
+                    "map_id": "gef_fild07",
+                    "name": "Geffen Field"
+                }
+            },
+            {
+                "id": 164,
+                "monster_id": 1002,
+                "map_id": "pay_fild01",
+                "maps": {
+                    "map_id": "pay_fild01",
+                    "name": "Payon Forest"
+                }
+            },
+            {
+                "id": 165,
+                "monster_id": 1002,
+                "map_id": "pay_fild03",
+                "maps": {
+                    "map_id": "pay_fild03",
+                    "name": "Payon Forest"
+                }
+            },
+            {
+                "id": 166,
+                "monster_id": 1002,
+                "map_id": "pay_fild04",
+                "maps": {
+                    "map_id": "pay_fild04",
+                    "name": "Sograt Desert"
+                }
+            },
+            {
+                "id": 167,
+                "monster_id": 1002,
+                "map_id": "prt_fild01",
+                "maps": {
+                    "map_id": "prt_fild01",
+                    "name": "Prontera Field"
+                }
+            },
+            {
+                "id": 168,
+                "monster_id": 1002,
+                "map_id": "prt_fild06",
+                "maps": {
+                    "map_id": "prt_fild06",
+                    "name": "Prontera Field"
+                }
+            },
+            {
+                "id": 169,
+                "monster_id": 1002,
+                "map_id": "prt_fild08",
+                "maps": {
+                    "map_id": "prt_fild08",
+                    "name": "Prontera Field"
+                }
+            },
+            {
+                "id": 170,
+                "monster_id": 1002,
+                "map_id": "prt_maze01",
+                "maps": {
+                    "map_id": "prt_maze01",
+                    "name": "Prontera Labyrinth Forest Floor 1"
+                }
+            },
+            {
+                "id": 171,
+                "monster_id": 1002,
+                "map_id": "xmas_dun01",
+                "maps": {
+                    "map_id": "xmas_dun01",
+                    "name": "Lutie Toy Factory Warehouse"
+                }
+            }
+        ]
+    },
+    {
+        "monster_id": 1003,
+        "name": "Thief Bug Egg",
+        "level": 0,
+        "hp": 0,
+        "attack_min": 0,
+        "attack_max": 0,
+        "defense": 0,
+        "magic_defense": 0,
+        "base_experience": 0,
+        "job_experience": 0,
+        "drops": [
+            {
+                "drop_id": 756,
+                "monster_id": 1003,
+                "item_id": 512,
+                "chance": 0,
+                "items": {
+                    "item_id": 512,
+                    "name": "Apple",
+                    "description": "A round, edible fruit that, when eaten once a day, keeps the doctor away.\nClass: ^808080Recovery^000000\nWeight: ^8080802^000000\nRestores ^00800016^000000 to ^00800022^000000 HP.",
+                    "item_type": "Apple",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 2,
+                    "required_level": null,
+                    "price": 15
+                }
+            }
+        ],
+        "monster_maps": []
+    },
+    {
+        "monster_id": 1004,
+        "name": "Hornet",
+        "level": 11,
+        "hp": 85,
+        "attack_min": 24,
+        "attack_max": 25,
+        "defense": 7,
+        "magic_defense": 1,
+        "base_experience": 158,
+        "job_experience": 90,
+        "drops": [
+            {
+                "drop_id": 757,
+                "monster_id": 1004,
+                "item_id": 992,
+                "chance": 0.8,
+                "items": {
+                    "item_id": 992,
+                    "name": "Wind of Verdure",
+                    "description": "A lemon colored ore that contains a pale, greenish light.\nWeight: ^8080805^000000",
+                    "item_type": "Wind of Verdure",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 750
+                }
+            },
+            {
+                "drop_id": 758,
+                "monster_id": 1004,
+                "item_id": 939,
+                "chance": 80,
+                "items": {
+                    "item_id": 939,
+                    "name": "Bee Stinger",
+                    "description": "A stinger from a hornet or bee.\nWeight: ^8080801^000000",
+                    "item_type": "Bee Stinger",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 24
+                }
+            },
+            {
+                "drop_id": 759,
+                "monster_id": 1004,
+                "item_id": 909,
+                "chance": 30,
+                "items": {
+                    "item_id": 909,
+                    "name": "Jellopy",
+                    "description": "A small crystallization created by some monsters.\nWeight: ^8080801^000000",
+                    "item_type": "Jellopy",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 4
+                }
+            },
+            {
+                "drop_id": 760,
+                "monster_id": 1004,
+                "item_id": 1208,
+                "chance": 0.2,
+                "items": {
+                    "item_id": 1208,
+                    "name": "Main Gauche [4]",
+                    "description": "A French dagger that is usually held in the left hand to parry attacks.\nClass: ^808080Dagger^000000\nAttack: ^80808043^000000\nProperty: ^808080Neutral^000000\nWeight: ^80808060^000000\nWeapon Level: ^8080801^000000\nRequires Level: ^8080801^000000\nUsable By: ^808080Novice Jobs, Swordman Jobs, Merchant Jobs, Thief Jobs, Mage Jobs, Archer Jobs, Soul Linker, Ninja Jobs^000000",
+                    "item_type": "Dagger",
+                    "attack": 43,
+                    "magic_attack": 0,
+                    "defense": 0,
+                    "weight": 60,
+                    "required_level": 0,
+                    "price": 2400
+                }
+            },
+            {
+                "drop_id": 761,
+                "monster_id": 1004,
+                "item_id": 511,
+                "chance": 5,
+                "items": {
+                    "item_id": 511,
+                    "name": "Green Herb",
+                    "description": "A valuable medicinal herb which counteracts the effects of poison.\n^FF0000This is considered food for Poporing and Hot Rice Cake pets.^000000\nClass: ^808080Recovery^000000\nWeight: ^8080803^000000\nCures ^008000Poison^000000.",
+                    "item_type": "Green Herb",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 3,
+                    "required_level": null,
+                    "price": 10
+                }
+            },
+            {
+                "drop_id": 762,
+                "monster_id": 1004,
+                "item_id": 518,
+                "chance": 1,
+                "items": {
+                    "item_id": 518,
+                    "name": "Honey",
+                    "description": "A sweet product made by bees that is endowed with yummy flavor and medicinal uses.\n^179AECUsed for Alchemist skills.^000000\n^179AECUsed for Rune Knight skills.^000000\n^FF0000This is considered food for Baphomet Jr. pets.^000000\nClass: ^808080Recovery^000000\nWeight: ^80808010^000000\nRestores ^00800070^000000 to ^008000100^000000 HP and ^00800020^000000 to ^00800040^000000 SP.",
+                    "item_type": "Honey",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 10,
+                    "required_level": null,
+                    "price": 500
+                }
+            },
+            {
+                "drop_id": 763,
+                "monster_id": 1004,
+                "item_id": 601,
+                "chance": 5,
+                "items": {
+                    "item_id": 601,
+                    "name": "Fly Wing",
+                    "description": "An enchanted fly's wing that instantly sends its user to a random spot when waved in the air.\nClass: ^808080Generic^000000\nWeight: ^8080805^000000\nCasts ^0000FFLevel 1 Instant Teleport^000000.",
+                    "item_type": "Fly Wing",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 250
+                }
+            },
+            {
+                "drop_id": 764,
+                "monster_id": 1004,
+                "item_id": 4019,
+                "chance": 0.2,
+                "items": {
+                    "item_id": 4019,
+                    "name": "Hornet Card",
+                    "description": "Class: ^808080Card^000000\nCompounds On: ^808080Weapon^000000\nWeight: ^8080801^000000\nStr + 1\nAtk + 3",
+                    "item_type": "Hornet Card",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 20
+                }
+            }
+        ],
+        "monster_maps": []
+    },
+    {
+        "monster_id": 1005,
+        "name": "Familiar",
+        "level": 24,
+        "hp": 330,
+        "attack_min": 52,
+        "attack_max": 59,
+        "defense": 26,
+        "magic_defense": 5,
+        "base_experience": 200,
+        "job_experience": 152,
+        "drops": [
+            {
+                "drop_id": 765,
+                "monster_id": 1005,
+                "item_id": 913,
+                "chance": 27.5,
+                "items": {
+                    "item_id": 913,
+                    "name": "Tooth of Bat",
+                    "description": "The sharpened tooth of a bat.\nWeight: ^8080801^000000",
+                    "item_type": "Tooth of Bat",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 25
+                }
+            },
+            {
+                "drop_id": 766,
+                "monster_id": 1005,
+                "item_id": 1105,
+                "chance": 0.1,
+                "items": {
+                    "item_id": 1105,
+                    "name": "Falchion [4]",
+                    "description": "A one-handed sword with a rounded blade.\nClass: ^808080One-Handed Sword^000000\nAttack: ^80808039^000000\nWeight: ^80808060^000000\nWeapon Level: ^8080801^000000\nRequires Level: ^8080802^000000\nUsable By: ^808080Novice Jobs, Swordman Jobs, Merchant Jobs, Thief Jobs^000000",
+                    "item_type": "One-Handed Sword",
+                    "attack": 39,
+                    "magic_attack": 0,
+                    "defense": 0,
+                    "weight": 60,
+                    "required_level": 2,
+                    "price": 1500
+                }
+            },
+            {
+                "drop_id": 767,
+                "monster_id": 1005,
+                "item_id": 2209,
+                "chance": 0.08,
+                "items": {
+                    "item_id": 2209,
+                    "name": "Ribbon [1]",
+                    "description": "A hairpin made from indigo blue satin that wards off harmful magic.\nClass: ^808080Headgear^000000\nPosition: ^808080Upper^000000\nDefense: ^8080801^000000\nWeight: ^80808010^000000\nRequires Level: ^8080801^000000\nUsable By: ^808080All Jobs^000000\nMdef + 3",
+                    "item_type": "Headgear",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 1,
+                    "weight": 10,
+                    "required_level": null,
+                    "price": 800
+                }
+            },
+            {
+                "drop_id": 768,
+                "monster_id": 1005,
+                "item_id": 601,
+                "chance": 5,
+                "items": {
+                    "item_id": 601,
+                    "name": "Fly Wing",
+                    "description": "An enchanted fly's wing that instantly sends its user to a random spot when waved in the air.\nClass: ^808080Generic^000000\nWeight: ^8080805^000000\nCasts ^0000FFLevel 1 Instant Teleport^000000.",
+                    "item_type": "Fly Wing",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 250
+                }
+            },
+            {
+                "drop_id": 769,
+                "monster_id": 1005,
+                "item_id": 514,
+                "chance": 0.5,
+                "items": {
+                    "item_id": 514,
+                    "name": "Grape",
+                    "description": "Clustered berries with smooth skin that can be fermented to make wine.\nClass: ^808080Recovery^000000\nWeight: ^8080802^000000\nRestores ^00800010^000000 to ^00800015^000000 SP.",
+                    "item_type": "Grape",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 2,
+                    "required_level": null,
+                    "price": 200
+                }
+            },
+            {
+                "drop_id": 770,
+                "monster_id": 1005,
+                "item_id": 507,
+                "chance": 3.5,
+                "items": {
+                    "item_id": 507,
+                    "name": "Red Herb",
+                    "description": "A weak medicinal herb which heals wounds.\n^FF0000This is considered food for Picky pets.^000000\nClass: ^808080Recovery^000000\nWeight: ^8080803^000000\nRestores ^00800018^000000 to ^00800028^000000 HP.",
+                    "item_type": "Red Herb",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 3,
+                    "required_level": null,
+                    "price": 18
+                }
+            },
+            {
+                "drop_id": 771,
+                "monster_id": 1005,
+                "item_id": 645,
+                "chance": 0.25,
+                "items": {
+                    "item_id": 645,
+                    "name": "Concentration Potion",
+                    "description": "A potent medicine that stimulates concentration.\nClass: ^808080Stat Boost^000000\nWeight: ^80808010^000000\nUsable By: ^808080All Jobs^000000\nAspd + 10% for 30 minutes.",
+                    "item_type": "Concentration Potion",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 10,
+                    "required_level": null,
+                    "price": 1200
+                }
+            },
+            {
+                "drop_id": 772,
+                "monster_id": 1005,
+                "item_id": 4020,
+                "chance": 0.01,
+                "items": {
+                    "item_id": 4020,
+                    "name": "Familiar Card",
+                    "description": "Class: ^808080Card^000000\nCompounds On: ^808080Weapon^000000\nWeight: ^8080801^000000\nAtk + 5\nAdds a 5% chance of inflicting ^800000Blind^000000 on the target when performing a physical attack.",
+                    "item_type": "Familiar Card",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 20
+                }
+            }
+        ],
+        "monster_maps": []
+    },
+    {
+        "monster_id": 1006,
+        "name": "Thief Bug Larva",
+        "level": 6,
+        "hp": 126,
+        "attack_min": 21,
+        "attack_max": 28,
+        "defense": 5,
+        "magic_defense": 0,
+        "base_experience": 8,
+        "job_experience": 2,
+        "drops": [
+            {
+                "drop_id": 773,
+                "monster_id": 1006,
+                "item_id": 512,
+                "chance": 0,
+                "items": {
+                    "item_id": 512,
+                    "name": "Apple",
+                    "description": "A round, edible fruit that, when eaten once a day, keeps the doctor away.\nClass: ^808080Recovery^000000\nWeight: ^8080802^000000\nRestores ^00800016^000000 to ^00800022^000000 HP.",
+                    "item_type": "Apple",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 2,
+                    "required_level": null,
+                    "price": 15
+                }
+            }
+        ],
+        "monster_maps": []
+    },
+    {
+        "monster_id": 1007,
+        "name": "Fabre",
+        "level": 6,
+        "hp": 59,
+        "attack_min": 18,
+        "attack_max": 19,
+        "defense": 24,
+        "magic_defense": 0,
+        "base_experience": 158,
+        "job_experience": 65,
+        "drops": [
+            {
+                "drop_id": 774,
+                "monster_id": 1007,
+                "item_id": 914,
+                "chance": 70,
+                "items": {
+                    "item_id": 914,
+                    "name": "Fluff",
+                    "description": "A clump of monster fur and fuzz that can be used to make thread and fabric.\nWeight: ^8080801^000000",
+                    "item_type": "Fluff",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 6
+                }
+            },
+            {
+                "drop_id": 775,
+                "monster_id": 1007,
+                "item_id": 949,
+                "chance": 10,
+                "items": {
+                    "item_id": 949,
+                    "name": "Feather",
+                    "description": "A feather that boasts full, lustrous barbs used for making clothes of the highest quality.\nWeight: ^8080801^000000",
+                    "item_type": "Feather",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 15
+                }
+            },
+            {
+                "drop_id": 776,
+                "monster_id": 1007,
+                "item_id": 1502,
+                "chance": 0.8,
+                "items": {
+                    "item_id": 1502,
+                    "name": "Club [4]",
+                    "description": "A heavy bludgeon that makes a handy weapon in a pinch.\nClass: ^808080Mace^000000\nAttack: ^80808023^000000\nProperty: ^808080Neutral^000000\nWeight: ^80808070^000000\nWeapon Level: ^8080801^000000\nRequires Level: ^8080802^000000\nUsable By: ^808080Novice Jobs, Swordman Jobs, Merchant Jobs, Acolyte Jobs^000000\nThis item is indestructible in battle.",
+                    "item_type": "Mace",
+                    "attack": 23,
+                    "magic_attack": 0,
+                    "defense": 0,
+                    "weight": 70,
+                    "required_level": 2,
+                    "price": 120
+                }
+            },
+            {
+                "drop_id": 777,
+                "monster_id": 1007,
+                "item_id": 601,
+                "chance": 5,
+                "items": {
+                    "item_id": 601,
+                    "name": "Fly Wing",
+                    "description": "An enchanted fly's wing that instantly sends its user to a random spot when waved in the air.\nClass: ^808080Generic^000000\nWeight: ^8080805^000000\nCasts ^0000FFLevel 1 Instant Teleport^000000.",
+                    "item_type": "Fly Wing",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 250
+                }
+            },
+            {
+                "drop_id": 778,
+                "monster_id": 1007,
+                "item_id": 511,
+                "chance": 30,
+                "items": {
+                    "item_id": 511,
+                    "name": "Green Herb",
+                    "description": "A valuable medicinal herb which counteracts the effects of poison.\n^FF0000This is considered food for Poporing and Hot Rice Cake pets.^000000\nClass: ^808080Recovery^000000\nWeight: ^8080803^000000\nCures ^008000Poison^000000.",
+                    "item_type": "Green Herb",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 3,
+                    "required_level": null,
+                    "price": 10
+                }
+            },
+            {
+                "drop_id": 779,
+                "monster_id": 1007,
+                "item_id": 705,
+                "chance": 10,
+                "items": {
+                    "item_id": 705,
+                    "name": "Clover",
+                    "description": "A plant with three heart shaped leaves that is plentiful in meadows.\nWeight: ^8080801^000000",
+                    "item_type": "Clover",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 7
+                }
+            },
+            {
+                "drop_id": 780,
+                "monster_id": 1007,
+                "item_id": 1501,
+                "chance": 2,
+                "items": {
+                    "item_id": 1501,
+                    "name": "Club [3]",
+                    "description": "A heavy bludgeon that makes a handy weapon in a pinch.\nClass: ^808080Mace^000000\nAttack: ^80808023^000000\nProperty: ^808080Neutral^000000\nWeight: ^80808070^000000\nWeapon Level: ^8080801^000000\nRequires Level: ^8080802^000000\nUsable By: ^808080Novice Jobs, Swordman Jobs, Merchant Jobs, Acolyte Jobs^000000\nThis item is indestructible in battle.",
+                    "item_type": "Mace",
+                    "attack": 23,
+                    "magic_attack": 0,
+                    "defense": 0,
+                    "weight": 70,
+                    "required_level": 2,
+                    "price": 120
+                }
+            },
+            {
+                "drop_id": 781,
+                "monster_id": 1007,
+                "item_id": 4002,
+                "chance": 0.2,
+                "items": {
+                    "item_id": 4002,
+                    "name": "Fabre Card",
+                    "description": "Class: ^808080Card^000000\nCompounds On: ^808080Weapon^000000\nWeight: ^8080801^000000\nVit + 1\nMax HP + 100",
+                    "item_type": "Fabre Card",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 20
+                }
+            }
+        ],
+        "monster_maps": []
+    },
+    {
+        "monster_id": 1008,
+        "name": "Pupa",
+        "level": 4,
+        "hp": 51,
+        "attack_min": 15,
+        "attack_max": 16,
+        "defense": 24,
+        "magic_defense": 2,
+        "base_experience": 157,
+        "job_experience": 55,
+        "drops": [
+            {
+                "drop_id": 782,
+                "monster_id": 1008,
+                "item_id": 1010,
+                "chance": 6,
+                "items": {
+                    "item_id": 1010,
+                    "name": "Phracon",
+                    "description": "A metal that can be used to strengthen and upgrade weapons.\nWeight: ^80808020^000000",
+                    "item_type": "Phracon",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 20,
+                    "required_level": null,
+                    "price": 150
+                }
+            },
+            {
+                "drop_id": 783,
+                "monster_id": 1008,
+                "item_id": 915,
+                "chance": 70,
+                "items": {
+                    "item_id": 915,
+                    "name": "Chrysalis",
+                    "description": "Skin from a larva that has been shed or peeled off.\nWeight: ^8080801^000000",
+                    "item_type": "Chrysalis",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 6
+                }
+            },
+            {
+                "drop_id": 784,
+                "monster_id": 1008,
+                "item_id": 938,
+                "chance": 7,
+                "items": {
+                    "item_id": 938,
+                    "name": "Sticky Mucus",
+                    "description": "A mysteriously sticky liquid.\nWeight: ^8080801^000000",
+                    "item_type": "Sticky Mucus",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 52
+                }
+            },
+            {
+                "drop_id": 785,
+                "monster_id": 1008,
+                "item_id": 2102,
+                "chance": 0.2,
+                "items": {
+                    "item_id": 2102,
+                    "name": "Guard [1]",
+                    "description": "A square shield that is small, yet effective in combat.\nClass: ^808080Shield^000000\nDefense: ^80808020^000000\nWeight: ^80808030^000000\nRequires Level: ^8080801^000000\nUsable By: ^808080All Jobs^000000",
+                    "item_type": "Shield",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 20,
+                    "weight": 30,
+                    "required_level": null,
+                    "price": 500
+                }
+            },
+            {
+                "drop_id": 786,
+                "monster_id": 1008,
+                "item_id": 935,
+                "chance": 10,
+                "items": {
+                    "item_id": 935,
+                    "name": "Shell",
+                    "description": "A hard shell that's used as protection.\nWeight: ^8080801^000000",
+                    "item_type": "Shell",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 10
+                }
+            },
+            {
+                "drop_id": 787,
+                "monster_id": 1008,
+                "item_id": 601,
+                "chance": 5,
+                "items": {
+                    "item_id": 601,
+                    "name": "Fly Wing",
+                    "description": "An enchanted fly's wing that instantly sends its user to a random spot when waved in the air.\nClass: ^808080Generic^000000\nWeight: ^8080805^000000\nCasts ^0000FFLevel 1 Instant Teleport^000000.",
+                    "item_type": "Fly Wing",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 250
+                }
+            },
+            {
+                "drop_id": 788,
+                "monster_id": 1008,
+                "item_id": 1002,
+                "chance": 5,
+                "items": {
+                    "item_id": 1002,
+                    "name": "Iron Ore",
+                    "description": "An impure ore that forms iron after being refined.\n^FF0000This is considered food for Steel Chonchon pets.^000000\nClass: ^808080Generic^000000\nWeight: ^80808015^000000",
+                    "item_type": "Iron Ore",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 15,
+                    "required_level": null,
+                    "price": 37
+                }
+            },
+            {
+                "drop_id": 789,
+                "monster_id": 1008,
+                "item_id": 4003,
+                "chance": 0.01,
+                "items": {
+                    "item_id": 4003,
+                    "name": "Pupa Card",
+                    "description": "Class: ^808080Card^000000\nCompounds On: ^808080Armor^000000\nWeight: ^8080801^000000\nMax HP + 700",
+                    "item_type": "Pupa Card",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 20
+                }
+            }
+        ],
+        "monster_maps": []
+    },
+    {
+        "monster_id": 1009,
+        "name": "Condor",
+        "level": 12,
+        "hp": 105,
+        "attack_min": 28,
+        "attack_max": 29,
+        "defense": 7,
+        "magic_defense": 5,
+        "base_experience": 160,
+        "job_experience": 95,
+        "drops": [
+            {
+                "drop_id": 790,
+                "monster_id": 1009,
+                "item_id": 917,
+                "chance": 80,
+                "items": {
+                    "item_id": 917,
+                    "name": "Talon",
+                    "description": "A sharp talon from a bird's foot.\nWeight: ^8080801^000000",
+                    "item_type": "Talon",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 15
+                }
+            },
+            {
+                "drop_id": 791,
+                "monster_id": 1009,
+                "item_id": 1702,
+                "chance": 1,
+                "items": {
+                    "item_id": 1702,
+                    "name": "Bow [4]",
+                    "description": "A common bow.\nClass: ^808080Bow^000000\nAttack: ^80808015^000000\nProperty: ^808080Neutral^000000\nWeight: ^80808050^000000\nWeapon Level: ^8080801^000000\nRequires Level: ^8080804^000000\nUsable By: ^808080Thief, Archer Jobs, Rogue Jobs^000000",
+                    "item_type": "Bow",
+                    "attack": 15,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 50,
+                    "required_level": 4,
+                    "price": 1000
+                }
+            },
+            {
+                "drop_id": 792,
+                "monster_id": 1009,
+                "item_id": 601,
+                "chance": 5,
+                "items": {
+                    "item_id": 601,
+                    "name": "Fly Wing",
+                    "description": "An enchanted fly's wing that instantly sends its user to a random spot when waved in the air.\nClass: ^808080Generic^000000\nWeight: ^8080805^000000\nCasts ^0000FFLevel 1 Instant Teleport^000000.",
+                    "item_type": "Fly Wing",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 5,
+                    "required_level": null,
+                    "price": 250
+                }
+            },
+            {
+                "drop_id": 793,
+                "monster_id": 1009,
+                "item_id": 12004,
+                "chance": 0.5,
+                "items": {
+                    "item_id": 12004,
+                    "name": "Quiver",
+                    "description": "^ff0000\"Caution! You may lose items if there are more than 30,000 of them in your inventory.\"^000000\n^ffffff_^000000\nA quiver containing 500 Arrows.\n^ffffff_^000000\nWeight: ^77777725^000000",
+                    "item_type": "Quiver",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 25,
+                    "required_level": null,
+                    "price": 2
+                }
+            },
+            {
+                "drop_id": 794,
+                "monster_id": 1009,
+                "item_id": 517,
+                "chance": 4,
+                "items": {
+                    "item_id": 517,
+                    "name": "Meat",
+                    "description": "A leg of meat that has been cooked to near perfection.\nClass: ^808080Recovery^000000\nWeight: ^80808015^000000\nRestores ^00800070^000000 to ^008000100^000000 HP.",
+                    "item_type": "Meat",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 15,
+                    "required_level": null,
+                    "price": 50
+                }
+            },
+            {
+                "drop_id": 795,
+                "monster_id": 1009,
+                "item_id": 916,
+                "chance": 30,
+                "items": {
+                    "item_id": 916,
+                    "name": "Bird Feather",
+                    "description": "A bird's feather that can be used in decor or in fabric creation.\nWeight: ^8080801^000000",
+                    "item_type": "Bird Feather",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 7
+                }
+            },
+            {
+                "drop_id": 796,
+                "monster_id": 1009,
+                "item_id": 582,
+                "chance": 6,
+                "items": {
+                    "item_id": 582,
+                    "name": "Orange",
+                    "description": "A sweet citrus fruit that can be eaten raw, juiced or cooked as a jam.\nClass: ^808080Recovery^000000\nWeight: ^8080802^000000\nRestores ^00800010^000000 to ^00800020^000000 HP.\nRestores ^00800010^000000 to ^00800020^000000 SP.",
+                    "item_type": "Orange",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 2,
+                    "required_level": null,
+                    "price": 300
+                }
+            },
+            {
+                "drop_id": 797,
+                "monster_id": 1009,
+                "item_id": 4015,
+                "chance": 0.01,
+                "items": {
+                    "item_id": 4015,
+                    "name": "Condor Card",
+                    "description": "Class: ^808080Card^000000\nCompounds On: ^808080Garment^000000\nWeight: ^8080801^000000\nFlee + 10",
+                    "item_type": "Condor Card",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 20
+                }
+            }
+        ],
+        "monster_maps": []
+    },
+    {
+        "monster_id": 1010,
+        "name": "Willow",
+        "level": 8,
+        "hp": 78,
+        "attack_min": 21,
+        "attack_max": 22,
+        "defense": 38,
+        "magic_defense": 2,
+        "base_experience": 160,
+        "job_experience": 75,
+        "drops": [
+            {
+                "drop_id": 798,
+                "monster_id": 1010,
+                "item_id": 902,
+                "chance": 90,
+                "items": {
+                    "item_id": 902,
+                    "name": "Tree Root",
+                    "description": "A root from a tree which can be used to make medicine or rope.\nWeight: ^8080801^000000",
+                    "item_type": "Tree Root",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 9
+                }
+            },
+            {
+                "drop_id": 799,
+                "monster_id": 1010,
+                "item_id": 1019,
+                "chance": 1,
+                "items": {
+                    "item_id": 1019,
+                    "name": "Trunk",
+                    "description": "A woody stem from a tree that's useful for lumber.\nWeight: ^8080801^000000",
+                    "item_type": "Trunk",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 45
+                }
+            },
+            {
+                "drop_id": 800,
+                "monster_id": 1010,
+                "item_id": 907,
+                "chance": 20,
+                "items": {
+                    "item_id": 907,
+                    "name": "Resin",
+                    "description": "A viscous plant substance used in the production of certain types of goods.\nWeight: ^8080801^000000",
+                    "item_type": "Resin",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 90
+                }
+            },
+            {
+                "drop_id": 801,
+                "monster_id": 1010,
+                "item_id": 516,
+                "chance": 10,
+                "items": {
+                    "item_id": 516,
+                    "name": "Potato",
+                    "description": "A tuber that can be fried, baked, boiled, mashed and even eaten.\nClass: ^808080Recovery^000000\nWeight: ^8080802^000000\nRestores ^00800015^000000 to ^00800023^000000 HP.",
+                    "item_type": "Potato",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 2,
+                    "required_level": null,
+                    "price": 15
+                }
+            },
+            {
+                "drop_id": 802,
+                "monster_id": 1010,
+                "item_id": 1068,
+                "chance": 30,
+                "items": {
+                    "item_id": 1068,
+                    "name": "Barren Trunk",
+                    "description": "A tree trunk of wood that is pretty low quality.\nWeight: ^8080801^000000",
+                    "item_type": "Barren Trunk",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 1
+                }
+            },
+            {
+                "drop_id": 803,
+                "monster_id": 1010,
+                "item_id": 1067,
+                "chance": 20,
+                "items": {
+                    "item_id": 1067,
+                    "name": "Solid Trunk",
+                    "description": "A tree trunk of wood that is nice and solid.\nWeight: ^8080801^000000",
+                    "item_type": "Solid Trunk",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 1
+                }
+            },
+            {
+                "drop_id": 804,
+                "monster_id": 1010,
+                "item_id": 1066,
+                "chance": 10,
+                "items": {
+                    "item_id": 1066,
+                    "name": "Fine-grained Trunk",
+                    "description": "A tree trunk of wood with an excellent grain.\nWeight: ^8080801^000000",
+                    "item_type": "Fine-grained Trunk",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 1
+                }
+            },
+            {
+                "drop_id": 805,
+                "monster_id": 1010,
+                "item_id": 4010,
+                "chance": 0.1,
+                "items": {
+                    "item_id": 4010,
+                    "name": "Willow Card",
+                    "description": "Class: ^808080Card^000000\nCompounds On: ^808080Headgear^000000\nWeight: ^8080801^000000\nMax SP + 80",
+                    "item_type": "Willow Card",
+                    "attack": 0,
+                    "magic_attack": null,
+                    "defense": 0,
+                    "weight": 1,
+                    "required_level": null,
+                    "price": 20
+                }
+            }
+        ],
+        "monster_maps": []
+    }
+]

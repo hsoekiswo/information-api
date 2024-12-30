@@ -1,7 +1,6 @@
-version: '3.8'
 services:
   app:
-    image: information-api:4
+    image: ragnarok-recommendation
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,10 +10,11 @@ services:
       - postgres
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DATABASE}
+      RUN_SEED: "true"
 
   postgres:
     image: postgres:15
-    container_name: information-api-postgres
+    container_name: ragnarok-recommendation-db
     env_file:
         - path: .env
           required: true

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@hono/zod-openapi";
 
 export const DropSchema = z.object({
     dropId: z.number().positive().openapi({example: 129}),
