@@ -68,7 +68,7 @@ app.route('/recommendations', appSummaries);
 if (import.meta.main) {
   Bun.serve({
     fetch: app.fetch,
-    port: 3001,
+    port: 3000,
     idleTimeout: 60,
   })
 }
