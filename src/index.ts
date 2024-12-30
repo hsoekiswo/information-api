@@ -71,10 +71,10 @@ const port = process.env.APP_PORT || 3000;
 if (import.meta.main) {
   Bun.serve({
     fetch: app.fetch,
-    hostname: "0.0.0.0",
+    hostname: hostname,
     port: port,
     idleTimeout: 60,
-  })
-}
+  });
 
-// export default app;
+  console.log(`Server is listening on ${hostname}:${port}`);
+}
