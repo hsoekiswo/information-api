@@ -10,15 +10,15 @@ export const ItemIdParamsSchema = z.object({
 
 export const ItemSchema = z.object({
     itemId: ItemIdSchema,
-    name: z.string().toUpperCase(),
-    description: z.string(),
-    itemType: z.string().toUpperCase(),
-    attack: z.number().nonnegative(),
-    magicAttack: z.number().nonnegative().nullable(),
-    defense: z.number().nonnegative(),
-    weight: z.number().nonnegative(),
-    requiredLevel: z.number().nonnegative().max(200).nullable(),
-    price: z.number().nonnegative().nullable(),
+    name: z.string().toUpperCase().openapi({ example: 'Jellopy' }),
+    description: z.string().openapi({ example: 'A small crystallization created by some monsters.\nWeight: ^8080801^000000' }),
+    itemType: z.string().toUpperCase().openapi({ example: 'Jellopy' }),
+    attack: z.number().nonnegative().openapi({ example: 0 }),
+    magicAttack: z.number().nonnegative().nullable().openapi({ example: null }),
+    defense: z.number().nonnegative().openapi({ example: 0 }),
+    weight: z.number().nonnegative().openapi({ example: 1 }),
+    requiredLevel: z.number().nonnegative().max(200).nullable().openapi({ example: null }),
+    price: z.number().nonnegative().nullable().openapi({ example: 4 }),
 });
 
 export const ItemsSchema = z.array(ItemSchema);

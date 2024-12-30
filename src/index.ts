@@ -6,7 +6,7 @@ import { app as appItem } from './items/routes';
 import { app as appData } from './data/routes';
 import { app as appMap } from './maps/routes';
 import { app as appExperiences } from './experiences/routes';
-import { app as appSummaries } from './summaries/routes';
+import { app as appSummaries } from './recommendations/routes';
 import { handleError } from './errorHandler';
 import fs from "fs";
 import path from "path";

@@ -17,7 +17,7 @@ export const MapIdParamSchema = z.object({
 
 export const MapSchema = z.object({
     mapId: MapIdSchema,
-    name: z.string().toUpperCase(),
+    name: z.string().toUpperCase().openapi({ example: "prt_fild08" }),
 });
 
 export const MapsSchema = z.array(MapSchema);

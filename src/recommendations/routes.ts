@@ -2,7 +2,8 @@ import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { ItemIdParamsSchema } from "../items/schema";
 import { LevelParamsSchema } from "../experiences/schema"
 import { getChanceItemHandler, getLevelingBaseHandler, getLevelingJobHandler } from "./controller";
-import { JobLevelParamsSchema } from "./schema";
+import { ChanceItemSchemaArray, JobLevelParamsSchema } from "./schema";
+import { MonstersSchema } from "../monsters/schema";
 
 export const app = new OpenAPIHono();
 
@@ -15,6 +16,11 @@ const getChanceItem = createRoute({
     },
     responses: {
         200: {
+            content: {
+                'application/json': {
+                    schema: ChanceItemSchemaArray,
+                },
+            },
             description: "Get items ordered with higher chance drop from monsters.",
         },
     },
@@ -31,6 +37,11 @@ const getLevelingBase = createRoute({
     },
     responses: {
         200: {
+            content: {
+                'application/json': {
+                    schema: MonstersSchema,
+                },
+            },
             description: "Get monster recommendation for leveling ordered with higher base experience."
         },
     },
@@ -47,6 +58,11 @@ const getLevelingJob = createRoute({
     },
     responses: {
         200: {
+            content: {
+                'application/json': {
+                    schema: MonstersSchema,
+                },
+            },
             description: "Get monster recommendation for leveling ordered with higher job experience."
         },
     },
