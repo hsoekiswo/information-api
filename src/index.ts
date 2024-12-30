@@ -10,7 +10,6 @@ import { app as appSummaries } from './recommendations/routes';
 import { handleError } from './errorHandler';
 import fs from "fs";
 import path from "path";
-import { serve } from '@hono/node-server';
 
 const app = new OpenAPIHono();
 app.doc("/doc", {
@@ -66,4 +65,16 @@ app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
 app.route('/recommendations', appSummaries);
 
-export default app;
+const hostname = "0.0.0.0"
+const port = process.env.APP_PORT || 3000;
+
+if (import.meta.main) {
+  Bun.serve({
+    fetch: app.fetch,
+    hostname: "0.0.0.0",
+    port: port,
+    idleTimeout: 60,
+  })
+}
+
+// export default app;
