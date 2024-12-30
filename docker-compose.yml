@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "${APP_PORT}:${DOCKER_PORT}"
+      - "${APP_PORT}:${APP_PORT}"
     depends_on:
       - postgres
     environment:
