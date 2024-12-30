@@ -22,5 +22,7 @@ RUN chmod +x docker-entrypoint.sh
 # Step 8: Set the entrypoint script
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
+EXPOSE 3000
+
 # Step 9: Default command to start the app
 CMD [ "bun", "start" ]
