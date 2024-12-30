@@ -66,7 +66,6 @@ app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
 app.route('/recommendations', appSummaries);
 
-export default { 
-  port: 3000, 
-  fetch: app.fetch, 
-} 
+// const port = process.env.PORT || 3000;
+
+export default app
