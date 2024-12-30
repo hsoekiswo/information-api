@@ -65,12 +65,4 @@ app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
 app.route('/recommendations', appSummaries);
 
-if (import.meta.main) {
-  Bun.serve({
-    fetch: app.fetch,
-    port: 3000,
-    idleTimeout: 60,
-  })
-}
-
 export default app;
