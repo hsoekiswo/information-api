@@ -65,8 +65,10 @@ app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
 app.route('/recommendations', appSummaries);
 
+
+// Set up using Bun Serve
 const hostname = "0.0.0.0"
-const port = process.env.APP_PORT || 3000;
+const port = process.env.APP_PORT || 4000;
 
 if (import.meta.main) {
   Bun.serve({
@@ -78,3 +80,5 @@ if (import.meta.main) {
 
   console.log(`Server is listening on ${hostname}:${port}`);
 }
+
+// Set up default
