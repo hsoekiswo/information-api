@@ -10,6 +10,7 @@ import { app as appSummaries } from './recommendations/routes';
 import { handleError } from './errorHandler';
 import fs from "fs";
 import path from "path";
+import { serve } from '@hono/node-server';
 
 const app = new OpenAPIHono();
 app.doc("/doc", {
@@ -65,4 +66,7 @@ app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
 app.route('/recommendations', appSummaries);
 
-export default app;
+export default { 
+  port: 3000, 
+  fetch: app.fetch, 
+} 
