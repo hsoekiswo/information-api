@@ -12,7 +12,6 @@
         "job_experience": 115,
         "drops": [
             {
-                "drop_id": 740,
                 "monster_id": 1001,
                 "item_id": 990,
                 "chance": 0.35,
@@ -30,7 +29,6 @@
                 }
             },
             {
-                "drop_id": 741,
                 "monster_id": 1001,
                 "item_id": 904,
                 "chance": 27.5,
@@ -48,7 +46,6 @@
                 }
             },
             {
-                "drop_id": 742,
                 "monster_id": 1001,
                 "item_id": 757,
                 "chance": 0.29,
@@ -66,7 +63,6 @@
                 }
             },
             {
-                "drop_id": 743,
                 "monster_id": 1001,
                 "item_id": 943,
                 "chance": 1.05,
@@ -84,7 +80,6 @@
                 }
             },
             {
-                "drop_id": 744,
                 "monster_id": 1001,
                 "item_id": 601,
                 "chance": 5,
@@ -102,7 +97,6 @@
                 }
             },
             {
-                "drop_id": 745,
                 "monster_id": 1001,
                 "item_id": 7041,
                 "chance": 5,
@@ -120,7 +114,6 @@
                 }
             },
             {
-                "drop_id": 746,
                 "monster_id": 1001,
                 "item_id": 625,
                 "chance": 0.1,
@@ -138,7 +131,7 @@
                 }
             },
             {
-                "drop_id": 747,
+                "drop_id": 8,
                 "monster_id": 1001,
                 "item_id": 4068,
                 "chance": 0.01,
@@ -190,7 +183,6 @@
         "job_experience": 40,
         "drops": [
             {
-                "drop_id": 748,
                 "monster_id": 1002,
                 "item_id": 909,
                 "chance": 70,
@@ -208,7 +200,6 @@
                 }
             },
             {
-                "drop_id": 749,
                 "monster_id": 1002,
                 "item_id": 1202,
                 "chance": 1,
@@ -226,7 +217,6 @@
                 }
             },
             {
-                "drop_id": 750,
                 "monster_id": 1002,
                 "item_id": 938,
                 "chance": 4,
@@ -244,7 +234,6 @@
                 }
             },
             {
-                "drop_id": 751,
                 "monster_id": 1002,
                 "item_id": 512,
                 "chance": 10,
@@ -262,7 +251,6 @@
                 }
             },
             {
-                "drop_id": 752,
                 "monster_id": 1002,
                 "item_id": 601,
                 "chance": 5,
@@ -280,7 +268,6 @@
                 }
             },
             {
-                "drop_id": 753,
                 "monster_id": 1002,
                 "item_id": 512,
                 "chance": 1.5,
@@ -298,7 +285,6 @@
                 }
             },
             {
-                "drop_id": 754,
                 "monster_id": 1002,
                 "item_id": 619,
                 "chance": 0.2,
@@ -316,7 +302,6 @@
                 }
             },
             {
-                "drop_id": 755,
                 "monster_id": 1002,
                 "item_id": 4001,
                 "chance": 0.2,
@@ -440,7 +425,6 @@
         "job_experience": 0,
         "drops": [
             {
-                "drop_id": 756,
                 "monster_id": 1003,
                 "item_id": 512,
                 "chance": 0,
@@ -473,7 +457,6 @@
         "job_experience": 90,
         "drops": [
             {
-                "drop_id": 757,
                 "monster_id": 1004,
                 "item_id": 992,
                 "chance": 0.8,
@@ -491,7 +474,6 @@
                 }
             },
             {
-                "drop_id": 758,
                 "monster_id": 1004,
                 "item_id": 939,
                 "chance": 80,
@@ -509,7 +491,6 @@
                 }
             },
             {
-                "drop_id": 759,
                 "monster_id": 1004,
                 "item_id": 909,
                 "chance": 30,
@@ -527,7 +508,6 @@
                 }
             },
             {
-                "drop_id": 760,
                 "monster_id": 1004,
                 "item_id": 1208,
                 "chance": 0.2,
@@ -545,7 +525,6 @@
                 }
             },
             {
-                "drop_id": 761,
                 "monster_id": 1004,
                 "item_id": 511,
                 "chance": 5,
@@ -563,7 +542,6 @@
                 }
             },
             {
-                "drop_id": 762,
                 "monster_id": 1004,
                 "item_id": 518,
                 "chance": 1,
@@ -581,7 +559,6 @@
                 }
             },
             {
-                "drop_id": 763,
                 "monster_id": 1004,
                 "item_id": 601,
                 "chance": 5,
@@ -599,7 +576,6 @@
                 }
             },
             {
-                "drop_id": 764,
                 "monster_id": 1004,
                 "item_id": 4019,
                 "chance": 0.2,
@@ -632,7 +608,6 @@
         "job_experience": 152,
         "drops": [
             {
-                "drop_id": 765,
                 "monster_id": 1005,
                 "item_id": 913,
                 "chance": 27.5,
@@ -650,7 +625,6 @@
                 }
             },
             {
-                "drop_id": 766,
                 "monster_id": 1005,
                 "item_id": 1105,
                 "chance": 0.1,
@@ -668,7 +642,6 @@
                 }
             },
             {
-                "drop_id": 767,
                 "monster_id": 1005,
                 "item_id": 2209,
                 "chance": 0.08,
@@ -686,7 +659,6 @@
                 }
             },
             {
-                "drop_id": 768,
                 "monster_id": 1005,
                 "item_id": 601,
                 "chance": 5,
@@ -704,7 +676,6 @@
                 }
             },
             {
-                "drop_id": 769,
                 "monster_id": 1005,
                 "item_id": 514,
                 "chance": 0.5,
@@ -722,7 +693,6 @@
                 }
             },
             {
-                "drop_id": 770,
                 "monster_id": 1005,
                 "item_id": 507,
                 "chance": 3.5,
@@ -740,7 +710,6 @@
                 }
             },
             {
-                "drop_id": 771,
                 "monster_id": 1005,
                 "item_id": 645,
                 "chance": 0.25,
@@ -758,7 +727,6 @@
                 }
             },
             {
-                "drop_id": 772,
                 "monster_id": 1005,
                 "item_id": 4020,
                 "chance": 0.01,
@@ -791,7 +759,6 @@
         "job_experience": 2,
         "drops": [
             {
-                "drop_id": 773,
                 "monster_id": 1006,
                 "item_id": 512,
                 "chance": 0,
@@ -824,7 +791,6 @@
         "job_experience": 65,
         "drops": [
             {
-                "drop_id": 774,
                 "monster_id": 1007,
                 "item_id": 914,
                 "chance": 70,
@@ -842,7 +808,6 @@
                 }
             },
             {
-                "drop_id": 775,
                 "monster_id": 1007,
                 "item_id": 949,
                 "chance": 10,
@@ -860,7 +825,6 @@
                 }
             },
             {
-                "drop_id": 776,
                 "monster_id": 1007,
                 "item_id": 1502,
                 "chance": 0.8,
@@ -878,7 +842,6 @@
                 }
             },
             {
-                "drop_id": 777,
                 "monster_id": 1007,
                 "item_id": 601,
                 "chance": 5,
@@ -896,7 +859,6 @@
                 }
             },
             {
-                "drop_id": 778,
                 "monster_id": 1007,
                 "item_id": 511,
                 "chance": 30,
@@ -914,7 +876,6 @@
                 }
             },
             {
-                "drop_id": 779,
                 "monster_id": 1007,
                 "item_id": 705,
                 "chance": 10,
@@ -932,7 +893,6 @@
                 }
             },
             {
-                "drop_id": 780,
                 "monster_id": 1007,
                 "item_id": 1501,
                 "chance": 2,
@@ -950,7 +910,6 @@
                 }
             },
             {
-                "drop_id": 781,
                 "monster_id": 1007,
                 "item_id": 4002,
                 "chance": 0.2,
@@ -983,7 +942,6 @@
         "job_experience": 55,
         "drops": [
             {
-                "drop_id": 782,
                 "monster_id": 1008,
                 "item_id": 1010,
                 "chance": 6,
@@ -1001,7 +959,6 @@
                 }
             },
             {
-                "drop_id": 783,
                 "monster_id": 1008,
                 "item_id": 915,
                 "chance": 70,
@@ -1019,7 +976,6 @@
                 }
             },
             {
-                "drop_id": 784,
                 "monster_id": 1008,
                 "item_id": 938,
                 "chance": 7,
@@ -1037,7 +993,6 @@
                 }
             },
             {
-                "drop_id": 785,
                 "monster_id": 1008,
                 "item_id": 2102,
                 "chance": 0.2,
@@ -1055,7 +1010,6 @@
                 }
             },
             {
-                "drop_id": 786,
                 "monster_id": 1008,
                 "item_id": 935,
                 "chance": 10,
@@ -1073,7 +1027,6 @@
                 }
             },
             {
-                "drop_id": 787,
                 "monster_id": 1008,
                 "item_id": 601,
                 "chance": 5,
@@ -1091,7 +1044,6 @@
                 }
             },
             {
-                "drop_id": 788,
                 "monster_id": 1008,
                 "item_id": 1002,
                 "chance": 5,
@@ -1109,7 +1061,6 @@
                 }
             },
             {
-                "drop_id": 789,
                 "monster_id": 1008,
                 "item_id": 4003,
                 "chance": 0.01,
@@ -1142,7 +1093,6 @@
         "job_experience": 95,
         "drops": [
             {
-                "drop_id": 790,
                 "monster_id": 1009,
                 "item_id": 917,
                 "chance": 80,
@@ -1160,7 +1110,6 @@
                 }
             },
             {
-                "drop_id": 791,
                 "monster_id": 1009,
                 "item_id": 1702,
                 "chance": 1,
@@ -1178,7 +1127,6 @@
                 }
             },
             {
-                "drop_id": 792,
                 "monster_id": 1009,
                 "item_id": 601,
                 "chance": 5,
@@ -1196,7 +1144,6 @@
                 }
             },
             {
-                "drop_id": 793,
                 "monster_id": 1009,
                 "item_id": 12004,
                 "chance": 0.5,
@@ -1214,7 +1161,6 @@
                 }
             },
             {
-                "drop_id": 794,
                 "monster_id": 1009,
                 "item_id": 517,
                 "chance": 4,
@@ -1232,7 +1178,6 @@
                 }
             },
             {
-                "drop_id": 795,
                 "monster_id": 1009,
                 "item_id": 916,
                 "chance": 30,
@@ -1250,7 +1195,6 @@
                 }
             },
             {
-                "drop_id": 796,
                 "monster_id": 1009,
                 "item_id": 582,
                 "chance": 6,
@@ -1268,7 +1212,6 @@
                 }
             },
             {
-                "drop_id": 797,
                 "monster_id": 1009,
                 "item_id": 4015,
                 "chance": 0.01,
@@ -1301,7 +1244,6 @@
         "job_experience": 75,
         "drops": [
             {
-                "drop_id": 798,
                 "monster_id": 1010,
                 "item_id": 902,
                 "chance": 90,
@@ -1319,7 +1261,6 @@
                 }
             },
             {
-                "drop_id": 799,
                 "monster_id": 1010,
                 "item_id": 1019,
                 "chance": 1,
@@ -1337,7 +1278,6 @@
                 }
             },
             {
-                "drop_id": 800,
                 "monster_id": 1010,
                 "item_id": 907,
                 "chance": 20,
@@ -1355,7 +1295,6 @@
                 }
             },
             {
-                "drop_id": 801,
                 "monster_id": 1010,
                 "item_id": 516,
                 "chance": 10,
@@ -1373,7 +1312,6 @@
                 }
             },
             {
-                "drop_id": 802,
                 "monster_id": 1010,
                 "item_id": 1068,
                 "chance": 30,
@@ -1391,7 +1329,6 @@
                 }
             },
             {
-                "drop_id": 803,
                 "monster_id": 1010,
                 "item_id": 1067,
                 "chance": 20,
@@ -1409,7 +1346,6 @@
                 }
             },
             {
-                "drop_id": 804,
                 "monster_id": 1010,
                 "item_id": 1066,
                 "chance": 10,
@@ -1427,7 +1363,6 @@
                 }
             },
             {
-                "drop_id": 805,
                 "monster_id": 1010,
                 "item_id": 4010,
                 "chance": 0.1,

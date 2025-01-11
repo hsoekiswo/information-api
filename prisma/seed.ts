@@ -6,7 +6,7 @@ import prisma from '../src/services';
 async function main() {
     try {
         const filePath = path.join(__dirname, 'samples.json');
-        const rawData = fs.readFileSync(filePath, 'utf-8');
+        const rawData = await fs.promises.readFile(filePath, 'utf-8');
         const rawSamples = JSON.parse(rawData);
 
         const snakeToCamel = (str: string) => {

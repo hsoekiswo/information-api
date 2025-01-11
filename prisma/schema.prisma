@@ -12,8 +12,8 @@ model drops {
   monster_id Int 
   item_id    Int
   chance     Float?
-  monsters   monsters   @relation (fields: [monster_id], references: [monster_id])
-  items      items?     @relation (fields: [item_id], references: [item_id])
+  monsters   monsters?    @relation (fields: [monster_id], references: [monster_id])
+  items      items?       @relation (fields: [item_id], references: [item_id])
 
   @@unique([monster_id, item_id], map: "unique_drop_combination")
 }
@@ -51,8 +51,8 @@ model monster_maps {
   id          Int        @id @default(autoincrement())
   monster_id  Int
   map_id      String     @db.VarChar
-  monsters    monsters   @relation(fields: [monster_id], references: [monster_id])
-  maps        maps       @relation(fields: [map_id], references: [map_id])
+  monsters    monsters?   @relation(fields: [monster_id], references: [monster_id])
+  maps        maps?       @relation(fields: [map_id], references: [map_id])
 
   @@unique([monster_id, map_id])
 }

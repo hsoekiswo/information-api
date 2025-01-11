@@ -1,7 +1,8 @@
 import { z } from "@hono/zod-openapi";
+import { MonsterIdSchema } from "../monsters/schema";
 
 export const DropSchema = z.object({
-    dropId: z.number().positive().openapi({example: 129}),
+    monsterId: MonsterIdSchema,
     itemId: z.number().positive().openapi({example: 909}),
     chance: z.number().nonnegative().openapi({example: 70}),
 })

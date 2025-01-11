@@ -1,5 +1,6 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
+import { app as appAuth } from './auth/routes';
 import { app as appMonster } from './monsters/routes';
 import { app as appDrop } from './drops/routes';
 import { app as appItem } from './items/routes';
@@ -34,6 +35,7 @@ app.onError((error, c) => {
   return c.json(body, status);
 });
 
+
 const indexRoute = createRoute({
   method: "get",
   path: "/",
@@ -49,7 +51,7 @@ const indexRoute = createRoute({
 async function indexRouteHandler(c: any) {
   const filePath = path.resolve(__dirname, "../public/index.html");
   const htmlContent = fs.readFileSync(filePath, "utf-8");
-
+  
   return c.html(htmlContent);
 }
 
@@ -57,10 +59,11 @@ app.openapi(indexRoute, indexRouteHandler);
 
 app.get('/docs', swaggerUI({ url: "/doc" }));
 
+// app.route('/', appAuth);
+app.route('/data', appData);
 app.route('/monsters', appMonster);
 app.route('/drops', appDrop);
 app.route('/items', appItem);
-app.route('/data', appData);
 app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
 app.route('/recommendations', appSummaries);
@@ -80,5 +83,3 @@ if (import.meta.main) {
 
   console.log(`Server is listening on ${hostname}:${port}`);
 }
-
-// Set up default

@@ -2,7 +2,6 @@ import { z } from "zod";
 import { MonsterIdSchema } from "../monsters/schema";
 
 export const MonsterMapSchema = z.object({
-    id: z.number().positive().openapi({ example: 1}),
     monsterId: MonsterIdSchema,
     mapId: z.string().min(1, "mapId must not be empty"),
 })

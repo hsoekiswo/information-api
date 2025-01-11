@@ -3,8 +3,11 @@ import { z } from '@hono/zod-openapi'
 import { getDataHandler, getDataAllHandler, postDataHandler, postDataBulkHandler } from './controller'
 import { MonsterIdParamsSchema, MonsterIdRangeParamsSchema } from "../monsters/schema";
 import { DataSchema, DataSchemaArray } from "./schema";
+import { jwtMiddleware } from "../auth/service";
 
 export const app = new OpenAPIHono();
+
+// app.use('*', jwtMiddleware);
 
 const getData = createRoute({
     method: "get",

@@ -78,7 +78,7 @@ async function extractMonstersDropsMaps(monsterId: any) {
     const rangeDrops = data.drops.length;
     for (let i = 0; i <rangeDrops; i++) {
         const drop = {
-            dropId: data.id,
+            monsterId: data.id,
             itemId: data.drops[i].itemId,
             chance: data.drops[i].chance/100
         }
@@ -299,7 +299,7 @@ export async function addData(monsterId : number) {
     }
     const result = await insertData(data);
     return result;
-    // return data;
+    // return monsterId;
 }
 
 export async function addDataBulk(startId : number, endId : number) {
