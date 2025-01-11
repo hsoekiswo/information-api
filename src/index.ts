@@ -29,12 +29,12 @@ app.doc("/doc", {
     { name: 'Other', description: 'Any other endpoints' },
   ]
 })
+app.get('/docs', swaggerUI({ url: "/doc" }));
 
 app.onError((error, c) => {
   const { status, body } = handleError(error, c);
   return c.json(body, status);
 });
-
 
 const indexRoute = createRoute({
   method: "get",
@@ -50,14 +50,12 @@ const indexRoute = createRoute({
 
 async function indexRouteHandler(c: any) {
   const filePath = path.resolve(__dirname, "../public/index.html");
-  const htmlContent = fs.readFileSync(filePath, "utf-8");
+  const htmlContent = await fs.promises.readFile(filePath, "utf-8");
   
   return c.html(htmlContent);
 }
 
 app.openapi(indexRoute, indexRouteHandler);
-
-app.get('/docs', swaggerUI({ url: "/doc" }));
 
 app.route('/', appAuth);
 app.route('/data', appData);
@@ -67,7 +65,6 @@ app.route('/items', appItem);
 app.route('/maps', appMap);
 app.route('/experiences', appExperiences);
 app.route('/recommendations', appSummaries);
-
 
 // Set up using Bun Serve
 const hostname = "0.0.0.0"

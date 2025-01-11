@@ -25,10 +25,26 @@ export async function loginUser(username: any, password: any) {
     return token;
 };
 
-export const loginMiddleware: MiddlewareHandler = jwt({ secret });
+// export const loginMiddleware: MiddlewareHandler = jwt({ secret });
+
+export const loginMiddleware: MiddlewareHandler = async (c, next) => {
+    const url = c.req.url;
+  
+    // Bypass JWT middleware for the /doc and /docs routes
+    if (url === "/doc" || url === "/docs") {
+      return next();
+    }
+  
+    // Apply JWT middleware for other routes
+    return jwt({ secret })(c, next);
+  };
+
 
 export const checkAdminRole: MiddlewareHandler = (c: any, next: () => Promise<void>) => {
     const user = c.get('jwtPayload');
+    if (c.req.url === '/doc' || c.req.url === '/docs') {
+        return next(); // Skip middleware for docs routes
+    }
     if (user.role !== 'admin') {
         return c.json({ message: 'Forbidden: Admins only' }, 403);
     }

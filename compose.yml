@@ -1,0 +1,27 @@
+services:
+  app:
+    image: ragnarok-recommendation
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT}:3000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DATABASE}
+      RUN_SEED: "true"
+
+  postgres:
+    image: postgres:15
+    container_name: ragnarok-recommendation-db
+    env_file:
+        - path: .env
+          required: true
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

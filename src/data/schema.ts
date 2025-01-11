@@ -17,7 +17,8 @@ export const DataSchema = z.object({
     jobExperience: MonsterSchema.shape.jobExperience,
     drops: z.array(
         z.object({
-            dropId: DropSchema.shape.dropId,
+            dropId: z.number(),
+            monsterId: DropSchema.shape.monsterId,
             itemId: DropSchema.shape.itemId,
             chance: DropSchema.shape.chance,
             items: ItemSchema.openapi({ description: "List of items" }),
@@ -25,7 +26,7 @@ export const DataSchema = z.object({
     ).optional().openapi({ description: "Drops and Items associated with the monster" }),
     monsterMaps: z.array(
         z.object({
-            id: MonsterMapSchema.shape.id,
+            id: z.number(),
             mapId: MonsterMapSchema.shape.mapId,
             maps: MapSchema.optional().openapi({ description: "List of maps" }),
         })

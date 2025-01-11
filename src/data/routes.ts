@@ -1,5 +1,4 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
-import { z } from '@hono/zod-openapi'
 import { getDataHandler, getDataAllHandler, postDataHandler, postDataBulkHandler } from './controller'
 import { MonsterIdParamsSchema, MonsterIdRangeParamsSchema } from "../monsters/schema";
 import { DataSchema, DataSchemaArray } from "./schema";

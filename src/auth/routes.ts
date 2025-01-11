@@ -6,7 +6,7 @@ export const app = new OpenAPIHono();
 
 const login = createRoute({
     method: "post",
-    path: "login",
+    path: "/login",
     tags: ["Main"],
     requestBody: {
         content: {
