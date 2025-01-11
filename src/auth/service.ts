@@ -1,6 +1,6 @@
 import { jwt } from 'hono/jwt';
 import jwtLib from 'jsonwebtoken';
-import { MiddlewareHandler } from 'hono';
+import { MiddlewareHandler, Context } from 'hono';
 
 export const secret = 'your-secret-key';
 const users = [
@@ -25,4 +25,14 @@ export async function loginUser(username: any, password: any) {
     return token;
 };
 
-export const jwtMiddleware: MiddlewareHandler = jwt({ secret });
+export const loginMiddleware: MiddlewareHandler = jwt({ secret });
+
+export const checkAdminRole: MiddlewareHandler = (c: any, next: () => Promise<void>) => {
+    const user = c.get('jwtPayload')
+    console.log('USER');
+    console.log(user);
+    if (user.role !== 'admin') {
+        return c.json({ message: 'Forbidden: Admins only' }, 403);
+    }
+    return next();
+};

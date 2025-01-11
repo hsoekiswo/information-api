@@ -3,11 +3,11 @@ import { z } from '@hono/zod-openapi'
 import { getDataHandler, getDataAllHandler, postDataHandler, postDataBulkHandler } from './controller'
 import { MonsterIdParamsSchema, MonsterIdRangeParamsSchema } from "../monsters/schema";
 import { DataSchema, DataSchemaArray } from "./schema";
-import { jwtMiddleware } from "../auth/service";
+import { loginMiddleware, checkAdminRole } from "../auth/service";
 
 export const app = new OpenAPIHono();
 
-// app.use('*', jwtMiddleware);
+app.use('*', loginMiddleware);
 
 const getData = createRoute({
     method: "get",
@@ -48,6 +48,8 @@ const getDataAll = createRoute({
 
 app.openapi(getDataAll, getDataAllHandler);
 
+app.use('*', checkAdminRole);
+
 const postData = createRoute({
     method: "post",
     path: "/single/{id}",
@@ -63,6 +65,15 @@ const postData = createRoute({
                 },
             },
             description: "Post single monster and its component: drops, items & maps.",
+        },
+        403: {
+            description: 'Forbidden message',
+            content: {
+                'application/json': {
+                    schema: z.object({}),
+                    example: { message: 'Forbidden: Admins only' },
+                },
+            },
         },
     },
 });

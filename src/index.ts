@@ -59,7 +59,7 @@ app.openapi(indexRoute, indexRouteHandler);
 
 app.get('/docs', swaggerUI({ url: "/doc" }));
 
-// app.route('/', appAuth);
+app.route('/', appAuth);
 app.route('/data', appData);
 app.route('/monsters', appMonster);
 app.route('/drops', appDrop);
