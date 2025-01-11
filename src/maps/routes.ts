@@ -2,8 +2,11 @@ import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { MonsterIdParamsSchema } from "../monsters/schema";
 import { getMonsterMapHandler, getAllMonsterMapsHandler, getMapHandler, getAllMapsHandler, fetchMapHandler } from "./controller";
 import { MonsterMapsSchema, MapsSchema, MapIdParamSchema } from "./schema";
+import { loginMiddleware } from "../auth/service";
 
 export const app = new OpenAPIHono();
+
+app.use('*', loginMiddleware);
 
 const getMonsterMap = createRoute({
     method: "get",

@@ -66,15 +66,6 @@ const postData = createRoute({
             },
             description: "Post single monster and its component: drops, items & maps.",
         },
-        403: {
-            description: 'Forbidden message',
-            content: {
-                'application/json': {
-                    schema: z.object({}),
-                    example: { message: 'Forbidden: Admins only' },
-                },
-            },
-        },
     },
 });
 

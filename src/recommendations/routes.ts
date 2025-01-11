@@ -4,8 +4,11 @@ import { LevelParamsSchema } from "../experiences/schema"
 import { getChanceItemHandler, getLevelingBaseHandler, getLevelingJobHandler } from "./controller";
 import { ChanceItemSchemaArray, JobLevelParamsSchema } from "./schema";
 import { MonstersSchema } from "../monsters/schema";
+import { loginMiddleware } from "../auth/service";
 
 export const app = new OpenAPIHono();
+
+app.use('*', loginMiddleware);
 
 const getChanceItem = createRoute({
     method: "get",

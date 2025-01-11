@@ -2,8 +2,11 @@ import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { getDropHandler, getAllDropsHandler } from './controller';
 import { DropSchema, DropsSchema } from './schema';
 import { MonsterIdParamsSchema } from "../monsters/schema";
+import { loginMiddleware } from "../auth/service";
 
 export const app = new OpenAPIHono();
+
+app.use('*', loginMiddleware);
 
 const getDrop = createRoute({
   method: "get",

@@ -1,8 +1,11 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { ItemIdParamsSchema, ItemSchema, ItemsSchema } from './schema';
 import { getItemHandler, getAllItemsHandler, fetchItemHandler } from './controller';
+import { loginMiddleware } from "../auth/service";
 
 export const app = new OpenAPIHono();
+
+app.use('*', loginMiddleware);
 
 const getItem = createRoute({
     method: "get",

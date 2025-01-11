@@ -1,8 +1,12 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { ExperiencesSchema } from './schema';
 import { postExperiencesHandler } from './controller';
+import { loginMiddleware, checkAdminRole } from "../auth/service";
 
 export const app = new OpenAPIHono();
+
+app.use('*', loginMiddleware);
+app.use('*', checkAdminRole);
 
 const postExperiences = createRoute({
     method: "post",
