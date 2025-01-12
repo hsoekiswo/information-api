@@ -8,10 +8,12 @@ const login = createRoute({
     method: "post",
     path: "/login",
     tags: ["Main"],
-    requestBody: {
-        content: {
-            'application/json': {
-                schema: LoginSchema,
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: LoginSchema,
+                },
             },
         },
     },

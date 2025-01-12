@@ -1,6 +1,7 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { app as appAuth } from './auth/routes';
+import { app as appCharacter } from './characters/routes';
 import { app as appMonster } from './monsters/routes';
 import { app as appDrop } from './drops/routes';
 import { app as appItem } from './items/routes';
@@ -58,6 +59,7 @@ async function indexRouteHandler(c: any) {
 app.openapi(indexRoute, indexRouteHandler);
 
 app.route('/', appAuth);
+app.route('/characters', appCharacter);
 app.route('/data', appData);
 app.route('/monsters', appMonster);
 app.route('/drops', appDrop);
