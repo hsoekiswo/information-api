@@ -131,7 +131,6 @@
                 }
             },
             {
-                "drop_id": 8,
                 "monster_id": 1001,
                 "item_id": 4068,
                 "chance": 0.01,
