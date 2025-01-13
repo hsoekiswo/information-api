@@ -11,7 +11,7 @@ app.use('*', loginMiddleware);
 const getData = createRoute({
     method: "get",
     path: "/single/{id}",
-    tags: ["Main"],
+    tags: ["Data"],
     request: {
         params: MonsterIdParamsSchema,
     },
@@ -32,7 +32,7 @@ app.openapi(getData, getDataHandler);
 const getDataAll = createRoute({
     method: "get",
     path: "/",
-    tags: ["Main"],
+    tags: ["Data"],
     responses: {
         200: {
             content: {
@@ -52,7 +52,7 @@ app.use('*', checkAdminRole);
 const postData = createRoute({
     method: "post",
     path: "/single/{id}",
-    tags: ["Main"],
+    tags: ["Data"],
     request: {
         params: MonsterIdParamsSchema,
     },
@@ -73,7 +73,7 @@ app.openapi(postData, postDataHandler);
 const postDataBulk = createRoute({
     method: "post",
     path: "/bulk/{startId}/{endId}",
-    tags: ["Main"],
+    tags: ["Data"],
     request: {
         params: MonsterIdRangeParamsSchema,
     },
