@@ -4,11 +4,11 @@
 This information API is a database to help Ragnarok player find monsters for leveling or get items. The database is fetched from divine-pride.net API.
 
 ## Concept
-This API is able to retrieve ragnarok online monsters data provided by divine-pride.net.
-Writing monsters data only can be accessed through admin.
-User can create character and get monster recommendation.
-Authentication and authorization process is supported by JWT.
-This table summarize the detail of user access:
+This API is able to retrieve ragnarok online monsters data provided by divine-pride.net.<br>
+Writing monsters data only can be accessed through admin.<br>
+User can create character and get monster recommendation.<br>
+Authentication and authorization process is supported by JWT.<br>
+This table summarize the detail of user access:<br>
 | Endpoint Category | GET    | POST  | PATCH | DELETE |
 |-------------------|--------|-------|-------|--------|
 | recommendations   | user   | -     | -     | -      |
@@ -81,12 +81,14 @@ Typescript, Hono, PostgresSQL, Docker
 ## Setup
 To install dependencies:
 ```
+bash
 docker compose --build
 ```
 
 ## Running the project
 To run the development server:
 ```
+bash
 docker compose up
 ```
 Inside Dockerfile it will run:
