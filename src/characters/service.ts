@@ -26,10 +26,31 @@ export async function getCharacter(id: any) {
     });
 
     return result;
-}
+};
 
 export async function getAllCharacter() {
     const result = prisma.characters.findMany();
 
     return result;
-}
+};
+
+export async function updateCharacter(id: any, data: any) {
+    await prisma.characters.update({
+        where: {
+            character_id: id,
+        },
+        data: {
+            name: data.name,
+            baseLevel: Number(data.baseLevel),
+            jobLevel: Number(data.jobLevel),
+        },
+    });
+
+    const result = await prisma.characters.findUnique({
+        where: {
+            character_id: id,
+        },
+    });
+
+    return result;
+};
