@@ -6,6 +6,7 @@ export async function addCharacter(data: any) {
             name: data.name,
             base_level: Number(data.baseLevel),
             job_level: Number(data.jobLevel),
+            exp_type: data.expType,
         },
     });
 
@@ -43,6 +44,7 @@ export async function updateCharacter(id: any, data: any) {
             name: data.name,
             base_level: Number(data.baseLevel),
             job_level: Number(data.jobLevel),
+            exp_type: data.expType,
         },
     });
 
