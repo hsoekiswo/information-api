@@ -1,14 +1,16 @@
 # Ragnarok Monsters
 
 ## Goals
-This information API is a database to help Ragnarok player find monsters for leveling or get items. The database is fetched from divine-pride.net API.
+This information API is a database to help Ragnarok player find monsters for leveling or get items. Main feature of this API is the recommendations for items drop and leveling monster guide. The database is fetched from divine-pride.net API.
 
 ## Concept
 This API is able to retrieve ragnarok online monsters data provided by divine-pride.net.<br>
+One thing to notes that this API have role based access to use its path.<br>
+Authentication and authorization process is supported by JWT.<br>
 Writing monsters data only can be accessed through admin.<br>
 User can create character and get monster recommendation.<br>
-Authentication and authorization process is supported by JWT.<br>
 This table summarize the detail of user access:<br>
+
 | Endpoint Category | GET    | POST  | PATCH | DELETE |
 |-------------------|--------|-------|-------|--------|
 | recommendations   | user   | -     | -     | -      |
@@ -19,6 +21,12 @@ This table summarize the detail of user access:<br>
 | items             | user   | -     | -     | -      |
 | maps              | user   | -     | -     | -      |
 | experiences       | -      | admin | -     | -      |
+
+Usage flow for user: login -> create character -> get recommendations.<br>
+Usage flow for admin (to add monster data)*: login as admin -> post monster data.<br>
+<br>
+
+*There are just 10 default monster data.
 
 ## API Endpoint
 ### Recommendations
