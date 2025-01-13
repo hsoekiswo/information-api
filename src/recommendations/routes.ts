@@ -1,6 +1,7 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { ItemIdParamsSchema } from "../items/schema";
-import { LevelParamsSchema } from "../experiences/schema"
+import { LevelParamsSchema } from "../experiences/schema";
+import { CharacterIdParams } from "../characters/schema";
 import { getChanceItemHandler, getLevelingBaseHandler, getLevelingJobHandler } from "./controller";
 import { ChanceItemSchemaArray, JobLevelParamsSchema } from "./schema";
 import { MonstersSchema } from "../monsters/schema";
@@ -33,18 +34,18 @@ app.openapi(getChanceItem, getChanceItemHandler);
 
 const getLevelingBase = createRoute({
     method: "get",
-    path: "/leveling/base/{level}",
+    path: "/leveling/base/{id}",
     tags: ["Recommendations"],
     request: {
-        params: LevelParamsSchema,
+        params: CharacterIdParams,
     },
     responses: {
         200: {
-            content: {
-                'application/json': {
-                    schema: MonstersSchema,
-                },
-            },
+            // content: {
+            //     'application/json': {
+            //         schema: MonstersSchema,
+            //     },
+            // },
             description: "Get monster recommendation for leveling ordered with higher base experience."
         },
     },

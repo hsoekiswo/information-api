@@ -1,4 +1,5 @@
-import { calculateChanceItem, monsterBaseRecommendation, monsterJobRecommendation } from "./services";
+import { calculateChanceItem, getBaseLevel, monsterBaseRecommendation, monsterJobRecommendation } from "./services";
+import { CharacterIdSchema } from "../characters/schema";
 
 export async function getChanceItemHandler(c: any) {
     const itemId = c.req.param('id');
@@ -11,8 +12,10 @@ export async function getChanceItemHandler(c: any) {
 };
 
 export async function getLevelingBaseHandler(c: any) {
-    const level = c.req.param('level');
-    const result = await monsterBaseRecommendation(level);
+    const characterId = c.req.param('id');
+    const parseId = CharacterIdSchema.parse(Number(characterId));
+    const baseLevel = await getBaseLevel(parseId);
+    const result = await monsterBaseRecommendation(baseLevel);
     return c.json({
         status: "success",
         message: "Successfully get monster recommendation for base leveling.",
