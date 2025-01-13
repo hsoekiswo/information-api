@@ -23,6 +23,7 @@ app.doc("/doc", {
   },
   tags: [
     { name: 'Main', description: 'Main endpoint' },
+    { name: 'Data', description: 'Endpoints for complete info of monsters'},
     { name: 'Characters', description: 'Endpoints for character to create, read, update and delete ragnarok character' },
     { name: 'Recommendations', description: 'Endpoints for user to get recommendation of item drops and leveling' },
     { name: 'Monsters', description: 'Endpoints related to monsters' },
