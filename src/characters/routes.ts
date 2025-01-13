@@ -1,8 +1,7 @@
 import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
 import { loginMiddleware } from "../auth/service";
 import { CharacterFormSchema, CharacterIdParams } from "./schema";
-import { postCharacterHandler, getCharacterHandler, getCharactersHandler, patchCharacterHandler } from "./controller";
-import { object } from "zod";
+import { postCharacterHandler, getCharacterHandler, getCharactersHandler, patchCharacterHandler, deleteCharacterHandler } from "./controller";
 
 export const app = new OpenAPIHono();
 
@@ -95,9 +94,30 @@ const patchCharacter = createRoute({
                     schema: CharacterFormSchema,
                 },
             },
-            description: "Update a single character of selected ID"
+            description: "Update single character of selected ID",
         },
     },
 });
 
 app.openapi(patchCharacter, patchCharacterHandler);
+
+const deleteCharacter = createRoute({
+    method: "delete",
+    path: "/{id}",
+    tags: ["Characters"],
+    request: {
+        params: CharacterIdParams,
+    },
+    responses: {
+        202: {
+            content: {
+                'application/json': {
+                    schema: CharacterFormSchema
+                },
+            },
+            description: "Delete single character of selected ID",
+        },
+    },
+});
+
+app.openapi(deleteCharacter, deleteCharacterHandler);

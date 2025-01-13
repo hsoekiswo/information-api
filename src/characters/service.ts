@@ -54,3 +54,19 @@ export async function updateCharacter(id: any, data: any) {
 
     return result;
 };
+
+export async function deleteCharacter(id: any) {
+    await prisma.characters.delete({
+        where: {
+            character_id: id,
+        },
+    });
+
+    const result = await prisma.characters.findUnique({
+        where: {
+            character_id: id,
+        },
+    });
+
+    return result;
+}

@@ -1,5 +1,5 @@
 import { parse } from 'querystring';
-import { addCharacter, getCharacter, getAllCharacter, updateCharacter } from './service';
+import { addCharacter, getCharacter, getAllCharacter, updateCharacter, deleteCharacter } from './service';
 import { CharacterIdSchema } from './schema';
 
 export async function postCharacterHandler(c: any) {
@@ -41,10 +41,21 @@ export async function patchCharacterHandler(c: any) {
     const data = parse(bodyText);
 
     const result = await updateCharacter(parseId, data);
-
     return c.json({
         status: 'success',
-        message: `Successfully update character ${id} into database`,
+        message: `Successfully update character with ID: ${id} into database`,
         data: result
     }, 200)
 };
+
+export async function deleteCharacterHandler(c: any) {
+    const id = c.req.param('id');
+    const parseId = CharacterIdSchema.parse(Number(id));
+
+    const result = await deleteCharacter(parseId);
+    return c.json({
+        status: 'success',
+        message: `Successfully update character with ID: ${id} into database`,
+        data: result
+    }, 200)
+}
