@@ -17,3 +17,19 @@ export async function addCharacter(data: any) {
 
     return fetchedCharacter;
 };
+
+export async function getCharacter(id: any) {
+    const result = prisma.characters.findUnique({
+        where: {
+            character_id: id,
+        },
+    });
+
+    return result;
+}
+
+export async function getAllCharacter() {
+    const result = prisma.characters.findMany();
+
+    return result;
+}
