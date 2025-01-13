@@ -1,4 +1,4 @@
-# Ragnarok Monsters
+# Ragnarok Recommendation
 
 ## Goals
 This information API is a database to help Ragnarok player find monsters for leveling or get items. Main feature of this API is the recommendations for items drop and leveling monster guide. The monster information is fetched from divine-pride.net API.
