@@ -88,7 +88,7 @@ Here is the summary of API documentation. Although you can visit https://ragnaro
 Typescript, Hono, PostgresSQL, Docker
 
 ## Libraries
-Prisma ORM, Open API, Swagger UI, JWT
+Prisma ORM, Zod, Open API, Swagger UI, JWT
 
 ## Setup
 To install dependencies:
