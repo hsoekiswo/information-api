@@ -8,8 +8,18 @@ import { z } from '@hono/zod-openapi'
 //     id: MonsterIdParams
 // });
 
+const LevelSchema = z.string().transform((val) => {
+    const num = Number(val);
+    if (isNaN(num)) {
+        throw new Error("Invalid number");
+    }
+    return num;
+}).refine((val) => val > 0, {
+    message: "Must be a positive number",
+});
+
 export const CharacterFormSchema = z.object({
-    id: z.string().transform((val) => Number(val)),
-    name: z.string(),
-    level: z.string().transform((val) => Number(val)),
+    name: z.string().min(1, "Name cannot be empty").openapi({example: "ijun"}),
+    baseLevel: LevelSchema.openapi({example: "10"}),
+    jobLevel: LevelSchema.openapi({example: "10"}),
 });
