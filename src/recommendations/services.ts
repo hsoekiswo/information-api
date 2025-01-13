@@ -37,15 +37,33 @@ export async function calculateChanceItem(itemId : any) {
 export async function getBaseLevel(id: any) {
     const baseLevel = await prisma.characters.findUnique({
         select: {
-            baseLevel: true,
+            base_level: true,
         },
         where: {
             character_id: id,
         },
     });
 
-    return baseLevel?.baseLevel;
+    return baseLevel?.base_level;
 };
+
+export async function getJobLevel(id: any) {
+    const result = await prisma.characters.findUnique({
+        select: {
+            job_level: true,
+            exp_type: true,
+        },
+        where: {
+            character_id: id,
+        },
+    });
+
+    return {
+        jobLevel: result?.job_level,
+        expType: result?.exp_type
+    }
+};
+
 
 export async function monsterBaseRecommendation(level : any) {
     const levelNumber = Number(level);

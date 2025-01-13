@@ -41,11 +41,11 @@ const getLevelingBase = createRoute({
     },
     responses: {
         200: {
-            // content: {
-            //     'application/json': {
-            //         schema: MonstersSchema,
-            //     },
-            // },
+            content: {
+                'application/json': {
+                    schema: MonstersSchema,
+                },
+            },
             description: "Get monster recommendation for leveling ordered with higher base experience."
         },
     },
@@ -55,10 +55,10 @@ app.openapi(getLevelingBase, getLevelingBaseHandler);
 
 const getLevelingJob = createRoute({
     method: "get",
-    path: "/leveling/job/{type}/{level}",
+    path: "/leveling/job/{id}",
     tags: ["Recommendations"],
     request: {
-        params: JobLevelParamsSchema,
+        params: CharacterIdParams,
     },
     responses: {
         200: {

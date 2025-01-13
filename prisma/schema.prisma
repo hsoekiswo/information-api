@@ -74,9 +74,16 @@ model experiences {
   exp_type        String? @db.VarChar
 }
 
+enum ExpType {
+  job_first
+  job_second
+  job_third
+}
+
 model characters {
   character_id          Int       @id(map: "characters_pkey") @default(autoincrement())
   name                  String    @unique
-  baseLevel             Int
-  jobLevel              Int
+  base_level            Int       @default(1)
+  job_level             Int       @default(1)
+  exp_type              ExpType   @default(job_first)
 }
