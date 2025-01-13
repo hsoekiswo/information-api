@@ -80,13 +80,17 @@ Typescript, Hono, PostgresSQL, Docker
 
 ## Setup
 To install dependencies:
-'''
-bun install
-'''
+```
+docker compose --build
+```
 
 ## Running the project
 To run the development server:
-'''
-bun run dev
-'''
-This will start the server at http://localhost:3000
+```
+docker compose up
+```
+Inside Dockerfile it will run:
+```
+bun prisma migrate deploy && bun run src/index.ts
+```
+This will start the server at http://0.0.0.0:3000
