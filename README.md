@@ -29,6 +29,7 @@ Usage flow for admin (to add monster data)*: login as admin -> post monster data
 *There are just 10 default monster data.
 
 ## API Endpoint
+Here is the summary of API documentation. Although you can visit https://ragnarok-recommendation.onrender.com/docs
 ### Recommendations
 | HTTP Method      | Endpoint                              | Description                                                              |
 |------------------|---------------------------------------|--------------------------------------------------------------------------|
@@ -85,6 +86,9 @@ Usage flow for admin (to add monster data)*: login as admin -> post monster data
 
 ## Tech Stack
 Typescript, Hono, PostgresSQL, Docker
+
+## Libraries
+Prisma ORM, Open API, Swagger UI, JWT
 
 ## Setup
 To install dependencies:
