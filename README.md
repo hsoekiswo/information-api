@@ -1,7 +1,7 @@
 # Ragnarok Monsters
 
 ## Goals
-This information API is a database to help Ragnarok player find monsters for leveling or get items. Main feature of this API is the recommendations for items drop and leveling monster guide. The database is fetched from divine-pride.net API.
+This information API is a database to help Ragnarok player find monsters for leveling or get items. Main feature of this API is the recommendations for items drop and leveling monster guide. The monster information is fetched from divine-pride.net API.
 
 ## Concept
 This API is able to retrieve ragnarok online monsters data provided by divine-pride.net.<br>
