@@ -20,4 +20,5 @@ export const CharacterFormSchema = z.object({
     name: z.string().min(1, "Name cannot be empty").openapi({example: "ijun"}),
     baseLevel: LevelSchema.openapi({example: "10"}),
     jobLevel: LevelSchema.openapi({example: "10"}),
+    expType: z.string().min(1).openapi({example: "job_first"}),
 });

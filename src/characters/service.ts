@@ -4,8 +4,8 @@ export async function addCharacter(data: any) {
     await prisma.characters.create({
         data: {
             name: data.name,
-            baseLevel: Number(data.baseLevel),
-            jobLevel: Number(data.jobLevel),
+            base_level: Number(data.baseLevel),
+            job_level: Number(data.jobLevel),
         },
     });
 
@@ -41,8 +41,8 @@ export async function updateCharacter(id: any, data: any) {
         },
         data: {
             name: data.name,
-            baseLevel: Number(data.baseLevel),
-            jobLevel: Number(data.jobLevel),
+            base_level: Number(data.baseLevel),
+            job_level: Number(data.jobLevel),
         },
     });
 
